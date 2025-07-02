@@ -1,0 +1,6 @@
+@startuml
+class bottun
++ hoge()
+..hoge..
++ addname()
+@enduml
