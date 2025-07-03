@@ -1,4 +1,4 @@
-#include "ChordButtonManager.h"
+#include "ChordButtonManager.hpp"
 
 using namespace std;
 
@@ -17,8 +17,8 @@ bool ChordButtonManager::is_all_button_releaced()
         {
             return false;
         }
-        return true;
     }
+    return true;
 }
 
 /// @brief virtual_chord_buttonsをアップデートする
@@ -52,14 +52,14 @@ void ChordButtonManager::update_vcb_state()
 
     if(need_to_clear_vcb)
     {
-        for(int i; i <= NUM_OF_CHORD_BUTTON; i++)
+        for(int i=0; i < NUM_OF_CHORD_BUTTON; i++)
         {
             virtual_chord_buttons[i] = real_chord_buttons[i].getIsPressed();
         }
     }
     else
     {
-        for(int i; i <= NUM_OF_CHORD_BUTTON; i++)
+        for(int i; i < NUM_OF_CHORD_BUTTON; i++)
         {
             // trueならばそのまま更新しない
             if(virtual_chord_buttons[i] == false)

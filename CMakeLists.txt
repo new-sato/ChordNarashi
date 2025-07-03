@@ -1,6 +1,8 @@
 # 1. CMakeの最小バージョンを指定
 cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 # 2. プロジェクトの情報を設定
 project(my_project LANGUAGES CXX)
 
