@@ -1,8 +1,9 @@
 class Button
 {
+    protected:
     bool is_pressed = false;
 
     public:
-    bool getIsPressed() const{return is_pressed;}
-    void setIsPressed(bool state){is_pressed = state;}
+    virtual bool getIsPressed() const{return is_pressed;}
+    virtual void setIsPressed(bool new_state){is_pressed = new_state;}
 };
