@@ -1,13 +1,15 @@
 #include "button.hpp"
 #include <vector>
+#include <set>
 
 // 本来は60
-const int NUM_OF_CHORD_BUTTON = 6;
+const int NUM_OF_CHORD_BUTTON = 60;
 
+/// @brief 和音のボタンを配下に持ち、ボタンの読み取り、ボタン押下の継続や記憶などを担当する。
 class ChordButtonManager
 {
     std::vector<Button> real_chord_buttons;
-    std::vector<bool> virtual_chord_buttons;
+    std::set<int> virtual_chord_buttons;
     
     bool no_button_has_been_pressed;
     
@@ -16,7 +18,7 @@ class ChordButtonManager
     void update_vcb_state();
     bool is_all_button_releaced();
 
-    std::vector<bool> getVirtualChordButtons()const{return virtual_chord_buttons;}
+    std::set<int> getVirtualChordButtons()const{return virtual_chord_buttons;}
 
     /// @brief n番目のボタンの状態（押されているかいないか）をstateにする
     /// @param n ボタンの番号

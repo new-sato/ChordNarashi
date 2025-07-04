@@ -1,6 +1,14 @@
 @startuml
-class bottun
-+ hoge()
-..hoge..
-+ addname()
+class button
+class keyManager
+class oncebutton
+class ChordButtonManager
+class Button2Chord
+
+button <|-- oncebutton
+ChordButtonManager *-- button
+keyManager *-- oncebutton
+keyManager<--Button2Chord
+ChordButtonManager <-- Button2Chord
+
 @enduml

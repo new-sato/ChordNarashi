@@ -5,7 +5,7 @@ using namespace std;
 ChordButtonManager::ChordButtonManager()
 {
     real_chord_buttons = vector<Button>(NUM_OF_CHORD_BUTTON);
-    virtual_chord_buttons = vector<bool>(NUM_OF_CHORD_BUTTON);
+    virtual_chord_buttons = set<int>();
     no_button_has_been_pressed = true;
 }
 
@@ -36,6 +36,7 @@ void ChordButtonManager::update_vcb_state()
     }
     else 
     {
+        //HACK
         if(no_button_has_been_pressed == true)
         {
             // なにも押されていないところから新たにボタンが押されたので、
@@ -50,11 +51,16 @@ void ChordButtonManager::update_vcb_state()
         }
     }
 
+    //HACK
     if(need_to_clear_vcb)
     {
+        virtual_chord_buttons.clear();
         for(int i=0; i < NUM_OF_CHORD_BUTTON; i++)
         {
-            virtual_chord_buttons[i] = real_chord_buttons[i].getIsPressed();
+            if(real_chord_buttons[i].getIsPressed())
+            {
+                virtual_chord_buttons.insert(i);
+            }
         }
     }
     else
@@ -62,9 +68,9 @@ void ChordButtonManager::update_vcb_state()
         for(int i; i < NUM_OF_CHORD_BUTTON; i++)
         {
             // trueならばそのまま更新しない
-            if(virtual_chord_buttons[i] == false)
+            if(real_chord_buttons[i].getIsPressed())
             {
-                virtual_chord_buttons[i] = real_chord_buttons[i].getIsPressed();
+                virtual_chord_buttons.insert(i);
             }
         }
     }

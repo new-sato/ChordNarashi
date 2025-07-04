@@ -5,6 +5,7 @@
 
 class ChordButtonManager;
 
+/// @brief 現在のキーの管理と，ChordButtonManagerとタイミングを連携したキーの変更を行う．
 class KeyManager
 {
     // Cを0として、五度円を右回りに、最大でFの11
