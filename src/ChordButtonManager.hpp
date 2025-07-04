@@ -5,6 +5,8 @@
 // 本来は60
 const int NUM_OF_CHORD_BUTTON = 60;
 
+const int NUM_OF_NOTE = 12;
+
 /// @brief 和音のボタンを配下に持ち、ボタンの読み取り、ボタン押下の継続や記憶などを担当する。
 class ChordButtonManager
 {
