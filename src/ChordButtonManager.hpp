@@ -1,6 +1,5 @@
 #include "button.hpp"
 #include <vector>
-#include <set>
 
 // 本来は60
 const int NUM_OF_CHORD_BUTTON = 60;
@@ -46,7 +45,7 @@ struct VirtualChordButton
 class ChordButtonManager
 {
     std::vector<Button> real_chord_buttons;
-    std::set<VirtualChordButton> virtual_chord_buttons;
+    std::vector<VirtualChordButton> virtual_chord_buttons;
     
     bool no_button_has_been_pressed;
 
@@ -55,7 +54,7 @@ public:
     void update_vcb_state();
     bool is_all_button_releaced();
 
-    std::set<VirtualChordButton> getVirtualChordButtons()const{return virtual_chord_buttons;}
+    std::vector<VirtualChordButton> getVirtualChordButtons()const{return virtual_chord_buttons;}
 
     /// @brief n番目のボタンの状態（押されているかいないか）をstateにする
     /// @param n ボタンの番号

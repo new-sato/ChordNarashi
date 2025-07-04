@@ -46,7 +46,7 @@ VirtualChordButton::VirtualChordButton(int button_num)
 ChordButtonManager::ChordButtonManager()
 {
     real_chord_buttons = vector<Button>(NUM_OF_CHORD_BUTTON);
-    virtual_chord_buttons = set<VirtualChordButton>();
+    virtual_chord_buttons = vector<VirtualChordButton>();
     no_button_has_been_pressed = true;
 }
 
@@ -89,7 +89,7 @@ void ChordButtonManager::update_vcb_state()
     {
         if(real_chord_buttons[i].getIsPressed())
         {
-            virtual_chord_buttons.insert(VirtualChordButton(i));
+            virtual_chord_buttons.push_back(VirtualChordButton(i));
         }
     }
 }
