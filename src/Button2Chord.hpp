@@ -1,0 +1,40 @@
+#include "ChordButtonManager.hpp"
+#include <vector>
+
+/// @brief 鳴らすべきコードの種類
+enum ChordType
+{
+    Major,
+    minor,
+    dim,
+    arg,
+    sus4,
+    sev,
+    Msev,
+    msev,
+    end
+};
+
+/// @brief 最終的に決定したコードネーム
+struct ChordName
+{
+    /// @brief 0でコード
+    int flag;
+    ChordType chord_type;
+    Note root_note;
+};
+
+/// @brief 受け取ったバーチャルボタンの入力から、コードネーム（CM7など）を決定する。
+class Button2Chord
+{
+    ChordButtonManager cbm;
+    
+    ChordName chord_name;
+
+    void singleChord(std::vector<VirtualChordButton> vec_of_chord);
+
+public:
+    Button2Chord();
+    void updateChord();
+    
+};
