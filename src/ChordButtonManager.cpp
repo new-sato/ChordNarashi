@@ -4,7 +4,7 @@ using namespace std;
 
 // HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
 VirtualChordButton::VirtualChordButton(int button_num)
-    :n
+    :note
     (
         static_cast<Note>
         (

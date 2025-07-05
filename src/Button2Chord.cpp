@@ -27,7 +27,7 @@ void Button2Chord::singleChord(vector<VirtualChordButton> set_of_chord)
         default:
             break;
     }
-    chord_name.root_note = v.n;
+    chord_name.root_note = v.note;
 }
 
 void Button2Chord::updateChord()

@@ -1,10 +1,6 @@
 #include "button.hpp"
 #include <vector>
 
-// 本来は60
-const int NUM_OF_CHORD_BUTTON = 60;
-
-const int NUM_OF_NOTE = 12;
 
 enum ChordButtonType
 {
@@ -29,15 +25,21 @@ enum Note
     Af,
     Ef,
     Bf,
-    F
+    F,
+    end
 };
+
+// 本来は60
+const int NUM_OF_CHORD_BUTTON = ChordButtonType::end * Note::end;
+
+const int NUM_OF_NOTE = Note::end;
 
 struct VirtualChordButton
 {
     const ChordButtonType cbt;
-    const Note n;
+    const Note note;
 
-    VirtualChordButton(ChordButtonType type,Note note):cbt(type),n(note){}
+    VirtualChordButton(ChordButtonType type,Note n):cbt(type),note(n){}
     VirtualChordButton(int button_num);
 };
 
