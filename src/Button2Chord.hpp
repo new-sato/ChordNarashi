@@ -1,5 +1,5 @@
 #include "ChordButtonManager.hpp"
-#include <vector>
+#include <set>
 
 /// @brief 鳴らすべきコードの種類
 enum ChordType
@@ -31,10 +31,10 @@ class Button2Chord
     
     ChordName chord_name;
 
-    void singleChord(std::vector<VirtualChordButton> vec_of_chord);
+    void singleChord(std::set<VirtualChordButton> vec_of_chord);
 
 public:
     Button2Chord();
     void updateChord();
-    
+    ChordName getChordName() { return chord_name; }
 };

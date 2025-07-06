@@ -18,7 +18,7 @@ VirtualChordButton::VirtualChordButton(int button_num)
                     arg = 0,
                     sus = 0
                 };
-                ChordButtonType c = static_cast<ChordButtonType>(button_num / ChordButtonType::end);
+                ChordButtonType c = static_cast<ChordButtonType>(button_num / static_cast<int>(ChordButtonType::end));
 
                 // 五度円上のどこにいるか
                 int loc = button_num % NUM_OF_NOTE;
@@ -35,18 +35,22 @@ VirtualChordButton::VirtualChordButton(int button_num)
                     return loc;
                     break;
                 }
-                return ;
             }()
         )
     )
-    ,cbt(static_cast<ChordButtonType>(button_num / ChordButtonType::end))
+    ,cbt(static_cast<ChordButtonType>(button_num / static_cast<int>(ChordButtonType::end)))
 {    
+}
+
+int VirtualChordButton::ButtonNum()const
+{
+    return static_cast<int>(cbt)*12 + static_cast<int>(note);
 }
 
 ChordButtonManager::ChordButtonManager()
 {
     real_chord_buttons = vector<Button>(NUM_OF_CHORD_BUTTON);
-    virtual_chord_buttons = vector<VirtualChordButton>();
+    virtual_chord_buttons = set<VirtualChordButton>();
     no_button_has_been_pressed = true;
 }
 
@@ -89,7 +93,8 @@ void ChordButtonManager::update_vcb_state()
     {
         if(real_chord_buttons[i].getIsPressed())
         {
-            virtual_chord_buttons.push_back(VirtualChordButton(i));
+            //FIXME 重複してコードが追加されてしまう
+            virtual_chord_buttons.insert(VirtualChordButton(i));
         }
     }
 }

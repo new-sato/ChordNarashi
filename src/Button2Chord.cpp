@@ -3,10 +3,11 @@
 
 using namespace std;
 
-
-void Button2Chord::singleChord(vector<VirtualChordButton> set_of_chord)
+/// @brief コードボタンがひとつしか押されていない時の関数
+/// @param set_of_chord 
+void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
 {
-    VirtualChordButton v = set_of_chord[0];
+    VirtualChordButton v = *set_of_chord.begin();
     switch(v.cbt)
     {
         case ChordButtonType::Major:
@@ -32,7 +33,7 @@ void Button2Chord::singleChord(vector<VirtualChordButton> set_of_chord)
 
 void Button2Chord::updateChord()
 {
-    vector<VirtualChordButton> pressed_chord = cbm.getVirtualChordButtons();
+    set<VirtualChordButton> pressed_chord = cbm.getVirtualChordButtons();
     // TODO pressed_chordのサイズで場合分けを行う
     int num_of_pressed_button = pressed_chord.size();
     switch (num_of_pressed_button)
