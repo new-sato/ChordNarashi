@@ -3,7 +3,7 @@
 
 using namespace std;
 
-/// @brief コードボタンがひとつしか押されていない時の関数
+/// @brief コードボタンがひとつしか押されていない時の関数。
 /// @param set_of_chord 
 void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
 {
@@ -31,6 +31,7 @@ void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
     chord_name.root_note = v.note;
 }
 
+/// @brief 押されているコードボタンからコードネームを決定し、配下の関数を使ってchord_nameに格納する。
 void Button2Chord::updateChord()
 {
     set<VirtualChordButton> pressed_chord = cbm.getVirtualChordButtons();

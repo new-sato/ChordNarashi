@@ -27,14 +27,17 @@ struct ChordName
 /// @brief 受け取ったバーチャルボタンの入力から、コードネーム（CM7など）を決定する。
 class Button2Chord
 {
-    ChordButtonManager cbm;
+    ChordButtonManager& cbm;
     
     ChordName chord_name;
 
     void singleChord(std::set<VirtualChordButton> vec_of_chord);
 
 public:
-    Button2Chord();
+    Button2Chord(ChordButtonManager& arg):cbm(arg){};
     void updateChord();
+
+    /// @brief 決定したコードネームを返す。
+    /// @return 
     ChordName getChordName() { return chord_name; }
 };

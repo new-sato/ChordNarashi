@@ -13,24 +13,24 @@ VirtualChordButton::VirtualChordButton(int button_num)
                 enum FifthLocDiff
                 {
                     Major = 0,
-                    minor = 9,
+                    minor = 3,
                     dim = 5,
                     arg = 0,
                     sus = 0
                 };
-                ChordButtonType c = static_cast<ChordButtonType>(button_num / static_cast<int>(ChordButtonType::end));
+                ChordButtonType c = static_cast<ChordButtonType>(button_num / static_cast<int>(Note::end));
 
                 // 五度円上のどこにいるか
                 int loc = button_num % NUM_OF_NOTE;
                 switch (c)
                 {
                 case ChordButtonType::Major:
-                    return loc + FifthLocDiff::Major;
+                    return (loc + FifthLocDiff::Major)%12;
                     break;
                 case ChordButtonType::minor:
-                    return loc + FifthLocDiff::minor;
+                    return (loc + FifthLocDiff::minor)%12;
                 case ChordButtonType::dim:
-                    return loc + FifthLocDiff::dim;
+                    return (loc + FifthLocDiff::dim)%12;
                 default:
                     return loc;
                     break;
@@ -38,7 +38,7 @@ VirtualChordButton::VirtualChordButton(int button_num)
             }()
         )
     )
-    ,cbt(static_cast<ChordButtonType>(button_num / static_cast<int>(ChordButtonType::end)))
+    ,cbt(static_cast<ChordButtonType>(button_num / static_cast<int>(Note::end)))
 {    
 }
 
@@ -93,7 +93,6 @@ void ChordButtonManager::update_vcb_state()
     {
         if(real_chord_buttons[i].getIsPressed())
         {
-            //FIXME 重複してコードが追加されてしまう
             virtual_chord_buttons.insert(VirtualChordButton(i));
         }
     }
