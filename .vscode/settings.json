@@ -1,0 +1,6 @@
+{
+    "cmake.configureArgs": [
+        "-D CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "-D VCPKG_TARGET_TRIPLET=x64-mingw-dynamic"
+    ]
+}
