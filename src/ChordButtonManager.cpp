@@ -3,7 +3,7 @@
 using namespace std;
 
 // HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
-VirtualChordButton::VirtualChordButton(int button_num)
+VirtualChordButton::VirtualChordButton(int button_num, int key)
     :note
     (
         static_cast<Note>
@@ -21,7 +21,7 @@ VirtualChordButton::VirtualChordButton(int button_num)
                 ChordButtonType c = static_cast<ChordButtonType>(button_num / static_cast<int>(Note::end));
 
                 // 五度円上のどこにいるか
-                int loc = button_num % NUM_OF_NOTE;
+                int loc = (button_num+key) % NUM_OF_NOTE;
                 switch (c)
                 {
                 case ChordButtonType::Major:
@@ -77,23 +77,29 @@ void ChordButtonManager::update_vcb_state()
         no_button_has_been_pressed = true;
         return;
     }
-    else 
+    
+    if(no_button_has_been_pressed == true)
     {
-        //HACK
-        if(no_button_has_been_pressed == true)
-        {
-            // なにも押されていないところから新たにボタンが押されたので、
-            // 全消しして更新を行う
-            no_button_has_been_pressed = false;
-            virtual_chord_buttons.clear();
-        }
+        // なにも押されていないところから新たにボタンが押されたので、
+        // 全消しして更新を行う
+        no_button_has_been_pressed = false;
+        virtual_chord_buttons.clear();
     }
 
     for(int i=0; i < NUM_OF_CHORD_BUTTON; i++)
     {
         if(real_chord_buttons[i].getIsPressed())
         {
-            virtual_chord_buttons.insert(VirtualChordButton(i));
+            virtual_chord_buttons.insert(VirtualChordButton(i,key));
         }
     }
+}
+
+void ChordButtonManager::setKey(unsigned int new_key)
+{
+    // ボタンが押されている間は入力を受け付けない
+    if(!is_all_button_releaced()) return;
+
+    key = new_key % 12;
+
 }
