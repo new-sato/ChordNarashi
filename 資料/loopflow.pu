@@ -1,0 +1,28 @@
+@startuml hoge
+title "ループ全体の流れ"
+participant allClassManager
+participant rightButtonManager
+participant GuitarNotePlayer
+participant Chord2Note
+participant Button2Chord
+participant ChordButtonManager
+
+allClassManager -> ChordButtonManager: update_vcb_state()
+
+allClassManager -> rightButtonManager: chekku_sasete_kousin()
+alt 右手ボタンが押されていた
+    alt 右手ボタンが押され始めている（さっきまで押されてなかった）
+        rightButtonManager -> GuitarNotePlayer: updateNote()(未実装)
+        GuitarNotePlayer -> Chord2Note : generateNote()
+        Chord2Note -> Button2Chord : updateChord()
+        Button2Chord -> ChordButtonManager: getVirtualChordButtons()
+        Button2Chord <--ChordButtonManager : getVirtualChordButtons()
+        Chord2Note -> Button2Chord: getChordName()
+        Chord2Note <-- Button2Chord: getChordName()
+        GuitarNotePlayer -> Chord2Note : getNotes()
+        GuitarNotePlayer <-- Chord2Note : getNotes()
+    end
+    rightButtonManager -> GuitarNotePlayer : playNote(float time)
+end
+
+@enduml
