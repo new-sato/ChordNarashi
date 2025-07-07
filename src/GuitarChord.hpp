@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Chord2Note.hpp"
 #include <vector>
 

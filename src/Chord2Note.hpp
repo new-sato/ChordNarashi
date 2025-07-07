@@ -1,3 +1,4 @@
+#pragma once
 #include "Button2Chord.hpp"
 #include <set>
 
