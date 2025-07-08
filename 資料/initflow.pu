@@ -1,0 +1,26 @@
+@startuml
+
+participant rightButtonManager
+participant allClassManager
+participant GuitarNotePlayer
+participant GuitarChord
+participant Button2Chord
+participant ChordButtonManager
+
+create ChordButtonManager
+allClassManager -> ChordButtonManager: new(キーのボタンへの参照, ボタンへの参照)
+
+create KeyButtonChecker
+ChordButtonManager ->KeyButtonChecker: new(ボタンへの参照)
+
+
+create GuitarNotePlayer
+allClassManager -> GuitarNotePlayer: new(CBMの参照)
+
+create GuitarChord
+GuitarNotePlayer -> GuitarChord: new(CBMへの参照)
+
+create Button2Chord
+GuitarChord -> Button2Chord: new(CBMへの参照)
+
+@enduml

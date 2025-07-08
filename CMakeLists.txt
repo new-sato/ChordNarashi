@@ -16,8 +16,6 @@ enable_testing()
 # add_executable(実行ファイル名 ソースファイル1 ソースファイル2 ...)
 add_executable(my_app
     src/main.cpp
-    src/InotePlayer.cpp
-    src/GuitarNotePlayer.cpp
     # .hファイルはここに記述する必要はありません
 )
 

@@ -1,3 +1,4 @@
+#pragma once
 #include "button.hpp"
 
 /// @brief 連続で押されたとき、一度だけ押されたと返すボタンのクラス

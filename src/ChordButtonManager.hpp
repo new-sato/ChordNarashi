@@ -1,5 +1,7 @@
 #pragma once
 #include "button.hpp"
+#include "keyButtonChecker.hpp"
+
 #include <vector>
 #include <set>
 
@@ -53,17 +55,26 @@ struct VirtualChordButton
 /// @brief 和音のボタンとキーマネージャーを配下に持ち、ボタンの読み取り、ボタン押下の継続や記憶などを行い、どのコードのボタンが押されたのかを特定する。
 class ChordButtonManager
 {
-    std::vector<Button> real_chord_buttons;
+    std::vector<Button>& real_chord_buttons;
     std::set<VirtualChordButton> virtual_chord_buttons;
     
+    KeyButtonChecker& key_button_checker;
+
     int key = 0;
 
     bool no_button_has_been_pressed;
+    void update_vkb_state();
 
 public:
-    ChordButtonManager();
+    ChordButtonManager(KeyButtonChecker& k, std::vector<Button>& real_button_arg);
+    ChordButtonManager(std::vector<OnceButton>& key_buttons, std::vector<Button>& chord_buttons)
+        :ChordButtonManager(*new KeyButtonChecker(key_buttons), chord_buttons){}
+
+    // HACK:テストの都合でpublicにしてある。そのうちprivateにする
     void update_vcb_state();
     bool is_all_button_releaced();
+    
+    void updateState();
 
     /// @brief キーを直接設定する。11以上なら12で割った剰余の番号のキーに設定される。ただし、キーの変更はコードボタンが押されていないときのみ行われる。
     /// @param new_key 新しいキーを正の整数で指定する。

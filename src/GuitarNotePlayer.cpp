@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <string>
 
-GuitarNotePlayer::GuitarNotePlayer(GuitarChord& gc):InotePlayer(gc)
+void GuitarNotePlayer::init()
 {
     try
     {
@@ -17,11 +17,12 @@ GuitarNotePlayer::GuitarNotePlayer(GuitarChord& gc):InotePlayer(gc)
 
         // loopMIDIで作成したポートを探す
         std::string port_name;
-        int port_number;
+        int port_number =-1;
         for (unsigned int i = 0; i < nPorts; i++)
         {
-            port_name = midiOut.getPortName();
-            if(port_name.find("loopMIDI"))
+            port_name = midiOut.getPortName(i);
+            std::cout << port_name << std::endl;
+            if(port_name.find("loopMIDI") != std::string::npos)
             {
                 port_number = i;
                 break;
@@ -42,5 +43,32 @@ GuitarNotePlayer::GuitarNotePlayer(GuitarChord& gc):InotePlayer(gc)
         std::cout << "MIDIポートの作成に失敗しました。" << std::endl;
         std::exit(EXIT_FAILURE);
     }
-    
+}
+
+GuitarNotePlayer::GuitarNotePlayer(GuitarChord& gc):InotePlayer(gc)
+{
+    init();
+}
+
+GuitarNotePlayer::GuitarNotePlayer(ChordButtonManager& cbm):GuitarNotePlayer(*new GuitarChord(cbm)){}
+
+void GuitarNotePlayer::playNote(float time)
+{
+    if(time == 0.0)
+    {
+        for(int n: note_to_play)
+        {
+            std::vector<unsigned char> noteOnMsg = {0x90, static_cast<unsigned char>(n), 100};
+            midiOut.sendMessage(&noteOnMsg);
+        }
+    }
+}
+
+void GuitarNotePlayer::stopNote()
+{
+    for(int n: note_to_play)
+    {
+        std::vector<unsigned char> noteOnMsg = {0x80, static_cast<unsigned char>(n), 0};
+        midiOut.sendMessage(&noteOnMsg);
+    }
 }

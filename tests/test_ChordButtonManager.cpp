@@ -1,16 +1,20 @@
 #include <gtest/gtest.h>
 #include "ChordButtonManager.hpp"
+#include "keyButtonChecker.hpp"
 
 class CBMTest: public testing::Test
 {
     protected:
-    ChordButtonManager c= ChordButtonManager();
+    std::vector<Button> ChordButtons = std::vector<Button>(NUM_OF_CHORD_BUTTON);
+    std::vector<OnceButton> KeyButton = std::vector<OnceButton>(static_cast<int>(keyButton::end));
+    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons);
     virtual void SetUp(){}
 };
 
 TEST_F(CBMTest, set)
 {
-    c.setRealButtonState(0,true);
+    ChordButtons[0].setIsPressed(true);
+    c.update_vcb_state();
     EXPECT_EQ(false,c.is_all_button_releaced());
 }
 
@@ -21,16 +25,16 @@ TEST_F(CBMTest, check)
 
 TEST_F(CBMTest, itidoosi)
 {
-    c.setRealButtonState(0,true);
+    ChordButtons[0].setIsPressed(true);
     c.update_vcb_state();
     EXPECT_EQ(VirtualChordButton(0,0).note,(c.getVirtualChordButtons().begin())->note);
 }
 
 TEST_F(CBMTest, itidooshi_hanasi)
 {
-    c.setRealButtonState(0,true);
+    ChordButtons[0].setIsPressed(true);
     c.update_vcb_state();
-    c.setRealButtonState(0,false);
+    ChordButtons[0].setIsPressed(false);
     c.update_vcb_state();
 
     EXPECT_EQ(1,c.getVirtualChordButtons().size());
@@ -38,11 +42,11 @@ TEST_F(CBMTest, itidooshi_hanasi)
 
 TEST_F(CBMTest, nidooshi_hanasi)
 {
-    c.setRealButtonState(0,true);
+    ChordButtons[0].setIsPressed(true);
     c.update_vcb_state();
-    c.setRealButtonState(1,true);
+    ChordButtons[1].setIsPressed(true);
     c.update_vcb_state();
-    c.setRealButtonState(0,false);
+    ChordButtons[0].setIsPressed(false);
     c.update_vcb_state();
     
     std::set<VirtualChordButton> ans1 = c.getVirtualChordButtons(); 
@@ -52,11 +56,11 @@ TEST_F(CBMTest, nidooshi_hanasi)
 
 TEST_F(CBMTest, itidoItidooshi)
 {
-    c.setRealButtonState(0,true);
+    ChordButtons[0].setIsPressed(true);
     c.update_vcb_state();
-    c.setRealButtonState(0,false);
+    ChordButtons[0].setIsPressed(false);
     c.update_vcb_state();
-    c.setRealButtonState(1,true);
+    ChordButtons[1].setIsPressed(true);
     c.update_vcb_state();
 
     EXPECT_EQ(VirtualChordButton(1,0).cbt,(c.getVirtualChordButtons().begin())->cbt);

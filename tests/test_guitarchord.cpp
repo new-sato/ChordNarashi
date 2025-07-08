@@ -4,8 +4,10 @@
 class GuitarChordTest: public testing::Test
 {
     protected:
-    ChordButtonManager hoge;
-    Button2Chord fuga=Button2Chord(hoge);
+    std::vector<Button> ChordButtons = std::vector<Button>(NUM_OF_CHORD_BUTTON);
+    std::vector<OnceButton> KeyButton = std::vector<OnceButton>(static_cast<int>(keyButton::end));
+    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons);
+    Button2Chord fuga=Button2Chord(c);
     GuitarChord piyo = GuitarChord(fuga);
     virtual void SetUp(){
     }
@@ -13,8 +15,8 @@ class GuitarChordTest: public testing::Test
 
 TEST_F(GuitarChordTest, C)
 {   
-    hoge.setRealButtonState(0, true);
-    hoge.update_vcb_state();
+    c.setRealButtonState(0, true);
+    c.update_vcb_state();
     fuga.updateChord();
     piyo.generateNote();
 
@@ -25,9 +27,9 @@ TEST_F(GuitarChordTest, C)
 
 TEST_F(GuitarChordTest, ChordZurashi)
 {
-    hoge.addKey(1);
-    hoge.setRealButtonState(0, true);
-    hoge.update_vcb_state();
+    c.addKey(1);
+    c.setRealButtonState(0, true);
+    c.update_vcb_state();
     fuga.updateChord();
     piyo.generateNote();
     

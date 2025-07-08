@@ -44,6 +44,7 @@ const std::vector<std::vector<note_set>> NoteTable{
 /// @brief 配下のbutton_2_chordが保持するchordネームから鳴らすべき音階を決定する。
 void GuitarChord::generateNote()
 {
+    button_2_cohord.updateChord();
     ChordName chord_name = button_2_cohord.getChordName();
     Notes = NoteTable[static_cast<int>(chord_name.root_note)][static_cast<int>(chord_name.chord_type)];
 }

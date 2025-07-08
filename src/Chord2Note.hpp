@@ -12,6 +12,8 @@ class Chord2Note
 
     public:
     Chord2Note(Button2Chord& arg):button_2_cohord(arg){};
+    Chord2Note(ChordButtonManager& arg)
+    :Chord2Note(*new Button2Chord(arg)){}
     virtual void generateNote() = 0;
     
     /// @brief 最終的に決まったならすべき音符を返す。

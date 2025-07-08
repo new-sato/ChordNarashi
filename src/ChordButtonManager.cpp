@@ -47,9 +47,9 @@ int VirtualChordButton::ButtonNum()const
     return static_cast<int>(cbt)*12 + static_cast<int>(note);
 }
 
-ChordButtonManager::ChordButtonManager()
+ChordButtonManager::ChordButtonManager(KeyButtonChecker& k, vector<Button>& real_button_arg)
+    :key_button_checker(k), real_chord_buttons(real_button_arg)
 {
-    real_chord_buttons = vector<Button>(NUM_OF_CHORD_BUTTON);
     virtual_chord_buttons = set<VirtualChordButton>();
     no_button_has_been_pressed = true;
 }
@@ -64,6 +64,11 @@ bool ChordButtonManager::is_all_button_releaced()
         }
     }
     return true;
+}
+
+void ChordButtonManager::update_vkb_state()
+{
+    addKey(key_button_checker.getKeyButtonState());
 }
 
 /// @brief virtual_chord_buttonsをアップデートする
@@ -93,6 +98,12 @@ void ChordButtonManager::update_vcb_state()
             virtual_chord_buttons.insert(VirtualChordButton(i,key));
         }
     }
+}
+
+void::ChordButtonManager::updateState()
+{
+    update_vkb_state();
+    update_vkb_state();
 }
 
 void ChordButtonManager::setKey(unsigned int new_key)

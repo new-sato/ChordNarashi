@@ -35,7 +35,7 @@ void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
 void Button2Chord::updateChord()
 {
     set<VirtualChordButton> pressed_chord = cbm.getVirtualChordButtons();
-    // TODO pressed_chordのサイズで場合分けを行う
+    // TODO 場合分けを完成させる
     int num_of_pressed_button = pressed_chord.size();
     switch (num_of_pressed_button)
     {
@@ -43,13 +43,10 @@ void Button2Chord::updateChord()
         break;
     
     case 1:
-        //TODO 普通にコードを鳴らす
         singleChord(pressed_chord);
         break;
     case 2:
-        //TODO ２コードの時の処理
     case 3:
-        //TODO 3コードの時の処理
     default:
         break;
     }
