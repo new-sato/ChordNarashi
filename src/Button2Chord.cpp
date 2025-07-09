@@ -60,12 +60,27 @@ void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
         {
             chord_name.root_note = vcb2.note;
             chord_name.chord_type = msev;
+            return;
         }
         // 1つズレならメジャーセブンス
         else if((static_cast<int>(vcb1.note)+MIN_DIFF+1)%NUM_OF_NOTE == static_cast<int>(vcb2.note))
         {
             chord_name.root_note = vcb1.note;
             chord_name.chord_type = Msev;
+            return;
+        }
+    }
+
+    if(vcb2.cbt == ChordButtonType::arg)
+    {
+        // マイナーメジャーセブンスかもしれない
+        if(vcb1.cbt == ChordButtonType::minor)
+        {
+            // ずれなしでないなら違う
+            if(static_cast<int>(vcb1.note) != (static_cast<int>(vcb2.note)+MIN_DIFF)%12) return;
+            chord_name.root_note = vcb1.note;
+            chord_name.chord_type = mMsev;
+            return;
         }
     }
 }

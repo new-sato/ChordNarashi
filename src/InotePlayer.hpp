@@ -9,6 +9,7 @@ class InotePlayer
     protected:
     Chord2Note& chord_2_note;
     note_set note_to_play;
+    note_set note_played;
     public:
     InotePlayer(Chord2Note& c2n);
     virtual void updateNote();

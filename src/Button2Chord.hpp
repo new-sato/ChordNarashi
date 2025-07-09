@@ -20,6 +20,8 @@ enum ChordType
     sev,
     Msev,
     msev,
+    mMsev,
+    argsev,
     end
 };
 

@@ -75,6 +75,14 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
             {0, 4, 8, 12, 16}
         }
     },
+    {
+        mMsev,
+        {
+            {0, 7, 12, 15, 19, 23},
+            {0, 7, 11, 15, 19},
+            {0, 3, 7, 11, 15}
+        }
+    },
 };
 
 void Chord2GuitarNote::generateNote()

@@ -59,4 +59,6 @@ void winButtonUpdater::updateAllButtons()
     
     // 終了ボタン
     checkButton(otherButtons[static_cast<int>(otherButton::EXIT)], VK_ESCAPE);
+    
+    checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_STROKE)], 'U');
 }

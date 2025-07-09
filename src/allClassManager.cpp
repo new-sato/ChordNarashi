@@ -20,6 +20,11 @@ void allClassManager::mainLoop()
         
         if(other_buttons[static_cast<int>(otherButton::EXIT)].getIsPressed() == true)
             break;
+        
+        if(other_buttons[static_cast<int>(otherButton::TUGGLE_STROKE)].getIsPressed() == true)
+        {
+            static_cast<GuitarNotePlayer&>(note_player).tuggleStroke();
+        }
 
         chord_button_manager.updateState();
         rightButtonState right_button_state =right_button_manager.getRightButtonState();
