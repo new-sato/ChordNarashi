@@ -6,7 +6,8 @@ class GuitarChordTest: public testing::Test
     protected:
     std::vector<Button> ChordButtons = std::vector<Button>(NUM_OF_CHORD_BUTTON);
     std::vector<OnceButton> KeyButton = std::vector<OnceButton>(static_cast<int>(keyButton::end));
-    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons);
+    std::vector<Button> ShiftButton = std::vector<Button>(NUM_OF_NOTE);
+    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons, ShiftButton);
     Button2Chord fuga=Button2Chord(c);
     GuitarChord piyo = GuitarChord(fuga);
     virtual void SetUp(){

@@ -1,11 +1,14 @@
 @startuml hoge
 title "ループ全体の流れ"
+participant ButtonUpdater
 participant rightButtonManager
 participant allClassManager
 participant GuitarNotePlayer
 participant GuitarChord
 participant Button2Chord
 participant ChordButtonManager
+
+allClassManager -> ButtonUpdater: UpdateButton()
 
 allClassManager -> ChordButtonManager: updateState()
 ChordButtonManager -> ChordButtonManager: update_vkb_state()

@@ -7,7 +7,8 @@ class CBMTest: public testing::Test
     protected:
     std::vector<Button> ChordButtons = std::vector<Button>(NUM_OF_CHORD_BUTTON);
     std::vector<OnceButton> KeyButton = std::vector<OnceButton>(static_cast<int>(keyButton::end));
-    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons);
+    std::vector<Button> ShiftButton = std::vector<Button>(NUM_OF_NOTE);
+    ChordButtonManager c= ChordButtonManager(KeyButton, ChordButtons, ShiftButton);
     virtual void SetUp(){}
 };
 
@@ -82,4 +83,22 @@ TEST(VCBTest, chordTypeTest)
     auto temp2 = VirtualChordButton(24,0);
     EXPECT_EQ(temp2.cbt, ChordButtonType::dim);
     EXPECT_EQ(temp2.note, Note::B);
+}
+
+TEST(VCBTest, shiftTest)
+{
+    auto temp = VirtualChordButton(0,0);
+    auto hoge = temp.shift(1);
+    EXPECT_EQ(hoge.ButtonNum(),VirtualChordButton(1,0).ButtonNum());
+}
+
+TEST_F(CBMTest, shiftTest)
+{
+    ChordButtons[0].setIsPressed(true);
+    c.update_vcb_state();
+    ShiftButton[1].setIsPressed(true);
+    c.update_vcb_state();
+    auto hoge = *c.getVirtualChordButtons().begin();
+    EXPECT_EQ(VirtualChordButton(1,0).ButtonNum(),hoge.ButtonNum());
+    
 }

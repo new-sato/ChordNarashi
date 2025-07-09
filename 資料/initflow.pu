@@ -23,4 +23,4 @@ GuitarNotePlayer -> GuitarChord: new(CBMへの参照)
 create Button2Chord
 GuitarChord -> Button2Chord: new(CBMへの参照)
 
-@enduml
+@endum

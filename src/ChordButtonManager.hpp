@@ -47,6 +47,8 @@ struct VirtualChordButton
     /// @param button_num 押されているRealButtonの番号
     /// @param key 現在のキー
     VirtualChordButton(int button_num, int key);
+    
+    VirtualChordButton shift(unsigned int shift_diff);
 
     int ButtonNum() const;
     bool operator<(const VirtualChordButton& right) const {return this->ButtonNum() < right.ButtonNum();}
@@ -55,20 +57,22 @@ struct VirtualChordButton
 /// @brief 和音のボタンとキーマネージャーを配下に持ち、ボタンの読み取り、ボタン押下の継続や記憶などを行い、どのコードのボタンが押されたのかを特定する。
 class ChordButtonManager
 {
+    std::vector<Button>& shift_buttons;
     std::vector<Button>& real_chord_buttons;
     std::set<VirtualChordButton> virtual_chord_buttons;
     
     KeyButtonChecker& key_button_checker;
 
     int key = 0;
+    int temp_shift = 0;
 
     bool no_button_has_been_pressed;
     void update_vkb_state();
 
 public:
-    ChordButtonManager(KeyButtonChecker& k, std::vector<Button>& real_button_arg);
-    ChordButtonManager(std::vector<OnceButton>& key_buttons, std::vector<Button>& chord_buttons)
-        :ChordButtonManager(*new KeyButtonChecker(key_buttons), chord_buttons){}
+    ChordButtonManager(KeyButtonChecker& k, std::vector<Button>& real_button_arg, std::vector<Button>& shift_button_arg);
+    ChordButtonManager(std::vector<OnceButton>& key_buttons, std::vector<Button>& chord_buttons, std::vector<Button>& shift_buttons)
+        :ChordButtonManager(*new KeyButtonChecker(key_buttons), chord_buttons, shift_buttons){}
 
     // HACK:テストの都合でpublicにしてある。そのうちprivateにする
     void update_vcb_state();
@@ -84,7 +88,7 @@ public:
     /// @param key_diff 正の整数で、どれだけずらすかを指定する。
     void addKey(unsigned int key_diff){ setKey(key + key_diff); }
 
-    std::set<VirtualChordButton> getVirtualChordButtons()const{return virtual_chord_buttons;}
+    std::set<VirtualChordButton> getVirtualChordButtons()const;
 
     /// @brief n番目のボタンの状態（押されているかいないか）をstateにする
     /// @param n ボタンの番号
