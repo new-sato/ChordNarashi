@@ -16,37 +16,37 @@ void winButtonUpdater::checkButton(Button &button, int key)
 void winButtonUpdater::updateAllButtons()
 {
     // メジャーコード
-    checkButton(chordButtons[11], 'Q');
-    checkButton(chordButtons[0], 'W');
-    checkButton(chordButtons[1], 'E');
-    checkButton(chordButtons[2], 'R');
-    checkButton(chordButtons[3], 'T');
+    checkButton(chordButtons[11], 'W');
+    checkButton(chordButtons[0], 'E');
+    checkButton(chordButtons[1], 'R');
+    checkButton(chordButtons[2], 'T');
+    checkButton(chordButtons[3], 'Y');
 
     // マイナーコード
-    checkButton(chordButtons[23], 'A');
-    checkButton(chordButtons[12], 'S');
-    checkButton(chordButtons[13], 'D');
-    checkButton(chordButtons[14], 'F');
-    checkButton(chordButtons[15], 'G');
+    checkButton(chordButtons[23], 'S');
+    checkButton(chordButtons[12], 'D');
+    checkButton(chordButtons[13], 'F');
+    checkButton(chordButtons[14], 'G');
+    checkButton(chordButtons[15], 'H');
 
     // ディミニッシュコード
-    checkButton(chordButtons[35], 'Z');
-    checkButton(chordButtons[24], 'X');
-    checkButton(chordButtons[25], 'C');
-    checkButton(chordButtons[26], 'V');
-    checkButton(chordButtons[27], 'B');
+    checkButton(chordButtons[35], 'X');
+    checkButton(chordButtons[24], 'C');
+    checkButton(chordButtons[25], 'V');
+    checkButton(chordButtons[26], 'B');
+    checkButton(chordButtons[27], 'N');
 
     // オーギュメントコード
-    checkButton(chordButtons[47], '1');
-    checkButton(chordButtons[36], '2');
-    checkButton(chordButtons[37], '3');
-    checkButton(chordButtons[38], '4');
-    checkButton(chordButtons[39], '5');
+    checkButton(chordButtons[47], '2');
+    checkButton(chordButtons[36], '3');
+    checkButton(chordButtons[37], '4');
+    checkButton(chordButtons[38], '5');
+    checkButton(chordButtons[39], '6');
     
     // シフトボタン
-    checkButton(shiftButtons[9], VK_SHIFT);
-    checkButton(shiftButtons[3], VK_CONTROL);
-    checkButton(shiftButtons[6], VK_TAB);
+    checkButton(shiftButtons[9], 'Z');
+    checkButton(shiftButtons[3], 'A');
+    checkButton(shiftButtons[6], 'Q');
     
     // キーボタン
     checkButton(keyButtons[static_cast<int>(keyButton::Dominant)],VK_RIGHT);
