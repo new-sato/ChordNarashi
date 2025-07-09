@@ -3,6 +3,12 @@
 #include "ChordButtonManager.hpp"
 #include <set>
 
+// Cmから見ると、Cは3つ右回りに進んだところにある
+const int MIN_DIFF = 3;
+
+// Cdimから見ると、CMは5こ先に行ったところにある
+const int DIM_DIFF = 5;
+
 /// @brief 鳴らすべきコードの種類
 enum ChordType
 {
@@ -34,6 +40,7 @@ class Button2Chord
     ChordName chord_name;
 
     void singleChord(std::set<VirtualChordButton> vec_of_chord);
+    void doubleChord(std::set<VirtualChordButton> vec_of_chord);
 
 public:
     Button2Chord(ChordButtonManager& arg):cbm(arg){};

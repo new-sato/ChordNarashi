@@ -31,6 +31,45 @@ void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
     chord_name.root_note = v.note;
 }
 
+void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
+{
+    VirtualChordButton vcb1 = *set_of_chord.begin();
+    VirtualChordButton vcb2 = *(++(set_of_chord.begin()));
+
+    // セブンスかもしれないとき
+    if(vcb2.cbt == ChordButtonType::dim)
+    {
+        // 1個目がメジャーでないなら違う
+        if(vcb1.cbt != ChordButtonType::Major) return;
+
+        // 11個ずれでないなら違う
+        if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb2.note)) return;
+
+        chord_name.root_note = vcb1.note;
+        chord_name.chord_type = sev;
+        return;
+    }
+
+    if(vcb2.cbt == ChordButtonType::minor)
+    {
+        // 1個目がメジャーでないなら違う
+        if(vcb1.cbt != ChordButtonType::Major) return;
+        
+        // ずれがないならマイナーセブンス
+        if((static_cast<int>(vcb1.note)+MIN_DIFF)%NUM_OF_NOTE == static_cast<int>(vcb2.note))
+        {
+            chord_name.root_note = vcb2.note;
+            chord_name.chord_type = msev;
+        }
+        // 1つズレならメジャーセブンス
+        else if((static_cast<int>(vcb1.note)+MIN_DIFF+1)%NUM_OF_NOTE == static_cast<int>(vcb2.note))
+        {
+            chord_name.root_note = vcb1.note;
+            chord_name.chord_type = Msev;
+        }
+    }
+}
+
 /// @brief 押されているコードボタンからコードネームを決定し、配下の関数を使ってchord_nameに格納する。
 void Button2Chord::updateChord()
 {
@@ -46,6 +85,7 @@ void Button2Chord::updateChord()
         singleChord(pressed_chord);
         break;
     case 2:
+        doubleChord(pressed_chord);
     case 3:
     default:
         break;

@@ -56,6 +56,7 @@ void GuitarNotePlayer::playNote(float time)
 {
     if(time == 0.0)
     {
+        if(note_to_play.empty())return;
         for(int n: note_to_play)
         {
             std::vector<unsigned char> noteOnMsg = {0x90, static_cast<unsigned char>(n), 100};
