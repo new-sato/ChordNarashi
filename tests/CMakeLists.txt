@@ -25,7 +25,7 @@ add_executable(CBM_test
 
 add_executable(Guitar_test
     test_guitarchord.cpp
-    ../src/GuitarChord.cpp
+    ../src/Chord2GuitarNote.cpp
     ../src/ChordButtonManager.cpp
     ../src/keyButtonChecker.cpp
     ../src/oncebutton.cpp
@@ -36,7 +36,7 @@ add_executable(GuitarNote_test
     test_GuitarNotePlayer.cpp
     ../src/GuitarNotePlayer.cpp
     ../src/InotePlayer.cpp
-    ../src/GuitarChord.cpp
+    ../src/Chord2GuitarNote.cpp
     ../src/ChordButtonManager.cpp
     ../src/keyButtonChecker.cpp
     ../src/oncebutton.cpp

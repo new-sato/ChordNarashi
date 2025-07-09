@@ -1,4 +1,5 @@
 #include "ChordButtonManager.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -53,6 +54,23 @@ int VirtualChordButton::ButtonNum()const
 {
     return static_cast<int>(cbt)*12 + static_cast<int>(note);
 }
+
+std::vector<std::string> note_str_map_hoge
+{
+    "C",
+    "G",
+    "D",
+    "A",
+    "E",
+    "B",
+    "F♯",
+    "D♭",
+    "A♭",
+    "E♭",
+    "B♭",
+    "F"
+};
+
 
 ChordButtonManager::ChordButtonManager(KeyButtonChecker& k, vector<Button>& real_button_arg, vector<Button>& shift_button_arg)
     :key_button_checker(k), real_chord_buttons(real_button_arg), shift_buttons(shift_button_arg)
@@ -127,8 +145,12 @@ void ChordButtonManager::setKey(unsigned int new_key)
     // ボタンが押されている間は入力を受け付けない
     if(!is_all_button_releaced()) return;
 
-    key = new_key % 12;
-
+    if(key != new_key)
+    {
+        key = new_key % 12;
+        std::cout << "key = " << note_str_map_hoge[key] << std::endl;
+    }
+    
 }
 
 std::set<VirtualChordButton> ChordButtonManager::getVirtualChordButtons() const

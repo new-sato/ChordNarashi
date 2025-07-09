@@ -60,7 +60,7 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
         }
     },
     {
-        minor,
+        dim,
         {
             {0, 6, 12, 15, 18, 24},
             {0, 6, 12, 15, 18},
@@ -84,6 +84,8 @@ void Chord2GuitarNote::generateNote()
     
     int root_midi_num = RootMidiNums[chord_name.root_note];
 
+    Notes.clear();
+
     if(root_midi_num<=42)
     {
         for(int i: chord_table[chord_name.chord_type][0])
@@ -91,7 +93,7 @@ void Chord2GuitarNote::generateNote()
             Notes.insert(i+root_midi_num);
         }
     }
-    else if(root_midi_num<=48)
+    else if(root_midi_num<=47)
     {
         for(int i: chord_table[chord_name.chord_type][1])
         {

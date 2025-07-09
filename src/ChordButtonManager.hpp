@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <set>
+#include <string>
 
 enum class ChordButtonType
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "InotePlayer.hpp"
-#include "GuitarChord.hpp"
+#include "Chord2GuitarNote.hpp"
 
 class GuitarNotePlayer:public InotePlayer
 {
@@ -9,7 +9,7 @@ class GuitarNotePlayer:public InotePlayer
     // MIDIポート繋いだりする
     void init();
     public:
-    GuitarNotePlayer(GuitarChord& c2n);
+    GuitarNotePlayer(Chord2GuitarNote& c2n);
     GuitarNotePlayer(ChordButtonManager&);
     void playNote(float time) override;
     void stopNote() override;

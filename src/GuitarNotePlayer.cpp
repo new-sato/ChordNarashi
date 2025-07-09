@@ -45,18 +45,17 @@ void GuitarNotePlayer::init()
     }
 }
 
-GuitarNotePlayer::GuitarNotePlayer(GuitarChord& gc):InotePlayer(gc)
+GuitarNotePlayer::GuitarNotePlayer(Chord2GuitarNote& gc):InotePlayer(gc)
 {
     init();
 }
 
-GuitarNotePlayer::GuitarNotePlayer(ChordButtonManager& cbm):GuitarNotePlayer(*new GuitarChord(cbm)){}
+GuitarNotePlayer::GuitarNotePlayer(ChordButtonManager& cbm):GuitarNotePlayer(*new Chord2GuitarNote(cbm)){}
 
 void GuitarNotePlayer::playNote(float time)
 {
     if(time == 0.0)
     {
-        if(note_to_play.empty())return;
         for(int n: note_to_play)
         {
             std::vector<unsigned char> noteOnMsg = {0x90, static_cast<unsigned char>(n), 100};

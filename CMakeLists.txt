@@ -19,7 +19,7 @@ add_executable(my_app
     src/allClassManager.cpp
     src/Button2Chord.cpp
     src/ChordButtonManager.cpp
-    src/GuitarChord.cpp
+    src/Chord2GuitarNote.cpp
     src/GuitarNotePlayer.cpp
     src/InotePlayer.cpp
     src/keyButtonChecker.cpp
