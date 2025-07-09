@@ -4,6 +4,23 @@ void allClassManager::mainLoop()
 {
     while(continueLoop)
     {
+
+        while(
+            [=]() -> bool
+            {
+                auto now_time = std::chrono::system_clock::now();
+                auto d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start).count();
+                return (d_time < 5);
+            }()
+        );
+        
+        loop_start = std::chrono::system_clock::now();
+
+        win_button_updater.updateAllButtons();
+        
+        if(other_buttons[static_cast<int>(otherButton::EXIT)].getIsPressed() == true)
+            break;
+
         chord_button_manager.updateState();
         rightButtonState right_button_state =right_button_manager.getRightButtonState();
 
@@ -12,20 +29,21 @@ void allClassManager::mainLoop()
             if(!rightButtonHasPressed)
             {
                 note_player.updateNote();
-                time = 0.0;
+                time_for_playNote = 0.0;
                 start = std::chrono::system_clock::now();
                 rightButtonHasPressed = true;
             }
             else
             {
                 end = std::chrono::system_clock::now();
-                time = std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
+                time_for_playNote = std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
             }
-            note_player.playNote(time);
+            note_player.playNote(time_for_playNote);
         }
         else if(rightButtonHasPressed)
         {
             note_player.stopNote();
+            rightButtonHasPressed = false;
         }
     }
 }

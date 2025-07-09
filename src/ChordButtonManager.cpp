@@ -119,7 +119,7 @@ void ChordButtonManager::update_vcb_state()
 void::ChordButtonManager::updateState()
 {
     update_vkb_state();
-    update_vkb_state();
+    update_vcb_state();
 }
 
 void ChordButtonManager::setKey(unsigned int new_key)

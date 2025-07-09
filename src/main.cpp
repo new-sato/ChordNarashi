@@ -1,8 +1,7 @@
-#include <iostream>
-
-using namespace std;
+#include "allClassManager.hpp"
 
 int main()
 {
-    cout << "hello, world" << endl;
+    allClassManager a;
+    a.mainLoop();
 }

@@ -16,6 +16,16 @@ enable_testing()
 # add_executable(実行ファイル名 ソースファイル1 ソースファイル2 ...)
 add_executable(my_app
     src/main.cpp
+    src/allClassManager.cpp
+    src/Button2Chord.cpp
+    src/ChordButtonManager.cpp
+    src/GuitarChord.cpp
+    src/GuitarNotePlayer.cpp
+    src/InotePlayer.cpp
+    src/keyButtonChecker.cpp
+    src/oncebutton.cpp
+    src/rightButtonBasic.cpp
+    src/winButtonUpdater.cpp
     # .hファイルはここに記述する必要はありません
 )
 
