@@ -83,6 +83,23 @@ void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
             return;
         }
     }
+    
+    //add9かもしれない
+    if(vcb2.cbt == ChordButtonType::Major)
+    {
+        if(vcb2.note==Note::F)
+        {
+            if(vcb1.note!=Note::C)return;
+            chord_name.root_note = Note::F;
+            chord_name.chord_type = add9;
+            return;
+        }
+        //1音ずれでないなら違う
+        if((static_cast<int>(vcb1.note)+1)%12 != (static_cast<int>(vcb2.note))%12) return;
+        chord_name.root_note = vcb1.note;
+        chord_name.chord_type = add9;
+        
+    }
 }
 
 /// @brief 押されているコードボタンからコードネームを決定し、配下の関数を使ってchord_nameに格納する。

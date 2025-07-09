@@ -22,6 +22,7 @@ enum ChordType
     msev,
     mMsev,
     argsev,
+    add9,
     end
 };
 

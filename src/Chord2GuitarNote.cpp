@@ -83,6 +83,14 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
             {0, 3, 7, 11, 15}
         }
     },
+    {
+        add9,
+        {
+            {0, 7, 12, 16, 19, 26},
+            {0, 4, 7, 12, 14, 19},
+            {0, 4, 7, 12, 14}
+        }
+    },
 };
 
 void Chord2GuitarNote::generateNote()
