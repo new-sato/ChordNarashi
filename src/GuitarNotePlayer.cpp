@@ -80,7 +80,7 @@ void GuitarNotePlayer::playNoteDownStroke(float time)
         note_played.insert(hoge);
         note_to_play.erase(note_to_play.begin());
     }
-    else if(!note_to_play.empty() && time - t > 10)
+    else if(!note_to_play.empty() && time - t > 3)
     {
         t=time;
         int hoge = *note_to_play.begin();
@@ -103,7 +103,7 @@ void GuitarNotePlayer::playNoteUpStroke(float time)
         note_played.insert(hoge);
         note_to_play.erase(--note_to_play.end());
     }
-    else if(!note_to_play.empty() && time - t > 10)
+    else if(!note_to_play.empty() && time - t > 3)
     {
         t=time;
         int hoge = *(--note_to_play.end());

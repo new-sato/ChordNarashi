@@ -40,7 +40,7 @@ class Button2Chord
 {
     ChordButtonManager& cbm;
     
-    ChordName chord_name;
+    ChordName chord_name  = {0, Major, Note::C};
 
     void singleChord(std::set<VirtualChordButton> vec_of_chord);
     void doubleChord(std::set<VirtualChordButton> vec_of_chord);
