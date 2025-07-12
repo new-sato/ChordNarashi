@@ -25,6 +25,7 @@ add_executable(my_app
     src/keyButtonChecker.cpp
     src/oncebutton.cpp
     src/rightButtonBasic.cpp
+    src/sustainPedalManager.cpp
     src/winButtonUpdater.cpp
     # .hファイルはここに記述する必要はありません
 )

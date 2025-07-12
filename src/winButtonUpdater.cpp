@@ -56,9 +56,14 @@ void winButtonUpdater::updateAllButtons()
     
     // 右手ボタン
     checkButton(rightButtons[0], 'K');
+
+    // サステインボタン
+    checkButton(sustainButton, 'J');
     
     // 終了ボタン
     checkButton(otherButtons[static_cast<int>(otherButton::EXIT)], VK_ESCAPE);
     
-    checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_STROKE)], 'U');
+    checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_STROKE)], '9');
+    checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_SUSTAIN)], '0');
+    
 }

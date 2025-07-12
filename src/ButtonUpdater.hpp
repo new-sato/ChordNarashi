@@ -10,6 +10,7 @@ class ButtonUpdater
     std::vector<OnceButton> &keyButtons;
     std::vector<Button> &rightButtons;
     std::vector<OnceButton> &otherButtons;
+    Button &sustainButton;
 
     public:
     ButtonUpdater(
@@ -17,13 +18,15 @@ class ButtonUpdater
         std::vector<Button>& shiftButtonsArg,
         std::vector<OnceButton>& keyButtonsArg,
         std::vector<Button>& rightButtonsArg,
-        std::vector<OnceButton>& otherButtonsArg
+        std::vector<OnceButton>& otherButtonsArg,
+        Button& sustainButtonArg
     )
     :chordButtons(chordButtonsArg)
     ,shiftButtons(shiftButtonsArg)
     ,keyButtons(keyButtonsArg)
     ,rightButtons(rightButtonsArg)
-    ,otherButtons(otherButtonsArg){}
+    ,otherButtons(otherButtonsArg)
+    ,sustainButton(sustainButtonArg){}
 
     virtual void updateAllButtons() = 0;
 };

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <string>
 
+// HACK この処理、基底クラスでやったほうが良い
 void GuitarNotePlayer::init()
 {
     try
@@ -129,12 +130,14 @@ void GuitarNotePlayer::playNoteStraight(float time)
     }
 }
 
-GuitarNotePlayer::GuitarNotePlayer(Chord2GuitarNote& gc):InotePlayer(gc)
+GuitarNotePlayer::GuitarNotePlayer(Chord2GuitarNote& gc, RtMidiOut& rtmidiout)
+    :InotePlayer(gc), midiOut(rtmidiout)
 {
     init();
 }
 
-GuitarNotePlayer::GuitarNotePlayer(ChordButtonManager& cbm):GuitarNotePlayer(*new Chord2GuitarNote(cbm)){}
+GuitarNotePlayer::GuitarNotePlayer(ChordButtonManager& cbm, RtMidiOut& rtmidiout)
+    :GuitarNotePlayer(*new Chord2GuitarNote(cbm), rtmidiout){}
 
 void GuitarNotePlayer::playNote(float time)
 {

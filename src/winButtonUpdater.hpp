@@ -13,8 +13,9 @@ class winButtonUpdater:public ButtonUpdater
         std::vector<Button>& shiftButtonsArg,
         std::vector<OnceButton>& keyButtonsArg,
         std::vector<Button>& rightButtonsArg,
-        std::vector<OnceButton>& otherButtonArg
+        std::vector<OnceButton>& otherButtonArg,
+        Button& sustainButtonArg
     )
-    :ButtonUpdater(chordButtonsArg,shiftButtonsArg,keyButtonsArg,rightButtonsArg,otherButtonArg){}
+    :ButtonUpdater(chordButtonsArg,shiftButtonsArg,keyButtonsArg,rightButtonsArg,otherButtonArg,sustainButtonArg){}
     void updateAllButtons() override;
 };

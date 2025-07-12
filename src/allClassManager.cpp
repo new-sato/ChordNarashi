@@ -24,8 +24,10 @@ void allClassManager::mainLoop()
         {
             static_cast<GuitarNotePlayer&>(note_player).tuggleStroke();
         }
+        if(other_buttons[static_cast<int>(otherButton::TUGGLE_SUSTAIN)].getIsPressed() == true)
+            sustain_pedal_manager.toggleDefaultState();
 
-
+        sustain_pedal_manager.sustainPedalProcess();
         chord_button_manager.updateState();
         rightButtonState right_button_state =right_button_manager.getRightButtonState();
 

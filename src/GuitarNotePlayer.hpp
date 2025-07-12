@@ -5,7 +5,7 @@
 
 class GuitarNotePlayer:public InotePlayer
 {
-    RtMidiOut midiOut;
+    RtMidiOut& midiOut;
     
     // MIDIポート繋いだりする
     void init();
@@ -19,8 +19,8 @@ class GuitarNotePlayer:public InotePlayer
     void playNoteDownStroke(float time);
     void playNoteStraight(float time);
     public:
-    GuitarNotePlayer(Chord2GuitarNote& c2n);
-    GuitarNotePlayer(ChordButtonManager&);
+    GuitarNotePlayer(Chord2GuitarNote& c2n, RtMidiOut&);
+    GuitarNotePlayer(ChordButtonManager&, RtMidiOut&);
     void playNote(float time) override;
     void stopNote() override;
     void tuggleStroke(){do_stroke=(do_stroke)?false:true;}
