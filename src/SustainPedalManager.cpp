@@ -20,8 +20,7 @@ void SustainPedalManager::sustainPedalProcess()
 
         //初めて押された場合
         hasPedalPressed = true;
-        std::vector<unsigned char> noteOnMsg = {0xB0, static_cast<unsigned char>(64), 0x7F};
-        rt_midi_out.sendMessage(&noteOnMsg);
+        sendPedalMessage(true);
     }
     // ボタンが押されてないとき
     else
@@ -31,7 +30,22 @@ void SustainPedalManager::sustainPedalProcess()
 
         //初めて放されたとき
         hasPedalPressed = false;
+        sendPedalMessage(false);
+    }
+}
+
+void SustainPedalManager::sendPedalMessage(bool isPedalPressed)
+{
+    if(isPedalPressed == true)
+    {
+        std::vector<unsigned char> noteOnMsg = {0xB0, static_cast<unsigned char>(64), 0x7F};
+        rt_midi_out.sendMessage(&noteOnMsg);
+        hasPedalPressed = true;
+    }
+    else
+    {
         std::vector<unsigned char> noteOnMsg = {0xB0, static_cast<unsigned char>(64), 0x00};
         rt_midi_out.sendMessage(&noteOnMsg);
+        hasPedalPressed = false;
     }
 }

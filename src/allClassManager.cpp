@@ -26,6 +26,10 @@ void allClassManager::mainLoop()
         }
         if(other_buttons[static_cast<int>(otherButton::TUGGLE_SUSTAIN)].getIsPressed() == true)
             sustain_pedal_manager.toggleDefaultState();
+        if(other_buttons[static_cast<int>(otherButton::AUTO_SUSTAIN)].getIsPressed() == true)
+        {
+            autoSustainPedal = (autoSustainPedal)?false:true;
+        }
 
         sustain_pedal_manager.sustainPedalProcess();
         chord_button_manager.updateState();
@@ -33,13 +37,16 @@ void allClassManager::mainLoop()
 
         if(right_button_state.is_pressed)
         {
+            // 右手ボタンが初めて押された
             if(!rightButtonHasPressed)
             {
+                if(autoSustainPedal) sustain_pedal_manager.sendPedalMessage(false);
                 note_player.updateNote();
                 time_for_playNote = 0.0;
                 start = std::chrono::system_clock::now();
                 rightButtonHasPressed = true;
             }
+            // 右手ボタンが押されっぱなし
             else
             {
                 end = std::chrono::system_clock::now();

@@ -37,8 +37,9 @@ class allClassManager
     InotePlayer& note_player = *new GuitarNotePlayer(chord_button_manager, midiOut);
     IrightButtonManager& right_button_manager = *new RightButtonBasic(right_buttons);
     SustainPedalManager& sustain_pedal_manager = *new SustainPedalManager(sustain_button, midiOut);
+    
     bool continueLoop = true;
-
+    bool autoSustainPedal = true;
     bool rightButtonHasPressed = false ;
     double time_for_playNote;
 
