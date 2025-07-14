@@ -1,5 +1,10 @@
 #include "allClassManager.hpp"
 
+allClassManager::~allClassManager()
+{
+    delete &sustain_pedal_manager;
+}
+
 void allClassManager::mainLoop()
 {
     while(continueLoop)

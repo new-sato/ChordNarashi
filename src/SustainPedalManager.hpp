@@ -14,6 +14,7 @@ class SustainPedalManager
 
     public:
     SustainPedalManager(Button & b, RtMidiOut& rtmidiout): button(b), rt_midi_out(rtmidiout){}
+    ~SustainPedalManager(){sendPedalMessage(false);}
     void toggleDefaultState();
     void sustainPedalProcess();
     void sendPedalMessage(bool isPedalPressed);

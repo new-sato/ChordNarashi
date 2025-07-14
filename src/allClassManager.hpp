@@ -50,6 +50,7 @@ class allClassManager
     
     public:
     allClassManager() = default;
+    ~allClassManager();
     void setContinueLoop(bool arg) { continueLoop = arg; }
     void mainLoop();
 };
