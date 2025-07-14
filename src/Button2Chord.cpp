@@ -50,6 +50,7 @@ void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
         return;
     }
 
+    // マイナーセブンス・メジャーセブンスかもしれないとき
     if(vcb2.cbt == ChordButtonType::minor)
     {
         // 1個目がメジャーでないなら違う
@@ -68,6 +69,23 @@ void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
             chord_name.root_note = vcb1.note;
             chord_name.chord_type = Msev;
             return;
+        }
+    }
+
+    // sevsus4, Msevsus4かもしれないとき
+    if(vcb2.cbt == ChordButtonType::sus4)
+    {
+        if(vcb1.cbt == ChordButtonType::dim)
+        {
+            if ((static_cast<int>(vcb2.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb1.note)) return;
+            chord_name.root_note = vcb2.note;
+            chord_name.chord_type = sevsus4;
+        }
+        else if(vcb1.cbt == ChordButtonType::minor)
+        {
+            if((static_cast<int>(vcb2.note)+MIN_DIFF+1)%NUM_OF_NOTE != static_cast<int>(vcb1.note))
+            chord_name.root_note = vcb2.note;
+            chord_name.chord_type = Msevsus4;
         }
     }
 
