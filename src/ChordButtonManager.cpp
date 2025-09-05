@@ -145,6 +145,7 @@ void ChordButtonManager::setKey(unsigned int new_key)
     // ボタンが押されている間は入力を受け付けない
     if(!is_all_button_releaced()) return;
 
+    // HACK コマンドラインに表示する機能はどこかほかのところに独立させたい
     if(key != new_key)
     {
         key = new_key % 12;
