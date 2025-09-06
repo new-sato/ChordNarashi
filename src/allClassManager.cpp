@@ -7,6 +7,7 @@ allClassManager::~allClassManager()
 
 void allClassManager::mainLoop()
 {
+    SDL_Event event;
     while(continueLoop)
     {
 
@@ -37,7 +38,12 @@ void allClassManager::mainLoop()
         }
 
         sustain_pedal_manager.sustainPedalProcess();
-        chord_button_manager.updateState();
+        int keydiff = chord_button_manager.updateState();
+        if(keydiff!=0)
+            {
+                sdlm.updateKey(keydiff);
+                sdlm.updateView();
+            }
         rightButtonState right_button_state =right_button_manager.getRightButtonState();
 
         if(right_button_state.is_pressed)
@@ -63,6 +69,14 @@ void allClassManager::mainLoop()
         {
             note_player.stopNote();
             rightButtonHasPressed = false;
+        }
+        
+        SDL_PollEvent(&event);
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                continueLoop = false;
+                break;
         }
     }
 }

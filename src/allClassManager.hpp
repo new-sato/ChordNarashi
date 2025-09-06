@@ -5,6 +5,7 @@
 #include "SustainPedalManager.hpp"
 #include "other_button.hpp"
 #include "winButtonUpdater.hpp"
+#include "SDLManager.hpp"
 
 #include "rtmidi/RtMidi.h"
 
@@ -22,6 +23,7 @@ class allClassManager
     Button& sustain_button = *new Button;
     
     RtMidiOut midiOut;
+    SDLManager sdlm;
 
     winButtonUpdater win_button_updater
         = winButtonUpdater(

@@ -1,3 +1,4 @@
+#pragma once
 #include "ButtonUpdater.hpp"
 #include "other_button.hpp"
 #include <windows.h>

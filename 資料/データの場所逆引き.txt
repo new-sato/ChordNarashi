@@ -1,0 +1,5 @@
+現在のキー
+    ChordButtonManager
+
+今鳴っているコード
+    Button2Chord

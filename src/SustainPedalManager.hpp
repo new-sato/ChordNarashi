@@ -1,3 +1,4 @@
+#pragma once
 #include "button.hpp"
 #include "rtmidi/RtMidi.h"
 

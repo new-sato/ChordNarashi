@@ -52,6 +52,6 @@ public:
     void updateChord();
 
     /// @brief 決定したコードネームを返す。
-    /// @return 
+    /// @return ChordName型
     ChordName getChordName() { return chord_name; }
 };

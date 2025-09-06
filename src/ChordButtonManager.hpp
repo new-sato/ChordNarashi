@@ -1,6 +1,7 @@
 #pragma once
 #include "button.hpp"
 #include "keyButtonChecker.hpp"
+#include "enumNote.hpp"
 
 #include <vector>
 #include <set>
@@ -16,22 +17,6 @@ enum class ChordButtonType
     end
 };
 
-enum class Note
-{
-    C,
-    G,
-    D,
-    A,
-    E,
-    B,
-    Fs,
-    Df,
-    Af,
-    Ef,
-    Bf,
-    F,
-    end
-};
 
 // 本来は60
 const int NUM_OF_CHORD_BUTTON = static_cast<int>(ChordButtonType::end) * static_cast<int>(Note::end);
@@ -68,7 +53,7 @@ class ChordButtonManager
     int temp_shift = 0;
 
     bool no_button_has_been_pressed;
-    void update_vkb_state();
+    int update_vkb_state();
 
 public:
     ChordButtonManager(KeyButtonChecker& k, std::vector<Button>& real_button_arg, std::vector<Button>& shift_button_arg);
@@ -79,15 +64,22 @@ public:
     void update_vcb_state();
     bool is_all_button_releaced();
     
-    void updateState();
+    int updateState();
 
     /// @brief キーを直接設定する。11以上なら12で割った剰余の番号のキーに設定される。ただし、キーの変更はコードボタンが押されていないときのみ行われる。
     /// @param new_key 新しいキーを正の整数で指定する。
-    void setKey(unsigned int new_key);
+    /// @return ずらした結果の番号を返す
+    int setKey(unsigned int new_key);
 
     /// @brief 現在のキーを五度円の時計回り方向にずらす。
     /// @param key_diff 正の整数で、どれだけずらすかを指定する。
-    void addKey(unsigned int key_diff){ setKey(key + key_diff); }
+    /// @return ずらした結果の番号を返す
+    int addKey(unsigned int key_diff)
+    {
+        return setKey(key + key_diff);
+    }
+
+    int getKey()const{ return key; }
 
     std::set<VirtualChordButton> getVirtualChordButtons()const;
 

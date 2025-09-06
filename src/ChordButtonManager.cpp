@@ -91,9 +91,13 @@ bool ChordButtonManager::is_all_button_releaced()
     return true;
 }
 
-void ChordButtonManager::update_vkb_state()
+/// @brief キーの状態をアップデートし、現在のキーを伝える。
+/// @return 新しいキーと古いキーの差分
+int ChordButtonManager::update_vkb_state()
 {
-    addKey(key_button_checker.getKeyButtonState());
+    int ans = key_button_checker.getKeyButtonState();
+    addKey(ans);
+    return ans;
 }
 
 /// @brief RealChordButtonとshiftButtonをチェックし、virtual_chord_buttonsをアップデートする
@@ -134,24 +138,25 @@ void ChordButtonManager::update_vcb_state()
     }
 }
 
-void::ChordButtonManager::updateState()
+int::ChordButtonManager::updateState()
 {
-    update_vkb_state();
+    int ans;
+    ans = update_vkb_state();
     update_vcb_state();
+    return ans;
 }
 
-void ChordButtonManager::setKey(unsigned int new_key)
+int ChordButtonManager::setKey(unsigned int new_key)
 {
     // ボタンが押されている間は入力を受け付けない
-    if(!is_all_button_releaced()) return;
+    if(!is_all_button_releaced()) return key;
 
-    // HACK コマンドラインに表示する機能はどこかほかのところに独立させたい
     if(key != new_key)
     {
         key = new_key % 12;
-        std::cout << "key = " << note_str_map_hoge[key] << std::endl;
+        return key;
     }
-    
+    return key;
 }
 
 std::set<VirtualChordButton> ChordButtonManager::getVirtualChordButtons() const
