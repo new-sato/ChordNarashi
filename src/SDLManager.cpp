@@ -75,8 +75,11 @@ bool SDLManager::initialize()
     {
         SDL_Surface* surf = TTF_RenderText_Blended(fontL,s.c_str(), charaColor);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, surf);
+        texturesL.push_back(texture);
 
-        textures.push_back(texture);
+        surf = TTF_RenderText_Blended(fontM,s.c_str(), charaColor);
+        texture = SDL_CreateTextureFromSurface(mRenderer, surf);
+        texturesM.push_back(texture);
     }
     
     updateView();
@@ -102,43 +105,52 @@ void SDLManager::displayCircle()
     int texWidth, texHeight;
     
     int R = 0.4 * ((windowHight<windowWidth)?windowHight:windowWidth);
-    int offset = -key;
+    int offset = (doOfset)?-key:0;
+
+    
+    SDL_QueryTexture(texturesL[key], nullptr, nullptr, &texWidth, &texHeight);
+    SDL_Rect r;
+    r.w = texWidth;
+    r.h = texHeight;
+    r.x = windowWidth/2 - texWidth/2;
+    r.y = windowHight/2 - texHeight/2;
+    SDL_RenderCopy(mRenderer, texturesL[key], nullptr, &r);
 
     for(int i=0;i<12;i++)
     {
-        SDL_QueryTexture(textures[i], nullptr, nullptr, &texWidth, &texHeight);
+        SDL_QueryTexture(texturesL[i], nullptr, nullptr, &texWidth, &texHeight);
 
         SDL_Rect r;
         r.w = texWidth;
         r.h = texHeight;
         r.x = R*sin(M_PI*(i+offset)/6)+windowWidth/2 - texWidth/2;
         r.y = -R*cos(M_PI*(i+offset)/6)+windowHight/2 - texHeight/2;
-        SDL_RenderCopy(mRenderer, textures[i], nullptr, &r);
+        SDL_RenderCopy(mRenderer, texturesL[i], nullptr, &r);
     }
     
     int Rm = 0.3 * ((windowHight<windowWidth)?windowHight:windowWidth);
     for(int i=0;i<12;i++)
     {
-        SDL_QueryTexture(textures[i], nullptr, nullptr, &texWidth, &texHeight);
+        SDL_QueryTexture(texturesL[i], nullptr, nullptr, &texWidth, &texHeight);
 
         SDL_Rect r;
         r.w = texWidth;
         r.h = texHeight;
         r.x = Rm*sin(M_PI*(i+offset-3)/6)+windowWidth/2 - texWidth/2;
         r.y = -Rm*cos(M_PI*(i+offset-3)/6)+windowHight/2 - texHeight/2 ;
-        SDL_RenderCopy(mRenderer, textures[i], nullptr, &r);
+        SDL_RenderCopy(mRenderer, texturesL[i], nullptr, &r);
     }
     int Rdim = 0.2 * ((windowHight<windowWidth)?windowHight:windowWidth);
     for(int i=0;i<12;i++)
     {
-        SDL_QueryTexture(textures[i], nullptr, nullptr, &texWidth, &texHeight);
+        SDL_QueryTexture(texturesM[i], nullptr, nullptr, &texWidth, &texHeight);
 
         SDL_Rect r;
         r.w = texWidth;
         r.h = texHeight;
         r.x = Rdim*sin(M_PI*(i+offset-5)/6)+windowWidth/2 - texWidth/2;
         r.y = -Rdim*cos(M_PI*(i+offset-5)/6)+windowHight/2 - texHeight/2;
-        SDL_RenderCopy(mRenderer, textures[i], nullptr, &r);
+        SDL_RenderCopy(mRenderer, texturesM[i], nullptr, &r);
     }
 
 }

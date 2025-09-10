@@ -36,6 +36,11 @@ void allClassManager::mainLoop()
         {
             autoSustainPedal = (autoSustainPedal)?false:true;
         }
+        if(other_buttons[static_cast<int>(otherButton::DO_OFSET)].getIsPressed() == true)
+        {
+            sdlm.toggleDoOfset();
+            sdlm.updateView();
+        }
 
         sustain_pedal_manager.sustainPedalProcess();
         int keydiff = chord_button_manager.updateState();

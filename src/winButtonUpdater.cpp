@@ -63,6 +63,7 @@ void winButtonUpdater::updateAllButtons()
     // 終了ボタン
     checkButton(otherButtons[static_cast<int>(otherButton::EXIT)], VK_ESCAPE);
     
+    checkButton(otherButtons[static_cast<int>(otherButton::DO_OFSET)], '7');
     checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_STROKE)], '8');
     checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_SUSTAIN)], '9');
     checkButton(otherButtons[static_cast<int>(otherButton::AUTO_SUSTAIN)], '0');

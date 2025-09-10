@@ -6,5 +6,6 @@ enum class otherButton
     TUGGLE_STROKE,
     TUGGLE_SUSTAIN,
     AUTO_SUSTAIN,
+    DO_OFSET,
     NUM_OF_BUTTON
 };
