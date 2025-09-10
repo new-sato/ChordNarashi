@@ -2,11 +2,13 @@
 #include "ButtonUpdater.hpp"
 #include "other_button.hpp"
 #include <windows.h>
+#include <vector>
 
 class winButtonUpdater:public ButtonUpdater
 {
     
     void checkButton(Button& button,int key);
+    void checkButton(Button& button,std::vector<int> keys);
 
     public:
     winButtonUpdater(

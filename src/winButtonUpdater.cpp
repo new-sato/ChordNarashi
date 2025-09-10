@@ -13,6 +13,19 @@ void winButtonUpdater::checkButton(Button &button, int key)
     }
 }
 
+void winButtonUpdater::checkButton(Button &button, std::vector<int>keys)
+{
+    bool flag = false;
+    for(int key: keys)
+    {
+        if(GetAsyncKeyState(key) & 0x8000)
+        {
+            flag = true;
+        }
+    }
+    button.setIsPressed(flag);
+}
+
 void winButtonUpdater::updateAllButtons()
 {
     // メジャーコード
@@ -55,7 +68,7 @@ void winButtonUpdater::updateAllButtons()
     checkButton(keyButtons[static_cast<int>(keyButton::SemitoneDown)],VK_DOWN);
     
     // 右手ボタン
-    checkButton(rightButtons[0], 'K');
+    checkButton(rightButtons[0], {'K',VK_SPACE});
 
     // サステインボタン
     checkButton(sustainButton, 'J');
