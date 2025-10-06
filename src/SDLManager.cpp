@@ -99,7 +99,7 @@ SDLManager::~SDLManager()
 }
 
 
-/// @brief 画面の中央に五度円を描画する
+/// @brief 画面の中央に五度円をレンダラーに描画する
 void SDLManager::displayCircle()
 {
     int texWidth, texHeight;

@@ -45,6 +45,7 @@ class SDLManager:public iUi
     /// @param rotateNum 5度円でどれだけ回転させるか
     void updateRotateState(int rotateNum)override{return;}
     
+    /// @brief 表示する五度円を回転させるかどうかを切り替える
     void toggleDoOfset(){doOfset=!doOfset;}
     bool initialize();
 };
