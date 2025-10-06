@@ -21,6 +21,7 @@ enum ChordType
     Msev,
     msev,
     mMsev,
+    dimsev,
     argsev,
     sevsus4,
     Msevsus4,
