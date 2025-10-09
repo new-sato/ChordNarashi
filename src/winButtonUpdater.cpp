@@ -68,7 +68,14 @@ void winButtonUpdater::updateAllButtons()
     checkButton(keyButtons[static_cast<int>(keyButton::SemitoneDown)],VK_DOWN);
     
     // 右手ボタン
-    checkButton(rightButtons[0], {'K',VK_SPACE});
+    if(easyModeFlag)
+    {
+        checkButton(rightButtons[0], {'K','W','E','R','T','S','D','F','G','X','C','V','B'});        
+    }
+    else
+    {
+        checkButton(rightButtons[0], {'K',VK_SPACE});
+    }
 
     // サステインボタン
     checkButton(sustainButton, 'J');
@@ -76,6 +83,7 @@ void winButtonUpdater::updateAllButtons()
     // 終了ボタン
     checkButton(otherButtons[static_cast<int>(otherButton::EXIT)], VK_ESCAPE);
     
+    checkButton(otherButtons[static_cast<int>(otherButton::EASY_MODE)], '6');
     checkButton(otherButtons[static_cast<int>(otherButton::DO_OFSET)], '7');
     checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_STROKE)], '8');
     checkButton(otherButtons[static_cast<int>(otherButton::TUGGLE_SUSTAIN)], '9');

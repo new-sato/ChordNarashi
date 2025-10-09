@@ -9,6 +9,8 @@ class winButtonUpdater:public ButtonUpdater
     
     void checkButton(Button& button,int key);
     void checkButton(Button& button,std::vector<int> keys);
+    
+    bool easyModeFlag = 1;
 
     public:
     winButtonUpdater(
@@ -21,4 +23,5 @@ class winButtonUpdater:public ButtonUpdater
     )
     :ButtonUpdater(chordButtonsArg,shiftButtonsArg,keyButtonsArg,rightButtonsArg,otherButtonArg,sustainButtonArg){}
     void updateAllButtons() override;
+    void toggleEasyModeFlag(){easyModeFlag = !easyModeFlag;}
 };

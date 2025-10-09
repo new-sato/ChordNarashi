@@ -41,6 +41,10 @@ void allClassManager::mainLoop()
             sdlm.toggleDoOfset();
             sdlm.updateView();
         }
+        if(other_buttons[static_cast<int>(otherButton::EASY_MODE)].getIsPressed() == true)
+        {
+            win_button_updater.toggleEasyModeFlag();
+        }
 
         sustain_pedal_manager.sustainPedalProcess();
         int keydiff = chord_button_manager.updateState();
