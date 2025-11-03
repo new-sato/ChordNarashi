@@ -3,6 +3,10 @@
 void Model::update(const RealButtons& input)
 {
     chord_button_manager.update_state(input);
+
+    auto virtual_chord_buttons = chord_button_manager.getVirtualChordButtons();
+    button_to_chord.updateChord(virtual_chord_buttons);
+
     if(is_right_button_pressed)
     {
         auto now = std::chrono::steady_clock::now();
@@ -14,11 +18,8 @@ void Model::update(const RealButtons& input)
 
 void Model::pressRingButton()
 {
-    auto virtual_chord_buttons = chord_button_manager.getVirtualChordButtons();
     
-    button_to_chord.updateChord(virtual_chord_buttons);
-    
-    auto chord_name = button_to_chord.getChordName();
+    const ChordName& chord_name = button_to_chord.getChordName();
 
     auto notes = chord_to_standard_note.generateNote(chord_name);
 

@@ -51,7 +51,7 @@ public:
     Button2Chord(){};
     void updateChord(const std::set<VirtualChordButton>& pressed_button);
 
-    /// @brief 決定したコードネームを返す。
-    /// @return ChordName型
-    ChordName getChordName() { return chord_name; }
+    /// @brief 決定したコードネームへの参照を返す。
+    /// @return const ChordName&型
+    const ChordName& getChordName() { return chord_name; }
 };
