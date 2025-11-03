@@ -5,6 +5,8 @@
 #include <set>
 #include <string>
 
+#include <functional>
+
 enum class ChordButtonType
 {
     Major,
@@ -49,9 +51,9 @@ struct RealButtons
         std::make_pair(ChordButtonType::sus4, std::vector<bool>(NUM_OF_NOTE, false))
     };
 
-    std::vector<bool> keyButtons= {12,false};
+    std::vector<bool> keyButtons= std::vector<bool>(12,false);
 
-    std::vector<bool> tempShihftButtons = {12, false};
+    std::vector<bool> tempShihftButtons = std::vector<bool>(12,false);
 
     /// @brief すべてのボタンが離されているかどうか調べる
     /// @return すべてのボタンが離れていればtrue
@@ -89,12 +91,24 @@ class ChordButtonManager
 
     /// @brief ぜ前回の更新時、コードぼボタンが押されていたかを見る
     bool no_button_has_been_pressed;
+    
+    /// @brief keyの監視をするやつを登録しておく
+    std::vector<std::function<void(int)>> m_key_observer;
+    void notify_key_change(int key)
+    {
+        for(auto func: m_key_observer)
+        {
+            func(key);
+        }
+    }
 
 public:
     ChordButtonManager() = default;
 
-    // HACK:テストの都合でpublicにしてある。そのうちprivateにする
     void update_state(const RealButtons& input);
+    
+
+
     
     /// @brief キーを直接設定する。11以上なら12で割った剰余の番号のキーに設定される。ただし、キーの変更はコードボタンが押されていないときのみ行われる。
     /// @param new_key 新しいキーを正の整数で指定する。
@@ -112,4 +126,10 @@ public:
     int getKey()const{ return key; }
 
     std::set<VirtualChordButton> getVirtualChordButtons()const;
+    
+
+    void addKeyObserver(std::function<void(int)> observer)
+    {
+        m_key_observer.push_back(observer);
+    }
 };

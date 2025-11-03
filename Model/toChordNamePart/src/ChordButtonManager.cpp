@@ -72,7 +72,7 @@ std::vector<std::string> note_str_map_hoge
 };
 
 
-/// @brief RealChordButtonとshiftButtonをチェックし、virtual_chord_buttonsをアップデートする
+/// @brief RealChordButtonとshiftButtonをチェックし、キーの状態とコードの状態をアップデートする
 void ChordButtonManager::update_state(const RealButtons& input)
 {
     //virtual_chord_buttonsのクリアが必要かどうかを判定し、
