@@ -76,7 +76,6 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
         }
     },
     {
-        // TODO 中身書く
         sus4,
         {
             {0, 7, 12, 17, 19, 24},

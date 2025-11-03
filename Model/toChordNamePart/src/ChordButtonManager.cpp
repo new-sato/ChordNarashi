@@ -4,7 +4,6 @@
 using namespace std;
 
 // HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
-// TODO ここから。VirtualCh9ordButtonのコンストラクタの引数を変更してた
 VirtualChordButton::VirtualChordButton(ChordButtonType type,int button_num, int key)
     :note
     (
@@ -77,7 +76,6 @@ void ChordButtonManager::update_state(const RealButtons& input)
 {
     //virtual_chord_buttonsのクリアが必要かどうかを判定し、
     //no_button_has_been_pressedも更新するための場合分け
-    // TODO is_all_button_releacedの判定に、キーずらしボタンも含める
     if(input.IsAllChordButtonReleased())
     {
         // すべてのボタンが押されていないので、キーのボタンが押されていないかを見る
