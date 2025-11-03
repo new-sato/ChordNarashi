@@ -1,4 +1,4 @@
-#include "Chord2GuitarNote.hpp"
+#include "Chord2StandardNote.hpp"
 #include "map"
 
 std::map<Note, int> RootMidiNums
@@ -118,34 +118,33 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
     },
 };
 
-void Chord2GuitarNote::generateNote()
+NoteSet Chord2StandardNote::generateNote(const ChordName& chord_name)
 {
-    button_2_cohord.updateChord();
-    ChordName chord_name = button_2_cohord.getChordName();
-    
     int root_midi_num = RootMidiNums[chord_name.root_note];
 
-    Notes.clear();
+    NoteSet notes;
 
     if(root_midi_num<=42)
     {
         for(int i: chord_table[chord_name.chord_type][0])
         {
-            Notes.insert(i+root_midi_num);
+            notes.insert(i+root_midi_num);
         }
     }
     else if(root_midi_num<=47)
     {
         for(int i: chord_table[chord_name.chord_type][1])
         {
-            Notes.insert(i+root_midi_num);
+            notes.insert(i+root_midi_num);
         }
     }
     else
     {
         for(int i: chord_table[chord_name.chord_type][2])
         {
-            Notes.insert(i+root_midi_num);
+            notes.insert(i+root_midi_num);
         }
     }
+
+    return notes;
 }

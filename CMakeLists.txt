@@ -10,24 +10,11 @@ project(my_project LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-enable_testing()
 
 # 4. 実行ファイルを作成
 # add_executable(実行ファイル名 ソースファイル1 ソースファイル2 ...)
 add_executable(my_app
     src/main.cpp
-    src/allClassManager.cpp
-    src/Button2Chord.cpp
-    src/ChordButtonManager.cpp
-    src/Chord2GuitarNote.cpp
-    src/GuitarNotePlayer.cpp
-    src/InotePlayer.cpp
-    src/keyButtonChecker.cpp
-    src/oncebutton.cpp
-    src/rightButtonBasic.cpp
-    src/sustainPedalManager.cpp
-    src/winButtonUpdater.cpp
-    src/SDLManager.cpp
     # .hファイルはここに記述する必要はありません
 )
 
@@ -38,4 +25,4 @@ find_package(SDL2_ttf CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 target_link_libraries(my_app PRIVATE SDL2_ttf::SDL2_ttf-static SDL2::SDL2)
 
-add_subdirectory(tests)
+add_subdirectory(./Model)

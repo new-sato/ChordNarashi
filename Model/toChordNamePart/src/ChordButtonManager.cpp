@@ -4,7 +4,8 @@
 using namespace std;
 
 // HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
-VirtualChordButton::VirtualChordButton(int button_num, int key)
+// TODO ここから。VirtualCh9ordButtonのコンストラクタの引数を変更してた
+VirtualChordButton::VirtualChordButton(ChordButtonType type,int button_num, int key)
     :note
     (
         static_cast<Note>
@@ -19,11 +20,10 @@ VirtualChordButton::VirtualChordButton(int button_num, int key)
                     arg = 0,
                     sus = 0
                 };
-                ChordButtonType c = static_cast<ChordButtonType>(button_num / static_cast<int>(Note::end));
 
                 // 五度円上のどこにいるか
-                int loc = (button_num+key) % NUM_OF_NOTE;
-                switch (c)
+                int loc = (button_num + key) % NUM_OF_NOTE;
+                switch (type)
                 {
                 case ChordButtonType::Major:
                     return (loc + FifthLocDiff::Major)%12;
@@ -39,7 +39,7 @@ VirtualChordButton::VirtualChordButton(int button_num, int key)
             }()
         )
     )
-    ,cbt(static_cast<ChordButtonType>(button_num / static_cast<int>(Note::end)))
+    ,cbt(type)
 {    
 }
 
@@ -72,44 +72,25 @@ std::vector<std::string> note_str_map_hoge
 };
 
 
-ChordButtonManager::ChordButtonManager(KeyButtonChecker& k, vector<Button>& real_button_arg, vector<Button>& shift_button_arg)
-    :key_button_checker(k), real_chord_buttons(real_button_arg), shift_buttons(shift_button_arg)
-{
-    virtual_chord_buttons = set<VirtualChordButton>();
-    no_button_has_been_pressed = true;
-}
-
-bool ChordButtonManager::is_all_button_releaced()
-{
-    for(Button b: real_chord_buttons)
-    {
-        if(b.getIsPressed())
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-/// @brief キーの状態をアップデートし、現在のキーを伝える。
-/// @return 新しいキーと古いキーの差分
-int ChordButtonManager::update_vkb_state()
-{
-    int ans = key_button_checker.getKeyButtonState();
-    addKey(ans);
-    return ans;
-}
-
 /// @brief RealChordButtonとshiftButtonをチェックし、virtual_chord_buttonsをアップデートする
-void ChordButtonManager::update_vcb_state()
+void ChordButtonManager::update_state(const RealButtons& input)
 {
     //virtual_chord_buttonsのクリアが必要かどうかを判定し、
     //no_button_has_been_pressedも更新するための場合分け
     // TODO is_all_button_releacedの判定に、キーずらしボタンも含める
-    if(is_all_button_releaced())
+    if(input.IsAllChordButtonReleased())
     {
-        // すべてのボタンが押されていないので、何もする必要がない
+        // すべてのボタンが押されていないので、キーのボタンが押されていないかを見る
+        for(int i=0;i<NUM_OF_NOTE;i++)
+        {
+            if(input.keyButtons[i] == true)
+            {
+                addKey(i);
+            }
+        }
+
         no_button_has_been_pressed = true;
+
         return;
     }
     
@@ -122,35 +103,28 @@ void ChordButtonManager::update_vcb_state()
         temp_shift = 0;
     }
 
-    for(int i=0; i < NUM_OF_CHORD_BUTTON; i++)
+    for(pair<ChordButtonType, vector<bool>> p: input.buttons)
     {
-        if(real_chord_buttons[i].getIsPressed())
+        for(int i=0; i<p.second.size();i++)
         {
-            virtual_chord_buttons.insert(VirtualChordButton(i,key));
+            if(p.second[i])
+            {
+                virtual_chord_buttons.insert(VirtualChordButton(p.first, i, key));
+            }
         }
     }
     for(int i=0; i < NUM_OF_NOTE; i++)
     {
-        if(shift_buttons[i].getIsPressed())
+        if(input.tempShihftButtons[i])
         {
             temp_shift = i;
         }
     }
 }
 
-int::ChordButtonManager::updateState()
-{
-    int ans;
-    ans = update_vkb_state();
-    update_vcb_state();
-    return ans;
-}
 
 int ChordButtonManager::setKey(unsigned int new_key)
 {
-    // ボタンが押されている間は入力を受け付けない
-    if(!is_all_button_releaced()) return key;
-
     if(key != new_key)
     {
         key = new_key % 12;
@@ -171,4 +145,16 @@ std::set<VirtualChordButton> ChordButtonManager::getVirtualChordButtons() const
         vcb_to_return.insert(v.shift(temp_shift));
     }
     return vcb_to_return;
+}
+
+bool RealButtons::IsAllChordButtonReleased()const
+{
+    for(std::pair<ChordButtonType, std::vector<bool>> p: buttons)
+    {
+        for(bool state : p.second)
+        {
+            if(state == true) return false;
+        }
+    }
+    return true;
 }

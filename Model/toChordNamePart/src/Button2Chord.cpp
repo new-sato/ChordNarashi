@@ -5,7 +5,7 @@ using namespace std;
 
 /// @brief コードボタンがひとつしか押されていない時の関数。
 /// @param set_of_chord 
-void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
+void Button2Chord::singleChord(const set<VirtualChordButton>& set_of_chord)
 {
     VirtualChordButton v = *set_of_chord.begin();
     switch(v.cbt)
@@ -31,7 +31,7 @@ void Button2Chord::singleChord(set<VirtualChordButton> set_of_chord)
     chord_name.root_note = v.note;
 }
 
-void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
+void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
 {
     VirtualChordButton vcb1 = *set_of_chord.begin();
     VirtualChordButton vcb2 = *(++(set_of_chord.begin()));
@@ -121,21 +121,20 @@ void Button2Chord::doubleChord(set<VirtualChordButton> set_of_chord)
 }
 
 /// @brief 押されているコードボタンからコードネームを決定し、配下の関数を使ってchord_nameに格納する。
-void Button2Chord::updateChord()
+void Button2Chord::updateChord(const set<VirtualChordButton>& pressed_button)
 {
-    set<VirtualChordButton> pressed_chord = cbm.getVirtualChordButtons();
     // TODO 場合分けを完成させる
-    int num_of_pressed_button = pressed_chord.size();
+    int num_of_pressed_button = pressed_button.size();
     switch (num_of_pressed_button)
     {
     case 0:
         break;
     
     case 1:
-        singleChord(pressed_chord);
+        singleChord(pressed_button);
         break;
     case 2:
-        doubleChord(pressed_chord);
+        doubleChord(pressed_button);
     case 3:
     default:
         break;
