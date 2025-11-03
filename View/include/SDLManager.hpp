@@ -2,7 +2,6 @@
 #include "Iui.hpp"
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_ttf.h>
-#include "enumNote.hpp"
 #include <map>
 #include <vector>
 
@@ -18,9 +17,6 @@ class SDLManager:public iUi
     std::vector<SDL_Texture*> texturesL;
     std::vector<SDL_Texture*> texturesM;
     
-    //HACK 実際には使われてない。
-    Note nowKey = Note::C;
-
     // 表示するときに五度円を回転させるかどうか
     bool doOfset = true;
     int key = 0;

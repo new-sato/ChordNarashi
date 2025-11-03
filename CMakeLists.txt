@@ -18,8 +18,6 @@ add_executable(my_app
     # .hファイルはここに記述する必要はありません
 )
 
-find_package(rtmidi CONFIG REQUIRED)
-target_link_libraries(my_app PRIVATE RtMidi::rtmidi)
 
 
 add_subdirectory(./Model)

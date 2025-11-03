@@ -7,6 +7,7 @@
 
 class Model
 {
+    // TODO 実態ではなくポインタや参照を持つべき
     ChordButtonManager chord_button_manager;
     Button2Chord button_to_chord;
     Chord2StandardNote chord_to_standard_note;
