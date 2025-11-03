@@ -11,8 +11,7 @@ void Model::update(const RealButtons& input)
     {
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<float> duration = (now - m_time_begin_to_press);
-        // TODO std::chronoの型変換をなんとかする
-        standard_note_player.playNote(0.0);
+        standard_note_player.playNote(duration.count());
     }
 }
 
