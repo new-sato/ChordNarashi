@@ -11,7 +11,7 @@ void Model::update(const RealButtons& input)
     {
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<float> duration = (now - m_time_begin_to_press);
-        standard_note_player.playNote(duration.count());
+        note_player->playNote(duration.count());
     }
 }
 
@@ -20,10 +20,10 @@ void Model::pressRingButton()
     
     const ChordName& chord_name = button_to_chord.getChordName();
 
-    auto notes = chord_to_standard_note.generateNote(chord_name);
+    auto notes = chord_to_note->generateNote(chord_name);
 
-    standard_note_player.updateNote(notes);
-    standard_note_player.playNote(0.0);
+    note_player->updateNote(notes);
+    note_player->playNote(0.0);
 
     m_time_begin_to_press = std::chrono::steady_clock::now();
     is_right_button_pressed = true;
@@ -31,6 +31,6 @@ void Model::pressRingButton()
 
 void Model::releaseRingButton()
 {
-    standard_note_player.stopNote();
+    note_player->stopNote();
     is_right_button_pressed = false;
 }
