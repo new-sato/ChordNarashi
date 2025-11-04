@@ -1,10 +1,3 @@
-cmake_minimum_required(VERSION 4.0)
-project(
-    toChordNamePart
-    LANGUAGES CXX
-    DESCRIPTION "コード鳴らしのモデルの部分を担当"    
-)
-
 add_library(toChordNamePart STATIC
     src/Button2Chord.cpp
     src/ChordButtonManager.cpp
