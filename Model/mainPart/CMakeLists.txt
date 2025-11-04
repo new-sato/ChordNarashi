@@ -1,11 +1,3 @@
-cmake_minimum_required(VERSION 4.0)
-
-project(
-    model_main
-    LANGUAGES CXX
-    DESCRIPTION "Modelの中核部"
-)
-
 add_library(
     model_main
     src/Model.cpp

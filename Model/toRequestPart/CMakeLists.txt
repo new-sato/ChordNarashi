@@ -1,10 +1,3 @@
-cmake_minimum_required(VERSION 4.0)
-project(
-    toRequestPart
-    LANGUAGES CXX
-    DESCRIPTION "再生のリクエストを送るところまで"
-)
-
 add_library(toRequestPart
     src/StandardNotePlayer.cpp
 )

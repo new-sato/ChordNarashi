@@ -1,10 +1,3 @@
-cmake_minimum_required(VERSION 4.0)
-project(
-    toNotePart
-    LANGUAGES CXX
-    DESCRIPTION "コード鳴らしのモデルの部分を担当"    
-)
-
 add_library(toNotePart STATIC
     src/Chord2StandardNote.cpp
 )
