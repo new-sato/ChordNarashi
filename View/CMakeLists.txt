@@ -7,7 +7,6 @@ find_package(SDL2 CONFIG REQUIRED)
 target_link_libraries(View PUBLIC SDL2_ttf::SDL2_ttf-static SDL2::SDL2)
 
 find_package(rtmidi CONFIG REQUIRED)
-target_link_libraries(my_app PRIVATE RtMidi::rtmidi)
 
 target_include_directories(View PUBLIC ./include)
 
