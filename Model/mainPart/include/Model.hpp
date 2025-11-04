@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Chord2StandardNote.hpp"
-#include "StandardNotePlayer.hpp"
+#include "INotePlayer.hpp"
 
 #include <chrono>
 #include <memory>
@@ -19,7 +18,7 @@ class Model
     bool is_right_button_pressed = false;
 
 public:
-    Model();
+    Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>);
     void update(const RealButtons&);
 
     void pressRingButton();
