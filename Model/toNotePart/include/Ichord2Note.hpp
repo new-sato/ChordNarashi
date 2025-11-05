@@ -2,7 +2,8 @@
 #include "Button2Chord.hpp"
 #include <set>
 
-using NoteSet = std::set<int>;
+using MidiNoteNum = int;
+using NoteSet = std::set<MidiNoteNum>;
 
 class Ichord2Note
 {
