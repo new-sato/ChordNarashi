@@ -1,6 +1,10 @@
 #include "Model.hpp"
 
-void Model::update(const RealButtons& input)
+Model::Model(std::unique_ptr<Ichord2Note> chord2note, std::unique_ptr<InotePlayer>note_layer)
+:chord_to_note(std::move(chord2note)), note_player(std::move(note_player)) 
+{}
+
+void Model::updateChord(const RealButtons &input)
 {
     chord_button_manager.update_state(input);
 

@@ -1,9 +1,24 @@
-#include "allClassManager.hpp"
-#include <SDL2/SDL.h>
+#include "Controler.hpp"
 
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
+#include "Chord2StandardNote.hpp"
+#include "StandardNotePlayer.hpp"
+
+#include "RtMidiNotePlayer.hpp"
+
+#include "winButtonChecker.hpp"
+
+int main()
 {
-    allClassManager a;
-    a.mainLoop();
-    return 0;
+    Model model(
+        std::make_unique<Chord2StandardNote>(),
+        std::make_unique<StandardNotePlayer>()
+    );
+    
+    RtMidiNotePlayer rtmnp(model);
+    View view(rtmnp);
+
+    winButtonChecker w;
+    
+    Controler c(model, view, w);
+    c.mainLoop();
 }

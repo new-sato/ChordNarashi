@@ -12,7 +12,7 @@ std::vector<unsigned char> MidiNoteOnMessage::message()const
     return ans;
 }
 
-std::vector<unsigned char> MidiNoteOnMessage::message()const
+std::vector<unsigned char> MidiNoteOffMessage::message()const
 {
     std::vector<unsigned char> ans;
     const unsigned char NOTE_ON_MESSAGE = 0x80;

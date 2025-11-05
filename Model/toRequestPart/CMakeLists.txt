@@ -1,4 +1,5 @@
 add_library(toRequestPart
+    src/InotePlayer.cpp
     src/StandardNotePlayer.cpp
 )
 

@@ -18,7 +18,7 @@ add_executable(my_app
     # .hファイルはここに記述する必要はありません
 )
 
-
+target_link_libraries(my_app PRIVATE Controler)
 
 add_subdirectory(./Model)
 add_subdirectory(./View)

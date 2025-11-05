@@ -19,7 +19,7 @@ class Model
 
 public:
     Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>);
-    void update(const RealButtons&);
+    void updateChord(const RealButtons&);
 
     void pressRingButton();
     void releaseRingButton();

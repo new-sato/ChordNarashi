@@ -1,15 +1,10 @@
 #include "RtMidiNotePlayer.hpp"
 
-RtMidiNotePlayer::RtMidiNotePlayer(Model& model)
+RtMidiNotePlayer::RtMidiNotePlayer(Model& model):IMidiNotePlayer(model)
 {
     init();
-    model.addPlayObserver
-    (
-        [this](const NotePlayInformation& arg)
-        {
-            this->updatePlayingNote(arg);
-        }
-    );
+    
+    // HACK これって基底クラスで呼べないの？
 }
 
 void RtMidiNotePlayer::init()
@@ -54,19 +49,23 @@ void RtMidiNotePlayer::init()
     }
 }
 
-
+/// @brief ノートの再生、停止を担う
+/// @param note_play_info 
+/// HACK これってView経由で呼ばれた方がいいんじゃない？
 void RtMidiNotePlayer::updatePlayingNote(
     const NotePlayInformation &note_play_info)
 {
     for(MidiNoteNum to_start: note_play_info.note_to_start)
     {
         MidiNoteOnMessage start_message(to_start);
-        midiOut.sendMessage(&start_message.message());
+        auto m = start_message.message();
+        midiOut.sendMessage(&m);
     }
     
     for(MidiNoteNum to_end: note_play_info.note_to_end)
     {
         MidiNoteOffMessage end_message(to_end);
-        midiOut.sendMessage(&end_message.message());
+        auto m = end_message.message();
+        midiOut.sendMessage(&m);
     }
 }

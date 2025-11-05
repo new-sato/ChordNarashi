@@ -18,6 +18,8 @@ struct RealButtons
         std::make_pair(ChordButtonType::sus4, std::vector<bool>(NUM_OF_NOTE, false))
     };
 
+    std::vector<bool> keyButtons= std::vector<bool>(12,false);
+
     std::vector<bool> tempShihftButtons = std::vector<bool>(12,false);
 
     /// @brief すべてのボタンが離されているかどうか調べる

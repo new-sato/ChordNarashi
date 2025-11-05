@@ -28,7 +28,15 @@ void ChordButtonManager::update_state(const RealButtons& input)
     //no_button_has_been_pressedも更新するための場合分け
     if(input.IsAllChordButtonReleased())
     {
-        // すべてのボタンが押されていないので、何もしない
+        // すべてのボタンが押されていないので、キーのボタンが押されていないかを見る
+        for(int i=0;i<NUM_OF_NOTE;i++)
+        {
+            if(input.keyButtons[i] == true)
+            {
+                addKey(i);
+            }
+        }
+
         no_button_has_been_pressed = true;
 
         return;
