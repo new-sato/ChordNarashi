@@ -19,4 +19,5 @@ void StandardNotePlayer::playNote(float time)
 void StandardNotePlayer::stopNote()
 {
     notifyPlaying(NotePlayInformation({}, {}, m_note_played));
+    m_note_played.clear();
 }
