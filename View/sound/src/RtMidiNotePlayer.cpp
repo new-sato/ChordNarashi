@@ -1,5 +1,16 @@
 #include "RtMidiNotePlayer.hpp"
 
+RtMidiNotePlayer::RtMidiNotePlayer(Model& model)
+{
+    init();
+    model.addPlayObserver
+    (
+        [this](const NotePlayInformation& arg)
+        {
+            this->updatePlayingNote(arg);
+        }
+    );
+}
 
 void RtMidiNotePlayer::init()
 {
@@ -40,5 +51,22 @@ void RtMidiNotePlayer::init()
     {
         std::cout << "MIDIポートの作成に失敗しました。" << std::endl;
         std::exit(EXIT_FAILURE);
+    }
+}
+
+
+void RtMidiNotePlayer::updatePlayingNote(
+    const NotePlayInformation &note_play_info)
+{
+    for(MidiNoteNum to_start: note_play_info.note_to_start)
+    {
+        MidiNoteOnMessage start_message(to_start);
+        midiOut.sendMessage(&start_message.message());
+    }
+    
+    for(MidiNoteNum to_end: note_play_info.note_to_end)
+    {
+        MidiNoteOffMessage end_message(to_end);
+        midiOut.sendMessage(&end_message.message());
     }
 }

@@ -13,6 +13,6 @@ class RtMidiNotePlayer:public IMidiNotePlayer
     void init();
 
     public:
-    RtMidiNotePlayer();
-    void playNote(const NotePlayInformation&) override;
+    RtMidiNotePlayer(Model&);
+    void updatePlayingNote(const NotePlayInformation&) override;
 };
