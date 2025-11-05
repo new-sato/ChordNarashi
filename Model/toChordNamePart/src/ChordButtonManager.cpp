@@ -101,7 +101,7 @@ void ChordButtonManager::update_state(const RealButtons& input)
         temp_shift = 0;
     }
 
-    for(pair<ChordButtonType, vector<bool>> p: input.buttons)
+    for(pair<ChordButtonType, vector<bool>> p: input.chordButtons)
     {
         for(int i=0; i<p.second.size();i++)
         {
@@ -123,6 +123,7 @@ void ChordButtonManager::update_state(const RealButtons& input)
 
 int ChordButtonManager::setKey(unsigned int new_key)
 {
+    if(!no_button_has_been_pressed) return key;
     if(key != new_key)
     {
         key = new_key % 12;
@@ -147,7 +148,7 @@ std::set<VirtualChordButton> ChordButtonManager::getVirtualChordButtons() const
 
 bool RealButtons::IsAllChordButtonReleased()const
 {
-    for(std::pair<ChordButtonType, std::vector<bool>> p: buttons)
+    for(std::pair<ChordButtonType, std::vector<bool>> p: chordButtons)
     {
         for(bool state : p.second)
         {
