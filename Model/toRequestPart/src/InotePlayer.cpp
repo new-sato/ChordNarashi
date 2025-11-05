@@ -7,3 +7,9 @@ void InotePlayer::notifyPlaying(const NotePlayInformation& info)
         f(info);
     }
 }
+
+void InotePlayer::addPlayObserver(
+    std::function<void(const NotePlayInformation &)> arg)
+{
+    m_PlayObservers.push_back(arg);
+}

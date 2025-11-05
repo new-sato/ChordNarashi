@@ -29,4 +29,6 @@ class InotePlayer
     virtual void updateNote(const NoteSet& note_to_play){m_note_to_play = note_to_play;};
     virtual void playNote(float time) = 0;
     virtual void stopNote() = 0;
+    
+    void addPlayObserver(std::function<void(const NotePlayInformation&)> arg);
 };

@@ -23,6 +23,7 @@ void Model::pressRingButton()
     auto notes = chord_to_note->generateNote(chord_name);
 
     note_player->updateNote(notes);
+    // 鳴らし始めなので0.0を指定
     note_player->playNote(0.0);
 
     m_time_begin_to_press = std::chrono::steady_clock::now();
@@ -33,4 +34,9 @@ void Model::releaseRingButton()
 {
     note_player->stopNote();
     is_right_button_pressed = false;
+}
+
+void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg)
+{
+    note_player->addPlayObserver(arg);
 }
