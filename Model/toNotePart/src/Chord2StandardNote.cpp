@@ -1,7 +1,7 @@
 #include "Chord2StandardNote.hpp"
 #include "map"
 
-std::map<Note, int> RootMidiNums
+std::map<Note, MidiNoteNum> RootMidiNums
 {
     {Note::E,40},
     {Note::F,41},
@@ -119,7 +119,7 @@ std::map<ChordType,std::vector<std::set<int>>> chord_table
 
 NoteSet Chord2StandardNote::generateNote(const ChordName& chord_name)
 {
-    int root_midi_num = RootMidiNums[chord_name.root_note];
+    MidiNoteNum root_midi_num = RootMidiNums[chord_name.root_note];
 
     NoteSet notes;
 
