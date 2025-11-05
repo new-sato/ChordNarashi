@@ -3,56 +3,6 @@
 
 using namespace std;
 
-// HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
-VirtualChordButton::VirtualChordButton(ChordButtonType type,int button_num, int key)
-    :note
-    (
-        static_cast<Note>
-        (
-            [=]() -> int
-            {
-                enum FifthLocDiff
-                {
-                    Major = 0,
-                    minor = 3,
-                    dim = 5,
-                    arg = 0,
-                    sus = 0
-                };
-
-                // 五度円上のどこにいるか
-                int loc = (button_num + key) % NUM_OF_NOTE;
-                switch (type)
-                {
-                case ChordButtonType::Major:
-                    return (loc + FifthLocDiff::Major)%12;
-                    break;
-                case ChordButtonType::minor:
-                    return (loc + FifthLocDiff::minor)%12;
-                case ChordButtonType::dim:
-                    return (loc + FifthLocDiff::dim)%12;
-                default:
-                    return loc;
-                    break;
-                }
-            }()
-        )
-    )
-    ,cbt(type)
-{    
-}
-
-VirtualChordButton VirtualChordButton::shift(unsigned int shift_diff)
-{
-    int note_int = static_cast<int>(note);
-    Note shifted_note = static_cast<Note>((note_int + shift_diff)%12);
-    return VirtualChordButton(cbt, shifted_note);
-}
-
-int VirtualChordButton::ButtonNum()const
-{
-    return static_cast<int>(cbt)*12 + static_cast<int>(note);
-}
 
 std::vector<std::string> note_str_map_hoge
 {
@@ -78,15 +28,7 @@ void ChordButtonManager::update_state(const RealButtons& input)
     //no_button_has_been_pressedも更新するための場合分け
     if(input.IsAllChordButtonReleased())
     {
-        // すべてのボタンが押されていないので、キーのボタンが押されていないかを見る
-        for(int i=0;i<NUM_OF_NOTE;i++)
-        {
-            if(input.keyButtons[i] == true)
-            {
-                addKey(i);
-            }
-        }
-
+        // すべてのボタンが押されていないので、何もしない
         no_button_has_been_pressed = true;
 
         return;

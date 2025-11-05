@@ -1,4 +1,5 @@
 add_library(toChordNamePart STATIC
+    src/VirtualChordButtons.cpp
     src/Button2Chord.cpp
     src/ChordButtonManager.cpp
 )
