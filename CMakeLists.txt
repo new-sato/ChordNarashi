@@ -22,3 +22,4 @@ add_executable(my_app
 
 add_subdirectory(./Model)
 add_subdirectory(./View)
+add_subdirectory(./Controler)
