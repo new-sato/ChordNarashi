@@ -41,6 +41,7 @@ void Controler::mainLoop()
             return (d_time < 5);
         }()
     );
+    m_button_checker.checkButtons();
     auto hoge = m_button_checker.getChordRelatedButtons();
     m_model.updateChord(hoge);
     processRingButton();

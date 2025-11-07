@@ -10,8 +10,8 @@ class Model
     // TODO 実態ではなくポインタや参照を持つべき
     ChordButtonManager chord_button_manager;
     Button2Chord button_to_chord;
-    std::unique_ptr<Ichord2Note> chord_to_note;
-    std::unique_ptr <InotePlayer> note_player;
+    std::unique_ptr<Ichord2Note> m_chord_to_note;
+    std::unique_ptr<InotePlayer> m_note_player;
 
     std::chrono::steady_clock::time_point m_time_begin_to_press;
     

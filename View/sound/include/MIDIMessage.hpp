@@ -6,7 +6,7 @@ using MidiChannelNum = unsigned char;
 /// @brief ノートの再生、停止に必要な情報をまとめる
 struct MidiMessage
 {
-    MidiChannelNum midi_channel_num;
+    MidiChannelNum midi_channel_num = 0;
     
     /// @brief 構造体からメッセージのビット列を作成
     /// @return 
@@ -21,7 +21,7 @@ struct MidiNoteOnMessage: public MidiMessage
     MidiNoteOnMessage(
         MidiNoteNum note_number_arg,
         unsigned char velocity_arg=100
-    ):note_number(note_number), velocity(velocity_arg){};
+    ):note_number(note_number_arg), velocity(velocity_arg){};
     
     std::vector<unsigned char> message() const;
 };
@@ -34,6 +34,6 @@ struct MidiNoteOffMessage: public MidiMessage
     MidiNoteOffMessage(
         MidiNoteNum note_number_arg,
         unsigned char velocity_arg=100
-    ):note_number(note_number), velocity(velocity_arg){};
+    ):note_number(note_number_arg), velocity(velocity_arg){};
     std::vector<unsigned char> message() const;
 };

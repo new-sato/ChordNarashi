@@ -9,9 +9,10 @@
 
 int main()
 {
+    std::unique_ptr<StandardNotePlayer> hoge = std::make_unique<StandardNotePlayer>();
     Model model(
         std::make_unique<Chord2StandardNote>(),
-        std::make_unique<StandardNotePlayer>()
+        std::move(hoge)
     );
     
     RtMidiNotePlayer rtmnp(model);
@@ -20,5 +21,5 @@ int main()
     winButtonChecker w;
     
     Controler c(model, view, w);
-    c.mainLoop();
+    while(true)c.mainLoop();
 }

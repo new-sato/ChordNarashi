@@ -58,7 +58,7 @@ void RtMidiNotePlayer::updatePlayingNote(
     for(MidiNoteNum to_start: note_play_info.note_to_start)
     {
         MidiNoteOnMessage start_message(to_start);
-        auto m = start_message.message();
+        std::vector<unsigned char> m = start_message.message();
         midiOut.sendMessage(&m);
     }
     
