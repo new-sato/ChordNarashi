@@ -1,3 +1,3 @@
 add_subdirectory(mainPart)
-add_subdirectory(sound)
-add_subdirectory(ui)
+add_subdirectory(MidiPlayer)
+add_subdirectory(Display)

@@ -33,7 +33,7 @@ Controler::Controler(Model &model, View &view, IButtonChecker &button_checker)
 
 void Controler::startLoop()
 {
-    while(!m_button_checker.isExitButtonPressed())
+    while(!m_button_checker.isExitButtonPressed()&&!m_view.stopLoop())
     {
         mainOneLoop();
     }

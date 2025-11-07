@@ -4,10 +4,11 @@
 #include "StandardNotePlayer.hpp"
 
 #include "RtMidiNotePlayer.hpp"
+#include "SDLManager.hpp"
 
 #include "winButtonChecker.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {
     std::unique_ptr<StandardNotePlayer> hoge = std::make_unique<StandardNotePlayer>();
     Model model(
@@ -15,11 +16,14 @@ int main()
         std::move(hoge)
     );
     
+
     RtMidiNotePlayer rtmnp(model);
-    View view(rtmnp);
+    SDLManager sdlm;
+    View view(rtmnp, sdlm);
 
     winButtonChecker w;
-    
     Controler c(model, view, w);
+
     c.startLoop();
+    return 0;
 }
