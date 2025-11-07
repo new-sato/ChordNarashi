@@ -1,3 +1,5 @@
+#pragma once
+
 class iUi
 {
     /// @brief 新しいキーの情報を受け取り、画面上の表示を更新する
