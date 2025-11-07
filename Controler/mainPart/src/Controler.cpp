@@ -31,7 +31,15 @@ Controler::Controler(Model &model, View &view, IButtonChecker &button_checker)
     loop_start = chrono::steady_clock::now();
 }
 
-void Controler::mainLoop()
+void Controler::startLoop()
+{
+    while(!m_button_checker.isExitButtonPressed())
+    {
+        mainOneLoop();
+    }
+}
+
+void Controler::mainOneLoop()
 {
     while(
         [=]() -> bool

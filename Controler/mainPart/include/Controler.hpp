@@ -14,9 +14,13 @@ class Controler
     std::chrono::steady_clock::time_point loop_start;
     
     bool has_ring_button_pressed;
+    bool continue_loop = true;
     void processRingButton();
+    
+    /// @brief ループ1回で行われる処理
+    void mainOneLoop();
     
 public:
     Controler(Model&, View&, IButtonChecker&);
-    void mainLoop();
+    void startLoop();
 };

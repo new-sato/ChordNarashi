@@ -5,6 +5,9 @@
 
 class winButtonChecker:public IButtonChecker
 {
+    /// @brief キーボードのボタンがおされているかチェックする
+    /// @param key 押されているかどうか確認するキーの番号
+    /// @return キーが押されていればtrue
     bool checkButton(int key);
     
     void updateChordButtons()override;
@@ -14,4 +17,5 @@ class winButtonChecker:public IButtonChecker
     void updateModeButtons()override{}
 public:
     bool isRingButtonPressed()override;
+    bool isExitButtonPressed()override;
 };

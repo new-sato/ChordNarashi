@@ -21,5 +21,5 @@ int main()
     winButtonChecker w;
     
     Controler c(model, view, w);
-    while(true)c.mainLoop();
+    c.startLoop();
 }
