@@ -12,14 +12,18 @@ SDLManager::SDLManager()
 
 bool SDLManager::initialize()
 {
-    
-    int sdlResult= SDL_Init(SDL_INIT_VIDEO);
-    if(sdlResult < 0)
-    
+    if(!SDL_Init(SDL_INIT_VIDEO))
     {
         SDL_Log("SDLを初期化できません");
         return false;
     }
+    
+    if(!TTF_Init())
+    {
+        SDL_Log("TTF_Init Error");
+        return false;
+    }
+
     mWindow = SDL_CreateWindow(
         "TEST",
         windowWidth,
@@ -50,7 +54,6 @@ SDLManager::~SDLManager()
     SDL_Quit();
 }
 
-/// @brief 表示までを行う
 void SDLManager::updateDisplay()
 {
     SDL_SetRenderDrawColor(
