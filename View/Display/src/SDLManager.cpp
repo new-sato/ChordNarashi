@@ -1,6 +1,8 @@
 #include "SDLManager.hpp"
 #include "cmath"
 #include <string>
+#include <algorithm>
+
 
 SDLManager::SDLManager()
 {
@@ -8,6 +10,11 @@ SDLManager::SDLManager()
     {
         exit(1);
     }
+}
+
+void SDLManager::addRendererToDraw(const SDLTextureData &input)
+{
+    m_textures.push_back(input);
 }
 
 bool SDLManager::initialize()
@@ -64,8 +71,15 @@ void SDLManager::updateDisplay()
         255
     );
 
+    // 塗りつぶし
     SDL_RenderClear(mRenderer);
 
+    std::sort(m_textures.begin(), m_textures.end());
+    for(SDLTextureData s: m_textures)
+    {
+        SDL_RenderTexture(mRenderer, s.getTexture(), NULL, &s.getRect());
+    }
+    
     SDL_RenderPresent(mRenderer);
 
 }

@@ -1,27 +1,9 @@
 #pragma once
 #include "Idisplay.hpp"
-#include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include "SDLCharacterManager.hpp"
 #include <memory>
-#include <queue>
+#include <vector>
 
-/// @brief テクスチャのデータとサイズ、描画位置をまとめたもの
-class SDLTextureData
-{
-    std::unique_ptr<SDL_Texture> m_texture;
-    SDL_FRect m_destRect;
-    int m_priority;
-
-    bool operator<(const SDLTextureData&);
-
-public:
-    SDLTextureData(
-        std::unique_ptr<SDL_Texture> texture,
-        float x,
-        float y,
-        int priority
-    );
-};
 
 class SDLManager:public Idisplay
 {
@@ -31,8 +13,7 @@ class SDLManager:public Idisplay
     int windowHight = 500;
 
     SDL_Event event;
-    
-    std::priority_queue<SDLTextureData,std::vector<SDLTextureData>> hoge;
+    std::vector<SDLTextureData> m_textures;
 
     public:
     SDLManager();
@@ -44,6 +25,10 @@ class SDLManager:public Idisplay
     void updateDisplay()override;
     
     bool is_x_button_pressed()override;
+    
+    /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
+    /// @param input 描画したいデータ
+    void addRendererToDraw(const SDLTextureData& input);
 
     bool initialize();
     
