@@ -9,3 +9,5 @@ find_package(SDL3 CONFIG REQUIRED)
 find_package(SDL3_ttf CONFIG REQUIRED)
 target_link_libraries(Display PRIVATE SDL3::SDL3)
 target_link_libraries(Display PRIVATE $<IF:$<TARGET_EXISTS:SDL3_ttf::SDL3_ttf>,SDL3_ttf::SDL3_ttf,SDL3_ttf::SDL3_ttf-static>)
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
