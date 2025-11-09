@@ -29,7 +29,7 @@ SDL_Texture *SDLCharacterManager::generateCharaTexture
     {
         return textureCash[index];
     }
-    // TODO テクスチャを生成し、キャッシュに追加
+    // テクスチャを生成し、キャッシュに追加
     if(!fonts.contains(font_size))
     {
         TTF_Font* f = TTF_OpenFont(font_name.c_str(),font_size);

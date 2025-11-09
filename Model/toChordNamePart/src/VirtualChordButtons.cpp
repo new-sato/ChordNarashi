@@ -1,6 +1,5 @@
 #include "VirtualChordButton.hpp"
 
-// HACK ラムダ式ではなくヘルパー関数として実装したほうがテストしやすくて無難か
 VirtualChordButton::VirtualChordButton(ChordButtonType type,int button_num, int key)
     :note
     (

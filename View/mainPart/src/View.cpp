@@ -2,17 +2,16 @@
 
 View::View(IMidiNotePlayer& midi_note_player, Idisplay& display):
     m_midi_note_player(midi_note_player),
-    m_display(display)
+    m_UI(UI(display))
 {
 }
 
-void View::updateView(std::chrono::duration<double>)
+void View::updateView(std::chrono::milliseconds d_time)
 {
-    m_display.displayCharacter("test", 20, {0,0});
-    m_display.updateDisplay();
+    m_UI.updateUI(d_time);
 }
 
 bool View::stopLoop()
 {
-    return m_display.is_x_button_pressed();
+    return m_UI.get_x_button_pressed();
 }
