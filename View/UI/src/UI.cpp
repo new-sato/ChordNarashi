@@ -18,6 +18,7 @@ UI::UI(Idisplay &display) : m_display(display)
 
 void UI::updateUI(chrono::milliseconds d_time)
 {
+    m_chara_data_to_display.clear();
     for(auto b:m_blocks)
     {
         b.updateBlock(d_time);

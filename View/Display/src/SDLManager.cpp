@@ -91,6 +91,8 @@ void SDLManager::updateDisplay()
     }
     
     SDL_RenderPresent(mRenderer);
+    
+    m_textures.clear();
 
 }
 
