@@ -65,7 +65,9 @@ SDLManager::~SDLManager()
 void SDLManager::displayCharacter(std::string str, int font_size, Location l)
 {
     SDL_Texture* t = character_manager.generateCharaTexture(str, font_size);
-    SDLTextureData d(t, l.x, l.y, 0);
+    int x = l.x*(windowWidth/2) + windowWidth/2;
+    int y = l.y*(windowHight/2) + windowHight/2;
+    SDLTextureData d(t, x, y, 0);
     addTextureToDraw(d);
 }
 
