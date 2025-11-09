@@ -46,6 +46,7 @@ void Controler::mainOneLoop()
         auto now_time = std::chrono::steady_clock::now();
         d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start);
     }while(d_time.count() < 5);
+    loop_start = std::chrono::steady_clock::now();
     m_button_checker.checkButtons();
     auto hoge = m_button_checker.getChordRelatedButtons();
     m_model.updateChord(hoge);
