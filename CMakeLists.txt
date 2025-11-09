@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE Debug)
 project(my_project LANGUAGES CXX)
 
 # 3. 使用するC++の標準を指定 (例: C++17)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 

@@ -41,16 +41,14 @@ void Controler::startLoop()
 
 void Controler::mainOneLoop()
 {
-    while(
-        [=]() -> bool
-        {
-            auto now_time = std::chrono::steady_clock::now();
-            auto d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start).count();
-            return (d_time < 5);
-        }()
-    );
+    std::chrono::milliseconds d_time;
+    do{
+        auto now_time = std::chrono::steady_clock::now();
+        d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start);
+    }while(d_time.count() < 5);
     m_button_checker.checkButtons();
     auto hoge = m_button_checker.getChordRelatedButtons();
     m_model.updateChord(hoge);
+    m_view.updateView(d_time);
     processRingButton();
 }

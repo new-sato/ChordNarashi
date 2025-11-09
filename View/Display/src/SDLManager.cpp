@@ -1,6 +1,8 @@
 #include "SDLManager.hpp"
 #include "cmath"
 #include <string>
+#include <algorithm>
+
 
 SDLManager::SDLManager()
 {
@@ -8,18 +10,28 @@ SDLManager::SDLManager()
     {
         exit(1);
     }
+    character_manager = SDLCharacterManager(mRenderer);
+}
+
+void SDLManager::addTextureToDraw(const SDLTextureData &input)
+{
+    m_textures.push_back(input);
 }
 
 bool SDLManager::initialize()
 {
-    
-    int sdlResult= SDL_Init(SDL_INIT_VIDEO);
-    if(sdlResult < 0)
-    
+    if(!SDL_Init(SDL_INIT_VIDEO))
     {
         SDL_Log("SDLを初期化できません");
         return false;
     }
+    
+    if(!TTF_Init())
+    {
+        SDL_Log("TTF_Init Error");
+        return false;
+    }
+
     mWindow = SDL_CreateWindow(
         "TEST",
         windowWidth,
@@ -50,7 +62,15 @@ SDLManager::~SDLManager()
     SDL_Quit();
 }
 
-/// @brief 表示までを行う
+void SDLManager::displayCharacter(std::string str, int font_size, Location l)
+{
+    SDL_Texture* t = character_manager.generateCharaTexture(str, font_size);
+    int x = l.x*(windowWidth/2) + windowWidth/2;
+    int y = l.y*(windowHight/2) + windowHight/2;
+    SDLTextureData d(t, x, y, 0);
+    addTextureToDraw(d);
+}
+
 void SDLManager::updateDisplay()
 {
     SDL_SetRenderDrawColor(
@@ -61,8 +81,15 @@ void SDLManager::updateDisplay()
         255
     );
 
+    // 塗りつぶし
     SDL_RenderClear(mRenderer);
 
+    std::sort(m_textures.begin(), m_textures.end());
+    for(SDLTextureData s: m_textures)
+    {
+        SDL_RenderTexture(mRenderer, s.getTexture(), NULL, &s.getRect());
+    }
+    
     SDL_RenderPresent(mRenderer);
 
 }

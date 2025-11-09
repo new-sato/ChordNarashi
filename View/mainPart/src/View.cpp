@@ -8,6 +8,7 @@ View::View(IMidiNotePlayer& midi_note_player, Idisplay& display):
 
 void View::updateView(std::chrono::duration<double>)
 {
+    m_display.displayCharacter("test", 20, {0,0});
     m_display.updateDisplay();
 }
 
