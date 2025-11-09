@@ -15,9 +15,17 @@ class SDLManager:public Idisplay
     SDL_Event event;
     std::vector<SDLTextureData> m_textures;
 
+    SDLCharacterManager character_manager = NULL;
+
+    /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
+    /// @param input 描画したいデータ
+    void addTextureToDraw(const SDLTextureData& input);
+
     public:
     SDLManager();
     ~SDLManager();
+    
+    void displayCharacter(std::string str, int font_size, Location l);
     
     // TODO テクスチャの管理をどうするか決める
 
@@ -26,9 +34,6 @@ class SDLManager:public Idisplay
     
     bool is_x_button_pressed()override;
     
-    /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
-    /// @param input 描画したいデータ
-    void addRendererToDraw(const SDLTextureData& input);
 
     bool initialize();
     

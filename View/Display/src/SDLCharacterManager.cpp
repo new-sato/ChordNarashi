@@ -41,7 +41,7 @@ SDL_Texture *SDLCharacterManager::generateCharaTexture
     return textTexture;
 }
 
-bool CashIndex::operator<(const CashIndex &rh)
+bool CashIndex::operator<(const CashIndex &rh)const
 {
     if(size!=rh.size)
     {

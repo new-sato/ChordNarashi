@@ -12,3 +12,8 @@ SDLTextureData::SDLTextureData(
     m_destRect.x = x_arg - m_destRect.w/2;
     m_destRect.y = y_arg - m_destRect.h/2;
 }
+
+bool SDLTextureData::operator<(const SDLTextureData &rh)const
+{
+    return m_priority < rh.m_priority;
+}

@@ -10,9 +10,10 @@ SDLManager::SDLManager()
     {
         exit(1);
     }
+    character_manager = SDLCharacterManager(mRenderer);
 }
 
-void SDLManager::addRendererToDraw(const SDLTextureData &input)
+void SDLManager::addTextureToDraw(const SDLTextureData &input)
 {
     m_textures.push_back(input);
 }
@@ -59,6 +60,13 @@ SDLManager::~SDLManager()
     SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
+}
+
+void SDLManager::displayCharacter(std::string str, int font_size, Location l)
+{
+    SDL_Texture* t = character_manager.generateCharaTexture(str, font_size);
+    SDLTextureData d(t, l.x, l.y, 0);
+    addTextureToDraw(d);
 }
 
 void SDLManager::updateDisplay()

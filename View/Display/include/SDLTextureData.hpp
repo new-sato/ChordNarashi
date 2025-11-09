@@ -9,7 +9,6 @@ class SDLTextureData
     /// @brief テクスチャの優先度。数字が大きいほうが優先度が高い(最後に描画される)
     int m_priority;
     
-    bool operator<(const SDLTextureData&);
 
 public:
     
@@ -28,6 +27,5 @@ public:
     SDL_Texture* getTexture()const{return m_texture;}
     const SDL_FRect& getRect()const{return m_destRect;}
     
-    /// @brief コピーコンストラクタ
-    SDLTextureData(const SDLTextureData&);
+    bool operator<(const SDLTextureData&)const;
 };

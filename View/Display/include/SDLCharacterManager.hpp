@@ -1,6 +1,5 @@
 #pragma once
 #include "SDLTextureData.hpp"
-#include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
 #include <string>
@@ -10,7 +9,7 @@ struct CashIndex
 {
     int size;
     std::string str;
-    bool operator<(const CashIndex& rh);
+    bool operator<(const CashIndex& rh)const;
     CashIndex(int size_arg, std::string str_arg):size(size_arg), str(str_arg){}
 };
 
@@ -22,7 +21,7 @@ class SDLCharacterManager
     SDL_Renderer* m_renderer;
     std::map<int, TTF_Font*> fonts;
     
-    const std::string font_name = "Amble-Regular.ttf";
+    std::string font_name = "Amble-Regular.ttf";
 
 public:
     SDLCharacterManager(SDL_Renderer* renderer);
