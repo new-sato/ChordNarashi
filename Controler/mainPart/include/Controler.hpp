@@ -15,7 +15,6 @@ class Controler
     
     bool has_ring_button_pressed;
     bool continue_loop = true;
-    void processRingButton();
     
     /// @brief ループ1回で行われる処理
     void mainOneLoop();
