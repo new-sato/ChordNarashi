@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     RtMidiNotePlayer rtmnp(model);
     SDLManager sdlm;
-    View view(rtmnp, sdlm);
+    View view(rtmnp, sdlm, model);
 
     winButtonChecker w;
     Controler c(model, view, w);

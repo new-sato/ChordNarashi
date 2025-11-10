@@ -62,11 +62,11 @@ SDLManager::~SDLManager()
     SDL_Quit();
 }
 
-void SDLManager::displayCharacter(std::string str, int font_size, Location l)
+void SDLManager::displayCharacter(const charaData& input)
 {
-    SDL_Texture* t = character_manager.generateCharaTexture(str, font_size);
-    int x = l.x*(windowWidth/2) + windowWidth/2;
-    int y = l.y*(windowHight/2) + windowHight/2;
+    SDL_Texture* t = character_manager.generateCharaTexture(input.str, input.font_size);
+    int x = input.x*(windowWidth/2) + windowWidth/2;
+    int y = input.y*(windowHight/2) + windowHight/2;
     SDLTextureData d(t, x, y, 0);
     addTextureToDraw(d);
 }
@@ -91,6 +91,8 @@ void SDLManager::updateDisplay()
     }
     
     SDL_RenderPresent(mRenderer);
+    
+    m_textures.clear();
 
 }
 

@@ -3,6 +3,8 @@
 #include <string>
 #include <chrono>
 
+#include "charaData.hpp"
+
 /// @brief 画面中心を0とした時の位置。1を限界値としておこう
 struct Location
 {
@@ -21,5 +23,5 @@ public:
     /// @return 押されていたらtrue
     virtual bool is_x_button_pressed()=0;
     
-    virtual void displayCharacter(std::string str, int font_size, Location l) = 0;
+    virtual void displayCharacter(const charaData&) = 0;
 };

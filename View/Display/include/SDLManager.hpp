@@ -25,10 +25,8 @@ class SDLManager:public Idisplay
     SDLManager();
     ~SDLManager();
     
-    void displayCharacter(std::string str, int font_size, Location l);
+    void displayCharacter(const charaData&)override;
     
-    // TODO テクスチャの管理をどうするか決める
-
     /// @brief 現在のレンダラを描画する
     void updateDisplay()override;
     
