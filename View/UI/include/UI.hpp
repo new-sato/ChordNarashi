@@ -1,13 +1,14 @@
 #include "Idisplay.hpp"
 #include "Block.hpp"
 #include "KeyBlock.hpp"
+#include <memory>
 
 class UI
 {
     Idisplay& m_display;
     
     std::vector<charaData> m_chara_data_to_display;
-    std::vector<Block> m_blocks;
+    std::vector<std::unique_ptr<Block>> m_blocks;
 
     void registCharacter();
     std::vector<std::string> m_key_str = {"C", "G", "D", "A", "E", "B", "Fs", "Df", "Af", "Ef", "Bf", "F"};

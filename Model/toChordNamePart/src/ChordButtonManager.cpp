@@ -74,7 +74,7 @@ void ChordButtonManager::update_state(const RealButtons& input)
 int ChordButtonManager::setKey(unsigned int new_key)
 {
     if(!no_button_has_been_pressed) return key;
-    notify_key_change(new_key);
+    notify_key_change(new_key%12);
     if(key != new_key)
     {
         key = new_key % 12;
