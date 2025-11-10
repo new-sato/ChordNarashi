@@ -2,7 +2,7 @@
 
 bool SustainTimingManager::mustStopNote()
 {
-    return is_button_NOW_pressed;
+    return is_button_NOW_pressed||is_sustain_button_NOW_pressed;
 }
 
 bool SustainTimingManager::mustStartNote()
