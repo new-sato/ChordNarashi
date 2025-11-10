@@ -3,6 +3,10 @@
 class IringButtonTimingManager
 {
 protected:
+    bool is_sustain_button_pressed = false;
+    bool is_sustain_button_NOW_pressed = false;
+    bool is_sustain_button_NOW_released = false;
+
     bool is_button_pressed = false;
     bool is_button_NOW_released = false;
     bool is_button_NOW_pressed = false;
@@ -11,6 +15,5 @@ public:
     virtual bool mustStartNote() = 0;
     virtual bool mustSustainNote() = 0;
 
-    void setButtonState(bool state);
-    bool get_is_button_pressed(){return is_button_pressed;}
+    void setButtonState(bool ring_button_state, bool sustain_button);
 };

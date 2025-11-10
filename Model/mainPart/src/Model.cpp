@@ -20,9 +20,9 @@ void Model::updateChord(const RealButtons &input)
 
 }
 
-void Model::processRingButtonState(bool is_ring_button_pressed)
+void Model::processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed)
 {
-    m_ring_button_timing_mng->setButtonState(is_ring_button_pressed);
+    m_ring_button_timing_mng->setButtonState(is_ring_button_pressed, is_sustain_button_pressed);
 
     if(m_ring_button_timing_mng->mustStopNote())
     {

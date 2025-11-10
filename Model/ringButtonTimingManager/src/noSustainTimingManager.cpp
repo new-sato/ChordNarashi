@@ -2,7 +2,15 @@
 
 bool noSustainTimingManager::mustStopNote()
 {
-    return is_button_NOW_released;
+    if(is_button_NOW_released&&(!is_sustain_button_pressed))
+    {
+        return true;
+    }
+    else if(is_sustain_button_NOW_released&&(!is_button_pressed))
+    {
+        return true;
+    }
+    else return is_button_NOW_pressed;// 重複して複数のコードを鳴らさないように
 }
 
 bool noSustainTimingManager::mustStartNote()
@@ -11,5 +19,5 @@ bool noSustainTimingManager::mustStartNote()
 }
 
 bool noSustainTimingManager::mustSustainNote(){
-    return is_button_pressed&&(!is_button_NOW_pressed);
+    return (is_button_pressed||is_sustain_button_pressed)&&(!is_button_NOW_pressed);
 }

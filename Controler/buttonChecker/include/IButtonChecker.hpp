@@ -19,5 +19,6 @@ public:
     void checkButtons();
     const RealButtons& getChordRelatedButtons()const{return m_real_buttons;}
     virtual bool isRingButtonPressed() = 0;
+    virtual bool isSustainButtonPressed() = 0;
     virtual bool isExitButtonPressed() = 0;
 };

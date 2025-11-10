@@ -28,7 +28,7 @@ class Model
 public:
     Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>, std::unique_ptr<IringButtonTimingManager>);
     void updateChord(const RealButtons&);
-    void processRingButtonState(bool is_ring_button_pressed);
+    void processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed);
 
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);

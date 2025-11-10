@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     Model model(
         std::make_unique<Chord2StandardNote>(),
         std::make_unique<StandardNotePlayer>(),
-        std::make_unique<SustainTimingManager>()
+        std::make_unique<noSustainTimingManager>()
     );
     
 
