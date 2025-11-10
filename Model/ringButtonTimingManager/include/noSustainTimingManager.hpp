@@ -1,6 +1,7 @@
+#pragma once
 #include "IringButtonTimingManager.hpp"
 
-class noSustainTimingManager:IringButtonTimingManager
+class noSustainTimingManager:public IringButtonTimingManager
 {
 public:
     noSustainTimingManager() = default;
