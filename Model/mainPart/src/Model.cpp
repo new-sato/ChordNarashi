@@ -44,3 +44,8 @@ void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg
 {
     m_note_player->addPlayObserver(arg);
 }
+
+void Model::addKeyObserver(std::function<void(int)>func)
+{
+    chord_button_manager.addKeyObserver(func);
+}

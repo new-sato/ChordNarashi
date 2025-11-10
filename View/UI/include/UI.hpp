@@ -1,5 +1,6 @@
 #include "Idisplay.hpp"
 #include "Block.hpp"
+#include "KeyBlock.hpp"
 
 class UI
 {
@@ -7,11 +8,13 @@ class UI
     
     std::vector<charaData> m_chara_data_to_display;
     std::vector<Block> m_blocks;
-    
+
     void registCharacter();
+    std::vector<std::string> m_key_str = {"C", "G", "D", "A", "E", "B", "Fs", "Df", "Af", "Ef", "Bf", "F"};
+
 
 public:
-    UI(Idisplay& display);
+    UI(Idisplay& display, Model& model);
     bool get_x_button_pressed()const{return m_display.is_x_button_pressed();}
     
     /// @brief UIの表示を更新する

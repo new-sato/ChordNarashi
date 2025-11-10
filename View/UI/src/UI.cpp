@@ -10,10 +10,9 @@ void UI::registCharacter()
     }
 }
 
-UI::UI(Idisplay &display) : m_display(display)
+UI::UI(Idisplay &display, Model& model) : m_display(display)
 {
-    //TODO テスト用
-    m_blocks.push_back(Block(2.0, 1.0, 0, 0));
+    m_blocks.push_back(Block(2,1,0,0));
 }
 
 void UI::updateUI(chrono::milliseconds d_time)

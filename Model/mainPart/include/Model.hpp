@@ -24,4 +24,5 @@ public:
     void releaseRingButton();
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
+    void addKeyObserver(std::function<void(int)>);
 };

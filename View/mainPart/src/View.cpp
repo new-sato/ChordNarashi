@@ -1,8 +1,8 @@
 #include "View.hpp"
 
-View::View(IMidiNotePlayer& midi_note_player, Idisplay& display):
+View::View(IMidiNotePlayer& midi_note_player, Idisplay& display, Model& m):
     m_midi_note_player(midi_note_player),
-    m_UI(UI(display))
+    m_UI(UI(display, m))
 {
 }
 

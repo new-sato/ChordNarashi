@@ -1,3 +1,4 @@
+#pragma once
 #include<vector>
 #include <chrono>
 #include "charaData.hpp"
@@ -6,6 +7,7 @@
 /// @brief 表示するエリアの一部分
 class Block
 {
+protected:
     /// @brief ウィンドウ全体から見た時の幅
     double base_size;
 
@@ -15,7 +17,7 @@ class Block
     double y;
     
     //TODO テスト用　後で治す
-    std::vector<charaDataInBlock> m_chara_to_display = {charaDataInBlock(0, 0, 24,"NULL BLOCK")};
+    std::vector<charaDataInBlock> m_chara_to_display;
 
 public:
     virtual void updateBlock(std::chrono::milliseconds){return;};
