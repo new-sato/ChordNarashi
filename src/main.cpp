@@ -1,6 +1,7 @@
 #include "Controler.hpp"
 
 #include "noSustainTimingManager.hpp"
+#include "SustainTimingManager.hpp"
 
 #include "Chord2StandardNote.hpp"
 #include "StandardNotePlayer.hpp"
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
     Model model(
         std::make_unique<Chord2StandardNote>(),
         std::make_unique<StandardNotePlayer>(),
-        std::make_unique<noSustainTimingManager>()
+        std::make_unique<SustainTimingManager>()
     );
     
 
