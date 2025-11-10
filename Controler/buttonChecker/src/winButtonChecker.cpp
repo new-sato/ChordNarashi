@@ -55,6 +55,11 @@ bool winButtonChecker::isRingButtonPressed()
     return checkButton('K');
 }
 
+bool winButtonChecker::isSustainButtonPressed()
+{
+    return checkButton(VK_SPACE);
+}
+
 bool winButtonChecker::isExitButtonPressed()
 {
     return checkButton(VK_ESCAPE);

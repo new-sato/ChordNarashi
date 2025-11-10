@@ -2,29 +2,6 @@
 
 using namespace std;
 
-void Controler::processRingButton()
-{
-    if(has_ring_button_pressed)
-    {
-        // さっきから押されてた場合
-        if(!m_button_checker.isRingButtonPressed())
-        {
-            // ちょうどはなされた場合
-            has_ring_button_pressed = false;
-            m_model.releaseRingButton();
-        }
-    }
-    else
-    {
-        if(m_button_checker.isRingButtonPressed())
-        {
-            // ちょうど今押され始めた場合
-            has_ring_button_pressed = true;
-            m_model.pressRingButton();
-        }
-    }
-}
-
 Controler::Controler(Model &model, View &view, IButtonChecker &button_checker)
     : m_model(model), m_view(view), m_button_checker(button_checker)
 {
@@ -49,6 +26,6 @@ void Controler::mainOneLoop()
     m_button_checker.checkButtons();
     auto hoge = m_button_checker.getChordRelatedButtons();
     m_model.updateChord(hoge);
+    m_model.processRingButtonState(m_button_checker.isRingButtonPressed(), m_button_checker.isSustainButtonPressed());
     m_view.updateView(d_time);
-    processRingButton();
 }

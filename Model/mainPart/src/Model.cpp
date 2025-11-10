@@ -1,8 +1,15 @@
 #include "Model.hpp"
 
-Model::Model(std::unique_ptr<Ichord2Note> chord2note, std::unique_ptr<InotePlayer>note_player)
-:m_chord_to_note(std::move(chord2note)), m_note_player(std::move(note_player)) 
-{}
+Model::Model
+(   std::unique_ptr<Ichord2Note>chord2note,
+    std::unique_ptr<InotePlayer>note_player,
+    std::unique_ptr<IringButtonTimingManager> rbtm
+):
+    m_chord_to_note(std::move(chord2note)),
+    m_note_player(std::move(note_player)),
+    m_ring_button_timing_mng(std::move(rbtm))
+{
+}
 
 void Model::updateChord(const RealButtons &input)
 {
@@ -11,15 +18,27 @@ void Model::updateChord(const RealButtons &input)
     auto virtual_chord_buttons = chord_button_manager.getVirtualChordButtons();
     button_to_chord.updateChord(virtual_chord_buttons);
 
-    if(is_right_button_pressed)
+}
+
+void Model::processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed)
+{
+    m_ring_button_timing_mng->setButtonState(is_ring_button_pressed, is_sustain_button_pressed);
+
+    if(m_ring_button_timing_mng->mustStopNote())
     {
-        auto now = std::chrono::steady_clock::now();
-        std::chrono::duration<float> duration = (now - m_time_begin_to_press);
-        m_note_player->playNote(duration.count());
+        stopRingingNote();
+    }
+    if(m_ring_button_timing_mng->mustStartNote())
+    {
+        startRingingNote();
+    }
+    else if(m_ring_button_timing_mng->mustSustainNote())
+    {
+        sustainRingingNote();
     }
 }
 
-void Model::pressRingButton()
+void Model::startRingingNote()
 {
     
     const ChordName& chord_name = button_to_chord.getChordName();
@@ -31,13 +50,18 @@ void Model::pressRingButton()
     m_note_player->playNote(0.0);
 
     m_time_begin_to_press = std::chrono::steady_clock::now();
-    is_right_button_pressed = true;
 }
 
-void Model::releaseRingButton()
+void Model::sustainRingingNote()
+{
+    auto now = std::chrono::steady_clock::now();
+    std::chrono::duration<float> duration = (now - m_time_begin_to_press);
+    m_note_player->playNote(duration.count());
+}
+
+void Model::stopRingingNote()
 {
     m_note_player->stopNote();
-    is_right_button_pressed = false;
 }
 
 void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg)

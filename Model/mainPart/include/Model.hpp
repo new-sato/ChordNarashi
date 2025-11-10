@@ -1,13 +1,14 @@
 #pragma once
 
 #include "INotePlayer.hpp"
+#include "IringButtonTimingManager.hpp"
 
 #include <chrono>
 #include <memory>
 
 class Model
 {
-    // TODO 実態ではなくポインタや参照を持つべき
+    std::unique_ptr<IringButtonTimingManager> m_ring_button_timing_mng;
     ChordButtonManager chord_button_manager;
     Button2Chord button_to_chord;
     std::unique_ptr<Ichord2Note> m_chord_to_note;
@@ -15,14 +16,20 @@ class Model
 
     std::chrono::steady_clock::time_point m_time_begin_to_press;
     
-    bool is_right_button_pressed = false;
+    /// @brief ボタンが押され始めた時に呼び出される。ここで初めてノートが生成される
+    void startRingingNote();
+    
+    /// @brief ボタンが押され続けているときに呼ばれる
+    void sustainRingingNote();
+
+    /// @brief ボタンが離されたときに呼ばれる
+    void stopRingingNote();
 
 public:
-    Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>);
+    Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>, std::unique_ptr<IringButtonTimingManager>);
     void updateChord(const RealButtons&);
+    void processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed);
 
-    void pressRingButton();
-    void releaseRingButton();
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
 };
