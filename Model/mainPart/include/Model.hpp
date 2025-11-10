@@ -16,21 +16,20 @@ class Model
 
     std::chrono::steady_clock::time_point m_time_begin_to_press;
     
-public:
-    Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>, std::unique_ptr<IringButtonTimingManager>);
-    void updateChord(const RealButtons&);
-    void updateRingButtonState(bool is_ring_button_pressed);
-
     /// @brief ボタンが押され始めた時に呼び出される。ここで初めてノートが生成される
     void startRingingNote();
     
     /// @brief ボタンが押され続けているときに呼ばれる
-    /// 削除
-    void continueRingingNote();
+    void sustainRingingNote();
 
     /// @brief ボタンが離されたときに呼ばれる
-    /// 削除
     void stopRingingNote();
+
+public:
+    Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>, std::unique_ptr<IringButtonTimingManager>);
+    void updateChord(const RealButtons&);
+    void processRingButtonState(bool is_ring_button_pressed);
+
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
 };

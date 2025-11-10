@@ -1,5 +1,7 @@
 #include "Controler.hpp"
 
+#include "noSustainTimingManager.hpp"
+
 #include "Chord2StandardNote.hpp"
 #include "StandardNotePlayer.hpp"
 
@@ -7,13 +9,14 @@
 #include "SDLManager.hpp"
 
 #include "winButtonChecker.hpp"
+#include <memory>
 
 int main(int argc, char *argv[])
 {
-    std::unique_ptr<StandardNotePlayer> hoge = std::make_unique<StandardNotePlayer>();
     Model model(
         std::make_unique<Chord2StandardNote>(),
-        std::move(hoge)
+        std::make_unique<StandardNotePlayer>(),
+        std::make_unique<noSustainTimingManager>()
     );
     
 

@@ -1,7 +1,10 @@
 #include "Model.hpp"
 
-Model::Model(std::unique_ptr<Ichord2Note>chord2note, std::unique_ptr<InotePlayer>note_player,
-             std::unique_ptr<IringButtonTimingManager> rbtm):
+Model::Model
+(   std::unique_ptr<Ichord2Note>chord2note,
+    std::unique_ptr<InotePlayer>note_player,
+    std::unique_ptr<IringButtonTimingManager> rbtm
+):
     m_chord_to_note(std::move(chord2note)),
     m_note_player(std::move(note_player)),
     m_ring_button_timing_mng(std::move(rbtm))
@@ -17,9 +20,22 @@ void Model::updateChord(const RealButtons &input)
 
 }
 
-void Model::updateRingButtonState(bool is_ring_button_pressed)
+void Model::processRingButtonState(bool is_ring_button_pressed)
 {
     m_ring_button_timing_mng->setButtonState(is_ring_button_pressed);
+
+    if(m_ring_button_timing_mng->mustStopNote())
+    {
+        stopRingingNote();
+    }
+    if(m_ring_button_timing_mng->mustStartNote())
+    {
+        startRingingNote();
+    }
+    else if(m_ring_button_timing_mng->mustSustainNote())
+    {
+        sustainRingingNote();
+    }
 }
 
 void Model::startRingingNote()
@@ -36,7 +52,7 @@ void Model::startRingingNote()
     m_time_begin_to_press = std::chrono::steady_clock::now();
 }
 
-void Model::continueRingingNote()
+void Model::sustainRingingNote()
 {
     auto now = std::chrono::steady_clock::now();
     std::chrono::duration<float> duration = (now - m_time_begin_to_press);

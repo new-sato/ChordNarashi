@@ -1,3 +1,5 @@
+#pragma once
+
 class IringButtonTimingManager
 {
 protected:
@@ -7,6 +9,7 @@ protected:
 public:
     virtual bool mustStopNote() = 0;
     virtual bool mustStartNote() = 0;
+    virtual bool mustSustainNote() = 0;
 
     void setButtonState(bool state);
     bool get_is_button_pressed(){return is_button_pressed;}

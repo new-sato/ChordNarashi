@@ -26,6 +26,6 @@ void Controler::mainOneLoop()
     m_button_checker.checkButtons();
     auto hoge = m_button_checker.getChordRelatedButtons();
     m_model.updateChord(hoge);
-    m_model.updateRingButtonState(m_button_checker.isRingButtonPressed());
+    m_model.processRingButtonState(m_button_checker.isRingButtonPressed());
     m_view.updateView(d_time);
 }

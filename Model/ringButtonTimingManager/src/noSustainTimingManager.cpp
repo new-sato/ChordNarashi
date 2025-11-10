@@ -9,3 +9,7 @@ bool noSustainTimingManager::mustStartNote()
 {
     return is_button_NOW_pressed;
 }
+
+bool noSustainTimingManager::mustSustainNote(){
+    return is_button_pressed&&(!is_button_NOW_pressed);
+}
