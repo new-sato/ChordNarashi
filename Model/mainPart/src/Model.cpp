@@ -1,8 +1,12 @@
 #include "Model.hpp"
 
-Model::Model(std::unique_ptr<Ichord2Note> chord2note, std::unique_ptr<InotePlayer>note_player)
-:m_chord_to_note(std::move(chord2note)), m_note_player(std::move(note_player)) 
-{}
+Model::Model(std::unique_ptr<Ichord2Note>chord2note, std::unique_ptr<InotePlayer>note_player,
+             std::unique_ptr<IringButtonTimingManager> rbtm):
+    m_chord_to_note(std::move(chord2note)),
+    m_note_player(std::move(note_player)),
+    m_ring_button_timing_mng(std::move(rbtm))
+{
+}
 
 void Model::updateChord(const RealButtons &input)
 {
@@ -11,6 +15,11 @@ void Model::updateChord(const RealButtons &input)
     auto virtual_chord_buttons = chord_button_manager.getVirtualChordButtons();
     button_to_chord.updateChord(virtual_chord_buttons);
 
+}
+
+void Model::updateRingButtonState(bool is_ring_button_pressed)
+{
+    m_ring_button_timing_mng->setButtonState(is_ring_button_pressed);
 }
 
 void Model::startRingingNote()
