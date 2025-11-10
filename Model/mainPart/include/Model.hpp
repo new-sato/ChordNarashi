@@ -15,14 +15,18 @@ class Model
 
     std::chrono::steady_clock::time_point m_time_begin_to_press;
     
-    bool is_right_button_pressed = false;
-
 public:
     Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>);
     void updateChord(const RealButtons&);
 
-    void pressRingButton();
-    void releaseRingButton();
+    /// @brief ボタンが押され始めた時に呼び出される。ここで初めてノートが生成される
+    void startRingingNote();
+    
+    /// @brief ボタンが押され続けているときに呼ばれる
+    void continueRingingNote();
+
+    /// @brief ボタンが離されたときに呼ばれる
+    void stopRingingNote();
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
 };

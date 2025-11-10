@@ -11,15 +11,9 @@ void Model::updateChord(const RealButtons &input)
     auto virtual_chord_buttons = chord_button_manager.getVirtualChordButtons();
     button_to_chord.updateChord(virtual_chord_buttons);
 
-    if(is_right_button_pressed)
-    {
-        auto now = std::chrono::steady_clock::now();
-        std::chrono::duration<float> duration = (now - m_time_begin_to_press);
-        m_note_player->playNote(duration.count());
-    }
 }
 
-void Model::pressRingButton()
+void Model::startRingingNote()
 {
     
     const ChordName& chord_name = button_to_chord.getChordName();
@@ -31,13 +25,18 @@ void Model::pressRingButton()
     m_note_player->playNote(0.0);
 
     m_time_begin_to_press = std::chrono::steady_clock::now();
-    is_right_button_pressed = true;
 }
 
-void Model::releaseRingButton()
+void Model::continueRingingNote()
+{
+    auto now = std::chrono::steady_clock::now();
+    std::chrono::duration<float> duration = (now - m_time_begin_to_press);
+    m_note_player->playNote(duration.count());
+}
+
+void Model::stopRingingNote()
 {
     m_note_player->stopNote();
-    is_right_button_pressed = false;
 }
 
 void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg)

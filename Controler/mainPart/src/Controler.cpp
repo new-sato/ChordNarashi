@@ -2,8 +2,10 @@
 
 using namespace std;
 
+// TODO この処理をモデル側のクラスとして独立させたい
 void Controler::processRingButton()
 {
+    
     if(has_ring_button_pressed)
     {
         // さっきから押されてた場合
@@ -11,7 +13,11 @@ void Controler::processRingButton()
         {
             // ちょうどはなされた場合
             has_ring_button_pressed = false;
-            m_model.releaseRingButton();
+            m_model.stopRingingNote();
+        }
+        else
+        {
+            m_model.continueRingingNote();
         }
     }
     else
@@ -20,7 +26,7 @@ void Controler::processRingButton()
         {
             // ちょうど今押され始めた場合
             has_ring_button_pressed = true;
-            m_model.pressRingButton();
+            m_model.startRingingNote();
         }
     }
 }
