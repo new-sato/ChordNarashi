@@ -1,5 +1,6 @@
 add_library(
     ButtonChecker STATIC 
+    src/OnceButton.cpp
     src/IButtonChecker.cpp
     src/winButtonChecker.cpp
 )
