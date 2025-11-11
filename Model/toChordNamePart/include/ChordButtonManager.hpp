@@ -18,8 +18,6 @@ struct RealButtons
         std::make_pair(ChordButtonType::sus4, std::vector<bool>(NUM_OF_NOTE, false))
     };
 
-    std::vector<bool> keyButtons= std::vector<bool>(12,false);
-
     std::vector<bool> tempShihftButtons = std::vector<bool>(12,false);
 
     /// @brief すべてのボタンが離されているかどうか調べる
@@ -45,13 +43,7 @@ class ChordButtonManager
     
     /// @brief keyの監視をするやつを登録しておく
     std::vector<std::function<void(int)>> m_key_observer;
-    void notify_key_change(int key)
-    {
-        for(auto func: m_key_observer)
-        {
-            func(key);
-        }
-    }
+    void notify_key_change(int key);
 
 public:
     ChordButtonManager() = default;
