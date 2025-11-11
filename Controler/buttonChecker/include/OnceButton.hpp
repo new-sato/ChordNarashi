@@ -3,7 +3,9 @@
 class OnceButton
 {
     bool m_has_button_pressed = false;
+    bool m_button_state = false;
     
 public:
-    bool updateAndGetState(bool is_button_pressed);
+    void setState(bool is_button_pressed);
+    bool getState(){return m_button_state;}
 };
