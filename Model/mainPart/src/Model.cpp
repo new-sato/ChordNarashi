@@ -20,6 +20,15 @@ void Model::updateChord(const RealButtons &input)
 
 }
 
+void Model::updateKey(std::vector<bool> input)
+{
+    for(int i = 0; i< input.size();i++)
+    {
+        if(input[i]==true)
+            chord_button_manager.addKey(i);
+    }
+}
+
 void Model::processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed)
 {
     m_ring_button_timing_mng->setButtonState(is_ring_button_pressed, is_sustain_button_pressed);

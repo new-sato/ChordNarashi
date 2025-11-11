@@ -26,21 +26,15 @@ void ChordButtonManager::update_state(const RealButtons& input)
 {
     //virtual_chord_buttonsのクリアが必要かどうかを判定し、
     //no_button_has_been_pressedも更新するための場合分け
-    if(input.IsAllChordButtonReleased())
+    for(int i=0;i<NUM_OF_NOTE;i++)
     {
-        // すべてのボタンが押されていないので、キーのボタンが押されていないかを見る
-        for(int i=0;i<NUM_OF_NOTE;i++)
+        if(input.keyButtons[i] == true)
         {
-            if(input.keyButtons[i] == true)
-            {
-                addKey(i);
-            }
+            addKey(i);
         }
-
-        no_button_has_been_pressed = true;
-
-        return;
     }
+
+    no_button_has_been_pressed = true;
     
     if(no_button_has_been_pressed == true)
     {
@@ -73,7 +67,6 @@ void ChordButtonManager::update_state(const RealButtons& input)
 
 int ChordButtonManager::setKey(unsigned int new_key)
 {
-    if(!no_button_has_been_pressed) return key;
     notify_key_change(new_key%12);
     if(key != new_key)
     {

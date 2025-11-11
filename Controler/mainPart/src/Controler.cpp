@@ -25,7 +25,7 @@ void Controler::mainOneLoop()
     }while(d_time.count() < 5);
     loop_start = std::chrono::steady_clock::now();
     m_button_checker.checkButtons();
-    auto hoge = m_button_checker.getChordRelatedButtons();
+    m_model.updateKey(m_button_checker.getKeyButtonState());
     m_model.updateChord(m_button_checker.getChordRelatedButtons());
     m_model.processRingButtonState(m_button_checker.isRingButtonPressed(), m_button_checker.isSustainButtonPressed());
     m_view.updateView(d_time);
