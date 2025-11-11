@@ -44,10 +44,10 @@ void winButtonChecker::updateShiftButtons()
 
 void winButtonChecker::updateKeyButtons()
 {
-    m_real_buttons.keyButtons[7] = (checkButton(VK_RIGHT)||checkButton('L'));
-    m_real_buttons.keyButtons[5] = (checkButton(VK_LEFT)||checkButton('J'));
-    m_real_buttons.keyButtons[1] = (checkButton(VK_UP)||checkButton('M'));
-    m_real_buttons.keyButtons[11] = (checkButton(VK_DOWN)||checkButton('O'));
+    m_keyButtons[1].setState(checkButton(VK_RIGHT)||checkButton('L'));
+    m_keyButtons[11].setState(checkButton(VK_LEFT)||checkButton('J'));
+    m_keyButtons[7].setState(checkButton(VK_UP)||checkButton('O'));
+    m_keyButtons[5].setState(checkButton(VK_DOWN)||checkButton('M'));
 }
 
 bool winButtonChecker::isRingButtonPressed()

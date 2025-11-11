@@ -7,5 +7,5 @@ class OnceButton
     
 public:
     void setState(bool is_button_pressed);
-    bool getState(){return m_button_state;}
+    bool getState()const{return m_button_state;}
 };
