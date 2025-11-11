@@ -1,5 +1,6 @@
 add_library(toNotePart STATIC
     src/Chord2StandardNote.cpp
+    src/Ichord2Note.cpp
 )
 
 target_link_libraries(toNotePart PUBLIC toChordNamePart)
