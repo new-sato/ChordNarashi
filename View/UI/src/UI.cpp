@@ -12,7 +12,7 @@ void UI::registCharacter()
 
 UI::UI(Idisplay &display, Model& model) : m_display(display)
 {
-    m_blocks.push_back(std::make_unique<KeyBlock>(m_key_str,model));
+    m_blocks.push_back(std::make_unique<KeyBlock>(*this,model));
 }
 
 void UI::updateUI(chrono::milliseconds d_time)
