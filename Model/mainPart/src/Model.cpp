@@ -52,7 +52,7 @@ void Model::startRingingNote()
     
     const ChordName& chord_name = button_to_chord.getChordName();
 
-    auto notes = m_chord_to_note->generateNote(chord_name);
+    auto notes = m_chord_to_note->processNote(chord_name);
 
     m_note_player->updateNote(notes);
     // 鳴らし始めなので0.0を指定
@@ -81,4 +81,9 @@ void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg
 void Model::addKeyObserver(std::function<void(int)>func)
 {
     chord_button_manager.addKeyObserver(func);
+}
+
+void Model::addRingingChordObserver(std::function<void(const ChordName &)>func)
+{
+    m_chord_to_note->addRingingChordObserver(func);
 }
