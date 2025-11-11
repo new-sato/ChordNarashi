@@ -4,10 +4,13 @@
 
 #include <string>
 
+class UI;
+
 class CurrentChordBlock:public Block
 {
-    const std::vector<std::string>& m_key_str;
+    const UI& m_ui;
+    void changeRingingChord(const ChordName&);
 public:
-    CurrentChordBlock(const std::vector<std::string>&, Model&);
+    CurrentChordBlock(const UI&, Model&);
     void updateBlock(std::chrono::milliseconds)override;
 };
