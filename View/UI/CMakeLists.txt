@@ -2,6 +2,7 @@ add_library(UI STATIC
     src/UI.cpp
     src/Block.cpp
     src/KeyBlock.cpp
+    src/CurrentChordBlock.cpp
 )
 
 target_include_directories(UI PUBLIC ./include)
