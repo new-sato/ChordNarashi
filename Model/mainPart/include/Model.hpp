@@ -34,4 +34,5 @@ public:
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
     void addKeyObserver(std::function<void(int)>);
+    void addRingingChordObserver(std::function<void(const ChordName&)>);
 };

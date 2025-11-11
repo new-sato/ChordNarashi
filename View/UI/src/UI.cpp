@@ -1,4 +1,6 @@
 #include "UI.hpp"
+#include "KeyBlock.hpp"
+#include "CurrentChordBlock.hpp"
 
 using namespace std;
 
@@ -13,6 +15,7 @@ void UI::registCharacter()
 UI::UI(Idisplay &display, Model& model) : m_display(display)
 {
     m_blocks.push_back(std::make_unique<KeyBlock>(*this,model));
+    m_blocks.push_back(std::make_unique<CurrentChordBlock>(*this,model));
 }
 
 void UI::updateUI(chrono::milliseconds d_time)
