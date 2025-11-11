@@ -14,6 +14,9 @@ void Controler::startLoop()
     {
         mainOneLoop();
     }
+    
+    // ループが終わったので処理を止める
+    m_model.stopRingingNote();
 }
 
 void Controler::mainOneLoop()

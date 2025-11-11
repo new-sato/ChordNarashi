@@ -22,8 +22,6 @@ class Model
     /// @brief ボタンが押され続けているときに呼ばれる
     void sustainRingingNote();
 
-    /// @brief ボタンが離されたときに呼ばれる
-    void stopRingingNote();
 
 public:
     Model(std::unique_ptr<Ichord2Note>, std::unique_ptr<InotePlayer>, std::unique_ptr<IringButtonTimingManager>);
@@ -31,6 +29,8 @@ public:
     void updateKey(std::vector<bool>);
     void processRingButtonState(bool is_ring_button_pressed, bool is_sustain_button_pressed);
 
+    /// @brief 鳴らされている音を止める。処理の終了時に読んでやる必要があるのでpublic
+    void stopRingingNote();
     
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
     void addKeyObserver(std::function<void(int)>);
