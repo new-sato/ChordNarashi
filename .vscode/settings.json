@@ -89,6 +89,7 @@
         "bitset": "cpp",
         "coroutine": "cpp",
         "list": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "xhash": "cpp"
     }
 }

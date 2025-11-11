@@ -20,21 +20,22 @@ std::vector<std::string> note_str_map_hoge
     "F"
 };
 
+void ChordButtonManager::notify_key_change(int key)
+{
+    for(auto func: m_key_observer)
+    {
+        func(key);
+    }
+}
 
 /// @brief RealChordButtonとshiftButtonをチェックし、キーの状態とコードの状態をアップデートする
 void ChordButtonManager::update_state(const RealButtons& input)
 {
-    //virtual_chord_buttonsのクリアが必要かどうかを判定し、
-    //no_button_has_been_pressedも更新するための場合分け
-    for(int i=0;i<NUM_OF_NOTE;i++)
+    if(input.IsAllChordButtonReleased())
     {
-        if(input.keyButtons[i] == true)
-        {
-            addKey(i);
-        }
+        no_button_has_been_pressed = true;
+        return;
     }
-
-    no_button_has_been_pressed = true;
     
     if(no_button_has_been_pressed == true)
     {
