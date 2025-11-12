@@ -12,6 +12,8 @@ protected:
 
     std::vector<OnceButton> m_keyButtons = std::vector<OnceButton>(12);
 
+    
+
     virtual void updateChordButtons()=0;
     virtual void updateShiftButtons()=0;
     virtual void updateKeyButtons()=0;

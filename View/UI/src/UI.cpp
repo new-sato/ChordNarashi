@@ -6,6 +6,25 @@
 
 using namespace std;
 
+KeySignatureMode& operator++(KeySignatureMode& mode)
+{
+    switch (mode)
+    {
+    case KeySignatureMode::STANDARD:
+        return mode = KeySignatureMode::ALL_FLAT;
+        break;
+    case KeySignatureMode::ALL_FLAT:
+        return mode = KeySignatureMode::ALL_SHARP;
+        break;
+    case KeySignatureMode::ALL_SHARP:
+        return mode = KeySignatureMode::STANDARD;
+        break;
+    default:
+        return mode = KeySignatureMode::STANDARD;
+        break;
+    }
+}
+
 void UI::registCharacter()
 {
     for(auto c:m_chara_data_to_display)
@@ -50,6 +69,12 @@ std::string UI::getChordNameStr(const ChordName &input)const
     ans.append(chord_type_str);
     
     return ans;
+}
+
+void UI::toggleSharpFlat()
+{
+    ++m_key_signature_mode;
+    m_key_str = m_key_str_table[m_key_signature_mode];
 }
 
 void UI::updateUI(chrono::milliseconds d_time)
