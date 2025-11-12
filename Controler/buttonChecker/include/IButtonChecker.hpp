@@ -12,6 +12,7 @@ protected:
 
     std::vector<OnceButton> m_keyButtons = std::vector<OnceButton>(12);
 
+    OnceButton m_signature_mode_button;
     
 
     virtual void updateChordButtons()=0;
@@ -24,6 +25,7 @@ public:
     
     const RealButtons& getChordRelatedButtons()const{return m_real_buttons;}
     std::vector<bool> getKeyButtonState()const;
+    bool getSignatureModeButtonState()const{return m_signature_mode_button.getState();}
 
     virtual bool isRingButtonPressed() = 0;
     virtual bool isSustainButtonPressed() = 0;

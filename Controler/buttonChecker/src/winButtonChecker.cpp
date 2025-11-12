@@ -50,6 +50,11 @@ void winButtonChecker::updateKeyButtons()
     m_keyButtons[5].setState(checkButton(VK_DOWN)||checkButton('M'));
 }
 
+void winButtonChecker::updateModeButtons()
+{
+    m_signature_mode_button.setState(checkButton('0'));
+}
+
 bool winButtonChecker::isRingButtonPressed()
 {
     return checkButton('K');

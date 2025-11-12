@@ -31,5 +31,8 @@ void Controler::mainOneLoop()
     m_model.updateKey(m_button_checker.getKeyButtonState());
     m_model.updateChord(m_button_checker.getChordRelatedButtons());
     m_model.processRingButtonState(m_button_checker.isRingButtonPressed(), m_button_checker.isSustainButtonPressed());
+
+    if(m_button_checker.getSignatureModeButtonState())m_view.toggleSharpFlat();
+
     m_view.updateView(d_time);
 }

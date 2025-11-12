@@ -15,5 +15,5 @@ public:
     /// @return ウィンドウを閉じるならtrue
     bool stopLoop();
 
-    void toggleSharpFlat();
+    void toggleSharpFlat(){m_UI.toggleSharpFlat();}
 };
