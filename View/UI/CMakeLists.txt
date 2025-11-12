@@ -3,6 +3,7 @@ add_library(UI STATIC
     src/Block.cpp
     src/KeyBlock.cpp
     src/CurrentChordBlock.cpp
+    src/DisplayCircleBlock.cpp
 )
 
 target_include_directories(UI PUBLIC ./include)
