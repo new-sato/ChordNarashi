@@ -20,6 +20,8 @@ public:
     
     const std::vector<std::string> get_key_str()const{return m_key_str;}
     
+    std::string getChordNameStr(const ChordName&)const;
+    
     /// @brief UIの表示を更新する
     /// @param d_time 前回の更新からの経過時間　
     void updateUI(std::chrono::milliseconds d_time);

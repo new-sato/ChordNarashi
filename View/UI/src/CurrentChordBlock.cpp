@@ -5,33 +5,9 @@
 
 using namespace std;
 
-std::map<ChordType, string> chord_type_table = {
-    {Major, ""},
-    {minor,"m"},
-    {dim, "dim"},
-    {arg, "arg"},
-    {sus4, "sus4"},
-    {sev, "7"},
-    {Msev,"M7"},
-    {msev,"m7"},
-    {mMsev,"mM7"},
-    {dimsev,"dim7"},
-    {argsev,"arg7"},
-    {sevsus4,"7sus4"},
-    {Msevsus4, "M7sus4"},
-    {add9, "add9"},
-};
-
 void CurrentChordBlock::setRingingChordName(const ChordName &input)
 {
-    string ans;
-    std::string root_note_str = m_ui.get_key_str()[static_cast<int>(input.root_note)];
-    ans.append(root_note_str);
-    
-    std::string chord_type_str = chord_type_table[input.chord_type];
-    ans.append(chord_type_str);
-    
-    m_ringing_chord_name = ans;
+    m_ringing_chord_name = m_ui.getChordNameStr(input);
 }
 
 void CurrentChordBlock::changeRingingChord(const ChordName &input)
