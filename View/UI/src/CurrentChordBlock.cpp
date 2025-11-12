@@ -5,17 +5,17 @@
 
 using namespace std;
 
-void CurrentChordBlock::setRingingChordName(const ChordName &input)
+void RingingChordBlock::setRingingChordName(const ChordName &input)
 {
     m_ringing_chord_name = m_ui.getChordNameStr(input);
 }
 
-void CurrentChordBlock::changeRingingChord(const ChordName &input)
+void RingingChordBlock::changeRingingChord(const ChordName &input)
 {
     setRingingChordName(input);
 }
 
-CurrentChordBlock::CurrentChordBlock(const UI &ui, Model &model)
+RingingChordBlock::RingingChordBlock(const UI &ui, Model &model)
     : Block(1.0, 1.0, 0, 0.2), m_ui(ui)
 {
     model.addRingingChordObserver(
@@ -26,7 +26,7 @@ CurrentChordBlock::CurrentChordBlock(const UI &ui, Model &model)
     );
 }
 
-void CurrentChordBlock::updateBlock(std::chrono::milliseconds)
+void RingingChordBlock::updateBlock(std::chrono::milliseconds)
 {
     m_chara_to_display.clear();
     m_chara_to_display.push_back(charaDataInBlock(0, 0, 24, m_ringing_chord_name));
