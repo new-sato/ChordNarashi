@@ -6,7 +6,7 @@
 
 class UI;
 
-class CurrentChordBlock:public Block
+class RingingChordBlock:public Block
 {
     const UI& m_ui;
 
@@ -15,6 +15,6 @@ class CurrentChordBlock:public Block
 
     void changeRingingChord(const ChordName&);
 public:
-    CurrentChordBlock(const UI&, Model&);
+    RingingChordBlock(const UI&, Model&);
     void updateBlock(std::chrono::milliseconds)override;
 };
