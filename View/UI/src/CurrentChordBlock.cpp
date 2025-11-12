@@ -40,7 +40,7 @@ void CurrentChordBlock::changeRingingChord(const ChordName &input)
 }
 
 CurrentChordBlock::CurrentChordBlock(const UI &ui, Model &model)
-    : Block(1.0, 1.0, 0, 0.5), m_ui(ui)
+    : Block(1.0, 1.0, 0, 0.2), m_ui(ui)
 {
     model.addRingingChordObserver(
         [this](const ChordName& c)
