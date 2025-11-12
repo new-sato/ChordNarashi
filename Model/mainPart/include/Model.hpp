@@ -32,9 +32,8 @@ public:
     /// @brief 鳴らされている音を止める。処理の終了時に読んでやる必要があるのでpublic
     void stopRingingNote();
     
-    const ChordName& getCurrentPressedChord()const;
-    
     void addPlayObserver(std::function<void(const NotePlayInformation&)>);
     void addKeyObserver(std::function<void(int)>);
     void addRingingChordObserver(std::function<void(const ChordName&)>);
+    void addCurrentChordObserver(std::function<void(const ChordName&)>);
 };

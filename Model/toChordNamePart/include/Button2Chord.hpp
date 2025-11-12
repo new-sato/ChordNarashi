@@ -42,16 +42,22 @@ struct ChordName
 class Button2Chord
 {
     
-    ChordName chord_name  = {0, Major, Note::C};
+    ChordName m_chord_name  = {0, Major, Note::C};
+    
+    std::vector<std::function<void(const ChordName&)>> m_current_chord_observer;
 
     void singleChord(const std::set<VirtualChordButton>& vec_of_chord);
     void doubleChord(const std::set<VirtualChordButton>& vec_of_chord);
+    
+    void notifyCurrentChord(const ChordName&);
 
 public:
     Button2Chord(){};
     void updateChord(const std::set<VirtualChordButton>& pressed_button);
+    
+    void addCurrentChordObserver(std::function<void(ChordName)>);
 
     /// @brief 決定したコードネームへの参照を返す。
     /// @return const ChordName&型
-    const ChordName& getChordName()const{ return chord_name; }
+    const ChordName& getChordName()const{ return m_chord_name; }
 };

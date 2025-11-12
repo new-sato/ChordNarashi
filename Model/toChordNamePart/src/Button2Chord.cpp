@@ -11,24 +11,24 @@ void Button2Chord::singleChord(const set<VirtualChordButton>& set_of_chord)
     switch(v.cbt)
     {
         case ChordButtonType::Major:
-            chord_name.chord_type = ChordType::Major;
+            m_chord_name.chord_type = ChordType::Major;
             break;
         case ChordButtonType::minor:
-            chord_name.chord_type = ChordType::minor;
+            m_chord_name.chord_type = ChordType::minor;
             break;
         case ChordButtonType::dim:
-            chord_name.chord_type = ChordType::dim;
+            m_chord_name.chord_type = ChordType::dim;
             break;
         case ChordButtonType::arg:
-            chord_name.chord_type = ChordType::arg;
+            m_chord_name.chord_type = ChordType::arg;
             break;
         case ChordButtonType::sus4:
-            chord_name.chord_type = ChordType::sus4;
+            m_chord_name.chord_type = ChordType::sus4;
             break;
         default:
             break;
     }
-    chord_name.root_note = v.note;
+    m_chord_name.root_note = v.note;
 }
 
 void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
@@ -45,8 +45,8 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
         // 11個ずれでないなら違う
         if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb2.note)) return;
 
-        chord_name.root_note = vcb1.note;
-        chord_name.chord_type = sev;
+        m_chord_name.root_note = vcb1.note;
+        m_chord_name.chord_type = sev;
         return;
     }
 
@@ -59,15 +59,15 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
         // ずれがないならマイナーセブンス
         if((static_cast<int>(vcb1.note)+MIN_DIFF)%NUM_OF_NOTE == static_cast<int>(vcb2.note))
         {
-            chord_name.root_note = vcb2.note;
-            chord_name.chord_type = msev;
+            m_chord_name.root_note = vcb2.note;
+            m_chord_name.chord_type = msev;
             return;
         }
         // 1つズレならメジャーセブンス
         else if((static_cast<int>(vcb1.note)+MIN_DIFF+1)%NUM_OF_NOTE == static_cast<int>(vcb2.note))
         {
-            chord_name.root_note = vcb1.note;
-            chord_name.chord_type = Msev;
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = Msev;
             return;
         }
     }
@@ -78,14 +78,14 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
         if(vcb1.cbt == ChordButtonType::dim)
         {
             if ((static_cast<int>(vcb2.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb1.note)) return;
-            chord_name.root_note = vcb2.note;
-            chord_name.chord_type = sevsus4;
+            m_chord_name.root_note = vcb2.note;
+            m_chord_name.chord_type = sevsus4;
         }
         else if(vcb1.cbt == ChordButtonType::minor)
         {
             if((static_cast<int>(vcb2.note)+MIN_DIFF+1)%NUM_OF_NOTE != static_cast<int>(vcb1.note))
-            chord_name.root_note = vcb2.note;
-            chord_name.chord_type = Msevsus4;
+            m_chord_name.root_note = vcb2.note;
+            m_chord_name.chord_type = Msevsus4;
         }
     }
 
@@ -96,8 +96,8 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
         {
             // ずれなしでないなら違う
             if(static_cast<int>(vcb1.note) != (static_cast<int>(vcb2.note)+MIN_DIFF)%12) return;
-            chord_name.root_note = vcb1.note;
-            chord_name.chord_type = mMsev;
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = mMsev;
             return;
         }
     }
@@ -108,15 +108,23 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
         if(vcb2.note==Note::F)
         {
             if(vcb1.note!=Note::C)return;
-            chord_name.root_note = Note::F;
-            chord_name.chord_type = add9;
+            m_chord_name.root_note = Note::F;
+            m_chord_name.chord_type = add9;
             return;
         }
         //1音ずれでないなら違う
         if((static_cast<int>(vcb1.note)+1)%12 != (static_cast<int>(vcb2.note))%12) return;
-        chord_name.root_note = vcb1.note;
-        chord_name.chord_type = add9;
+        m_chord_name.root_note = vcb1.note;
+        m_chord_name.chord_type = add9;
         
+    }
+}
+
+void Button2Chord::notifyCurrentChord(const ChordName &input)
+{
+    for(auto func: m_current_chord_observer)
+    {
+        func(input);
     }
 }
 
@@ -139,4 +147,11 @@ void Button2Chord::updateChord(const set<VirtualChordButton>& pressed_button)
     default:
         break;
     }
+    
+    notifyCurrentChord(m_chord_name);
+}
+
+void Button2Chord::addCurrentChordObserver(std::function<void(ChordName)>func)
+{
+    m_current_chord_observer.push_back(func);
 }
