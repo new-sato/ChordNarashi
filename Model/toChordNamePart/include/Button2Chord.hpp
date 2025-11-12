@@ -53,5 +53,5 @@ public:
 
     /// @brief 決定したコードネームへの参照を返す。
     /// @return const ChordName&型
-    const ChordName& getChordName() { return chord_name; }
+    const ChordName& getChordName()const{ return chord_name; }
 };
