@@ -2,7 +2,7 @@ add_library(UI STATIC
     src/UI.cpp
     src/Block.cpp
     src/KeyBlock.cpp
-    src/CurrentChordBlock.cpp
+    src/RingingChordBlock.cpp
     src/DisplayCircleBlock.cpp
 )
 

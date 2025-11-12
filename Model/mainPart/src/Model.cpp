@@ -73,6 +73,11 @@ void Model::stopRingingNote()
     m_note_player->stopNote();
 }
 
+const ChordName &Model::getCurrentPressedChord() const
+{
+    return button_to_chord.getChordName();
+}
+
 void Model::addPlayObserver(std::function<void(const NotePlayInformation &)> arg)
 {
     m_note_player->addPlayObserver(arg);
