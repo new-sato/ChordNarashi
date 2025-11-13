@@ -14,4 +14,6 @@ public:
     /// @brief ウィンドウの状態をといあわせ、メインループを継続すべきかどうかについて伝える
     /// @return ウィンドウを閉じるならtrue
     bool stopLoop();
+
+    void toggleSharpFlat(){m_UI.toggleSharpFlat();}
 };

@@ -14,7 +14,7 @@ class winButtonChecker:public IButtonChecker
     void updateShiftButtons()override;
     void updateKeyButtons()override;
     
-    void updateModeButtons()override{}
+    void updateModeButtons()override;
 public:
     bool isRingButtonPressed()override;
     bool isSustainButtonPressed()override;

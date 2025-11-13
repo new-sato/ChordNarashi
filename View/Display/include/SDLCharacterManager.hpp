@@ -21,7 +21,7 @@ class SDLCharacterManager
     SDL_Renderer* m_renderer;
     std::map<int, TTF_Font*> fonts;
     
-    std::string font_name = "assets/Amble-Regular.ttf";
+    std::string font_name = "assets/GenShinGothic-Regular.ttf";
 
 public:
     SDLCharacterManager(SDL_Renderer* renderer);

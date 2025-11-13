@@ -72,5 +72,14 @@ void DisplayCircle::updateBlock(std::chrono::milliseconds d_time)
                 m_ui.get_key_str()[i]+"m"
             )
         );
+
+        m_chara_to_display.push_back(
+            charaDataInBlock(
+                m_dim_radius*sin(m_current_angle + (i-5)*2*M_PI/12),
+                -m_dim_radius*cos(m_current_angle + (i-5)*2*M_PI/12),
+                20,
+                m_ui.get_key_str()[i]+"°"
+            )
+        );
     }
 }
