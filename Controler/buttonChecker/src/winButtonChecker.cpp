@@ -48,6 +48,8 @@ void winButtonChecker::updateKeyButtons()
     m_keyButtons[11].setState(checkButton(VK_LEFT)||checkButton('J'));
     m_keyButtons[7].setState(checkButton(VK_UP)||checkButton('O'));
     m_keyButtons[5].setState(checkButton(VK_DOWN)||checkButton('M'));
+    m_keyButtons[3].setState(checkButton(VK_OEM_1));
+    m_keyButtons[9].setState(checkButton('H'));
 }
 
 void winButtonChecker::updateModeButtons()

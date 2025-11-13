@@ -23,15 +23,15 @@ class UI
     {
         {
             KeySignatureMode::STANDARD,
-            {"C", "G", "D", "A", "E", "B", "Fs", "Df", "Af", "Ef", "Bf", "F"}
+            {"C", "G", "D", "A", "E", "B", "F♯", "D♭", "A♭", "E♭", "B♭", "F"}
         },
         {
             KeySignatureMode::ALL_FLAT,
-            {"C", "G", "D", "A", "E", "B", "Gf", "Df", "Af", "Ef", "Bf", "F"}
+            {"C", "G", "D", "A", "E", "B", "G♭", "D♭", "A♭", "E♭", "B♭", "F"}
         },
         {
             KeySignatureMode::ALL_SHARP,
-            {"C", "G", "D", "A", "E", "B", "Fs", "Cs", "Gs", "Ds", "As", "F"}
+            {"C", "G", "D", "A", "E", "B", "F♯", "C♯", "G♯", "D♯", "A♯", "F"}
         }
     };
 

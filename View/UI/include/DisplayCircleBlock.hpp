@@ -25,8 +25,9 @@ class DisplayCircle: public Block
     bool rotate_mode = true;
     bool is_rotating = false;
 
-    double m_majior_radius =0.8;
-    double m_minor_radius = 0.6;
+    double m_majior_radius =0.9;
+    double m_minor_radius = 0.7;
+    double m_dim_radius = 0.5;
 public: 
     DisplayCircle(const UI&, Model&);
     void updateBlock(std::chrono::milliseconds)override;
