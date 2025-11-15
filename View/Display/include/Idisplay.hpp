@@ -4,6 +4,7 @@
 #include <chrono>
 
 #include "charaData.hpp"
+#include "shapeData.hpp"
 
 /// @brief 画面中心を0とした時の位置。1を限界値としておこう
 struct Location
@@ -24,4 +25,6 @@ public:
     virtual bool is_x_button_pressed()=0;
     
     virtual void displayCharacter(const charaData&) = 0;
+    virtual void displayRectangle(const Rectangle&) = 0;
+
 };

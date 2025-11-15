@@ -2,7 +2,7 @@
 #include "cmath"
 #include <string>
 #include <algorithm>
-
+#include <SDL3/SDL_rect.h>
 
 SDLManager::SDLManager()
 {
@@ -69,6 +69,15 @@ void SDLManager::displayCharacter(const charaData& input)
     int y = input.y*(windowHight/2) + windowHight/2;
     SDLTextureData d(t, x, y, 0);
     addTextureToDraw(d);
+}
+
+void SDLManager::displayRectangle(const Rectangle & input)
+{
+    double upper_left_x = input.x - input.horizontal_length/2;
+    double upper_left_y = input.y - input.vertical_length/2;
+    
+    SDL_FRect rect = {.x=upper_left_x, .y=upper_left_y, .w=input.horizontal_length, .h = input.vertical_length};
+    SDL_RenderFillRect(mRenderer, &rect);
 }
 
 void SDLManager::updateDisplay()
