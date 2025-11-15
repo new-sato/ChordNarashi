@@ -5,5 +5,5 @@ add_library(UI STATIC
 
 target_include_directories(UI PUBLIC ./include)
 target_link_libraries(UI PUBLIC Display)
-target_link_libraries(UI PRIVATE model_main)
+target_link_libraries(UI PUBLIC model_main)
 
