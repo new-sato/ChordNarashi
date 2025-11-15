@@ -13,6 +13,11 @@ struct Rectangle
 
     /// @brief 横の辺の長さ
     double horizontal_length;
+    
+    int red;
+    int green;
+    int blue;
 
-    Rectangle(double x, double y, double v, double h);
+
+    Rectangle(double x, double y, double v, double h ,int r, int g, int b);
 };
