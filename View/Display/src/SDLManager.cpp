@@ -76,8 +76,22 @@ void SDLManager::displayRectangle(const Rectangle & input)
     double upper_left_x = input.x - input.horizontal_length/2;
     double upper_left_y = input.y - input.vertical_length/2;
     
-    SDL_FRect rect = {.x=upper_left_x, .y=upper_left_y, .w=input.horizontal_length, .h = input.vertical_length};
-    SDL_RenderFillRect(mRenderer, &rect);
+    
+    SDL_Texture* targetTexture = SDL_CreateTexture(
+        mRenderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_TARGET,
+        input.horizontal_length,
+        input.vertical_length
+    );
+    
+    SDL_SetRenderTarget(mRenderer, targetTexture);
+    
+    SDL_SetRenderDrawColor(mRenderer, input.red, input.green, input.blue, input.alpha);
+    SDL_RenderClear(mRenderer);
+    SDL_SetRenderTarget(mRenderer, NULL);
+    SDLTextureData d(targetTexture, upper_left_x, upper_left_y, -1);    
+    addTextureToDraw(d);
 }
 
 void SDLManager::updateDisplay()

@@ -17,6 +17,7 @@ struct Rectangle
     int red;
     int green;
     int blue;
+    int alpha = 255;
 
 
     Rectangle(double x, double y, double v, double h ,int r, int g, int b);
