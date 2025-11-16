@@ -1,0 +1,2 @@
+add_subdirectory(mainPart)
+add_subdirectory(buttonChecker)

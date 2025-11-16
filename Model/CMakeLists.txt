@@ -1,0 +1,5 @@
+add_subdirectory(./ringButtonTimingManager)
+add_subdirectory(./toChordNamePart)
+add_subdirectory(./toNotePart)
+add_subdirectory(./toRequestPart)
+add_subdirectory(./mainPart)
