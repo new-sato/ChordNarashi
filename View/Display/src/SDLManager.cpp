@@ -76,13 +76,15 @@ void SDLManager::displayRectangle(const Rectangle & input)
     double upper_left_x = input.x - input.horizontal_length/2;
     double upper_left_y = input.y - input.vertical_length/2;
     
+    int x = input.x*(windowWidth/2) + windowWidth/2;
+    int y = input.y*(windowHight/2) + windowHight/2;
     
     SDL_Texture* targetTexture = SDL_CreateTexture(
         mRenderer,
         SDL_PIXELFORMAT_RGBA8888,
         SDL_TEXTUREACCESS_TARGET,
-        input.horizontal_length,
-        input.vertical_length
+        input.horizontal_length*windowWidth,
+        input.vertical_length*windowHight
     );
     
     SDL_SetRenderTarget(mRenderer, targetTexture);
@@ -90,7 +92,7 @@ void SDLManager::displayRectangle(const Rectangle & input)
     SDL_SetRenderDrawColor(mRenderer, input.red, input.green, input.blue, input.alpha);
     SDL_RenderClear(mRenderer);
     SDL_SetRenderTarget(mRenderer, NULL);
-    SDLTextureData d(targetTexture, upper_left_x, upper_left_y, -1);    
+    SDLTextureData d(targetTexture, x, y, -1);    
     addTextureToDraw(d);
 }
 

@@ -3,6 +3,7 @@
 #include <chrono>
 #include "charaData.hpp"
 #include "charaDataInBlock.hpp"
+#include "shapeData.hpp"
 
 /// @brief 表示するエリアの一部分
 class Block
@@ -16,8 +17,11 @@ protected:
     double x;
     double y;
     
-    //TODO テスト用　後で治す
     std::vector<charaDataInBlock> m_chara_to_display;
+
+    // HACK Block内専用のクラスを作成するかどうかという話がある
+    std::vector<Circle> m_circle_to_display;
+    std::vector<Rectangle> m_rectangle_to_display;
 
 public:
     virtual void updateBlock(std::chrono::milliseconds){return;};
@@ -41,4 +45,6 @@ public:
     /// @brief 座標変換を行ってから自分が持っているデータを返す
     /// @return 座標変換を行った後の文字データ
     std::vector<charaData> getCharaToDisplay() const;
+
+    std::vector<Circle> getCircleToDisplay() const;
 };

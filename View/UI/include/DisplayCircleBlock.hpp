@@ -10,6 +10,7 @@ class DisplayCircle: public Block
 {
     const UI& m_ui;
     void changeKey(int input);
+    void changePressedButton(const std::set<VirtualChordButton>&);
     int m_key = 0;
     
     std::chrono::steady_clock::time_point m_time_start_rotation;
@@ -24,6 +25,8 @@ class DisplayCircle: public Block
     
     bool rotate_mode = true;
     bool is_rotating = false;
+
+    std::vector<VirtualChordButton> m_pressed_button;
 
     double m_majior_radius =0.9;
     double m_minor_radius = 0.7;

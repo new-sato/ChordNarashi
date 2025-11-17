@@ -1,6 +1,7 @@
 add_library(Display STATIC
     src/SDLManager.cpp
     src/SDLTextureData.cpp
+    src/shapeData.cpp
     src/SDLCharacterManager.cpp
 )
 

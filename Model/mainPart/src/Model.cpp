@@ -93,7 +93,7 @@ void Model::addCurrentChordObserver(std::function<void(const ChordName &)>func)
     button_to_chord.addCurrentChordObserver(func);
 }
 
-void Model::addPressedButtonObserver(std::function<void(const std::vector<VirtualChordButton> &)>func)
+void Model::addPressedButtonObserver(std::function<void(const std::set<VirtualChordButton> &)>func)
 {
     button_to_chord.addPressedButtonObserver(func);
 }

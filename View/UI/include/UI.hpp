@@ -14,6 +14,8 @@ class UI
 {
     Idisplay& m_display;
     
+    std::vector<Rectangle> m_rectangle_to_display;
+    std::vector<Circle> m_circle_to_display;
     std::vector<charaData> m_chara_data_to_display;
     std::vector<std::unique_ptr<Block>> m_blocks;
 
@@ -35,7 +37,7 @@ class UI
         }
     };
 
-    void registCharacter();
+    void registContents();
     std::vector<std::string> m_key_str = m_key_str_table[KeySignatureMode::STANDARD];
 
 

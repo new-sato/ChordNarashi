@@ -36,5 +36,5 @@ public:
     void addKeyObserver(std::function<void(int)>);
     void addRingingChordObserver(std::function<void(const ChordName&)>);
     void addCurrentChordObserver(std::function<void(const ChordName&)>);
-    void addPressedButtonObserver(std::function<void(const std::vector<VirtualChordButton>&)>);
+    void addPressedButtonObserver(std::function<void(const std::set<VirtualChordButton>&)>);
 };
