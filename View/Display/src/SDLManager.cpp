@@ -94,6 +94,12 @@ void SDLManager::displayRectangle(const Rectangle & input)
     addTextureToDraw(d);
 }
 
+void SDLManager::displayCircle(const Circle & input)
+{
+    Rectangle temp(input.x, input.y,input.r*2,input.r*2, input.red, input.green, input.blue);
+    displayRectangle(temp);
+}
+
 void SDLManager::updateDisplay()
 {
     SDL_SetRenderDrawColor(

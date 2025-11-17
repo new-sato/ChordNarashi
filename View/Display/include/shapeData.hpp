@@ -22,3 +22,20 @@ struct Rectangle
 
     Rectangle(double x, double y, double v, double h ,int r, int g, int b);
 };
+
+struct Circle
+{
+    /// @brief 中心のx座標
+    double x;
+
+    /// @brief 中心のy座標
+    double y;
+
+    /// @brief 円の半径  
+    double r;
+
+    int red;
+    int green;
+    int blue;
+    int alpha = 255;
+};

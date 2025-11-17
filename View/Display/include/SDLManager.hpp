@@ -27,10 +27,11 @@ class SDLManager:public Idisplay
     
     void displayCharacter(const charaData&)override;
     
-    // TODO 書き直す
     /// @brief 長方形を描画する関数。呼び出した時点で効果を効果を発揮する
     /// @param 
     void displayRectangle(const Rectangle&)override;
+
+    void displayCircle(const Circle&)override;
     
     /// @brief 現在のレンダラを描画する
     void updateDisplay()override;

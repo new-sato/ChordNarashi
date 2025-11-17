@@ -26,5 +26,6 @@ public:
     
     virtual void displayCharacter(const charaData&) = 0;
     virtual void displayRectangle(const Rectangle&) = 0;
+    virtual void displayCircle(const Circle&) = 0;
 
 };
