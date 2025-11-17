@@ -45,6 +45,7 @@ class Button2Chord
     ChordName m_chord_name  = {0, Major, Note::C};
     
     std::vector<std::function<void(const ChordName&)>> m_current_chord_observer;
+    std::vector<std::function<void(const std::vector<VirtualChordButton>&)>> m_pressed_button_observer;
 
     void singleChord(const std::set<VirtualChordButton>& vec_of_chord);
     void doubleChord(const std::set<VirtualChordButton>& vec_of_chord);
@@ -55,6 +56,9 @@ public:
     Button2Chord(){};
     void updateChord(const std::set<VirtualChordButton>& pressed_button);
     
+    void addPressedButtonObserver(std::function<void(const std::vector<VirtualChordButton>&)>);
+    
+    // XXX なんで動いてるかわからない
     void addCurrentChordObserver(std::function<void(ChordName)>);
 
     /// @brief 決定したコードネームへの参照を返す。

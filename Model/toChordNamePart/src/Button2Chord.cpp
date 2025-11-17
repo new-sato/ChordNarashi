@@ -151,7 +151,12 @@ void Button2Chord::updateChord(const set<VirtualChordButton>& pressed_button)
     notifyCurrentChord(m_chord_name);
 }
 
-void Button2Chord::addCurrentChordObserver(std::function<void(ChordName)>func)
+void Button2Chord::addPressedButtonObserver(function<void(const vector<VirtualChordButton>&)> func)
+{
+    m_pressed_button_observer.push_back(func);
+}
+
+void Button2Chord::addCurrentChordObserver(std::function<void(ChordName)> func)
 {
     m_current_chord_observer.push_back(func);
 }
