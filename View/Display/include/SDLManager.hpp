@@ -1,6 +1,7 @@
 #pragma once
 #include "Idisplay.hpp"
 #include "SDLCharacterManager.hpp"
+#include "SDLCircleManager.hpp"
 #include <memory>
 #include <vector>
 
@@ -16,6 +17,7 @@ class SDLManager:public Idisplay
     std::vector<SDLTextureData> m_textures;
 
     SDLCharacterManager character_manager = NULL;
+    SDLCircleManager m_circle_manager = {NULL, 0, 0};
 
     /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
     /// @param input 描画したいデータ

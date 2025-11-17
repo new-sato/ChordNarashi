@@ -3,6 +3,7 @@ add_library(Display STATIC
     src/SDLTextureData.cpp
     src/shapeData.cpp
     src/SDLCharacterManager.cpp
+    src/SDLCircleManager.cpp
 )
 
 target_include_directories(Display PUBLIC ./include)

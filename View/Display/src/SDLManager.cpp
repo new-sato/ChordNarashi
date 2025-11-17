@@ -11,6 +11,7 @@ SDLManager::SDLManager()
         exit(1);
     }
     character_manager = SDLCharacterManager(mRenderer);
+    m_circle_manager = SDLCircleManager(mRenderer, windowWidth, windowHight);
 }
 
 void SDLManager::addTextureToDraw(const SDLTextureData &input)
@@ -98,8 +99,19 @@ void SDLManager::displayRectangle(const Rectangle & input)
 
 void SDLManager::displayCircle(const Circle & input)
 {
-    Rectangle temp(input.x, input.y,input.r*2,input.r*2, input.red, input.green, input.blue);
-    displayRectangle(temp);
+    SDL_Texture* texture = m_circle_manager.generateCircleTexture(
+        CircleInfo{
+            .r = input.r,
+            .red = input.red,
+            .green = input.green,
+            .blue = input.blue,
+            .alpha = input.alpha
+        }
+    );
+    int x = input.x*(windowWidth/2) + windowWidth/2;
+    int y = input.y*(windowHight/2) + windowHight/2;
+    SDLTextureData d(texture, x, y, -1);
+    addTextureToDraw(d);
 }
 
 void SDLManager::updateDisplay()
