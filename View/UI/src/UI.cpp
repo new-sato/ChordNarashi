@@ -25,11 +25,15 @@ KeySignatureMode& operator++(KeySignatureMode& mode)
     }
 }
 
-void UI::registCharacter()
+void UI::registContents()
 {
     for(auto c:m_chara_data_to_display)
     {
         m_display.displayCharacter(c);
+    }
+    for(auto c:m_circle_to_display)
+    {
+        m_display.displayCircle(c);
     }
 }
 
@@ -80,6 +84,7 @@ void UI::toggleSharpFlat()
 void UI::updateUI(chrono::milliseconds d_time)
 {
     m_chara_data_to_display.clear();
+    m_circle_to_display.clear();
     for(auto& b:m_blocks)
     {
         b->updateBlock(d_time);
@@ -88,8 +93,14 @@ void UI::updateUI(chrono::milliseconds d_time)
         {
             m_chara_data_to_display.push_back(c);
         }
+
+        auto circle_to_disp = b->getCircleToDisplay();
+        for(auto c: circle_to_disp)
+        {
+            m_circle_to_display.push_back(c);
+        }
     }
-    registCharacter();
+    registContents();
     
     m_display.updateDisplay();
 }

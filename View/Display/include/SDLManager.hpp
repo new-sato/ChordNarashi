@@ -1,6 +1,7 @@
 #pragma once
 #include "Idisplay.hpp"
 #include "SDLCharacterManager.hpp"
+#include "SDLCircleManager.hpp"
 #include <memory>
 #include <vector>
 
@@ -16,6 +17,7 @@ class SDLManager:public Idisplay
     std::vector<SDLTextureData> m_textures;
 
     SDLCharacterManager character_manager = NULL;
+    SDLCircleManager m_circle_manager = {NULL, 0, 0};
 
     /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
     /// @param input 描画したいデータ
@@ -26,6 +28,12 @@ class SDLManager:public Idisplay
     ~SDLManager();
     
     void displayCharacter(const charaData&)override;
+    
+    /// @brief 長方形を描画する関数。呼び出した時点で効果を効果を発揮する
+    /// @param 
+    void displayRectangle(const Rectangle&)override;
+
+    void displayCircle(const Circle&)override;
     
     /// @brief 現在のレンダラを描画する
     void updateDisplay()override;
