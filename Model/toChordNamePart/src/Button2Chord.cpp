@@ -41,12 +41,19 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
     {
         // 1個目がメジャーでないなら違う
         if(vcb1.cbt != ChordButtonType::Major) return;
-
-        // 11個ずれでないなら違う
-        if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb2.note)) return;
-
-        m_chord_name.root_note = vcb1.note;
-        m_chord_name.chord_type = sev;
+        
+        // 11個ずれならセブンス
+        if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE== static_cast<int>(vcb2.note))
+        {
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = sev;
+        }
+        // 同じならsus4
+        else if ((static_cast<int>(vcb1.note)+DIM_DIFF)%NUM_OF_NOTE== static_cast<int>(vcb2.note))
+        {
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = sus4;
+        }
         return;
     }
 
