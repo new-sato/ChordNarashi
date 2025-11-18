@@ -41,12 +41,19 @@ void Button2Chord::doubleChord(const set<VirtualChordButton>& set_of_chord)
     {
         // 1個目がメジャーでないなら違う
         if(vcb1.cbt != ChordButtonType::Major) return;
-
-        // 11個ずれでないなら違う
-        if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE!= static_cast<int>(vcb2.note)) return;
-
-        m_chord_name.root_note = vcb1.note;
-        m_chord_name.chord_type = sev;
+        
+        // 11個ずれならセブンス
+        if ((static_cast<int>(vcb1.note)+DIM_DIFF+11)%NUM_OF_NOTE== static_cast<int>(vcb2.note))
+        {
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = sev;
+        }
+        // 同じならsus4
+        else if ((static_cast<int>(vcb1.note)+DIM_DIFF)%NUM_OF_NOTE== static_cast<int>(vcb2.note))
+        {
+            m_chord_name.root_note = vcb1.note;
+            m_chord_name.chord_type = sus4;
+        }
         return;
     }
 
@@ -128,10 +135,19 @@ void Button2Chord::notifyCurrentChord(const ChordName &input)
     }
 }
 
+void Button2Chord::notifyPressedButton(const std::set<VirtualChordButton> &input)
+{
+    for(auto func: m_pressed_button_observer)
+    {
+        func(input);
+    }
+}
+
 /// @brief 押されているコードボタンからコードネームを決定し、配下の関数を使ってchord_nameに格納する。
 void Button2Chord::updateChord(const set<VirtualChordButton>& pressed_button)
 {
     // TODO 場合分けを完成させる
+    notifyPressedButton(pressed_button);
     int num_of_pressed_button = pressed_button.size();
     switch (num_of_pressed_button)
     {
@@ -147,11 +163,15 @@ void Button2Chord::updateChord(const set<VirtualChordButton>& pressed_button)
     default:
         break;
     }
-    
     notifyCurrentChord(m_chord_name);
 }
 
-void Button2Chord::addCurrentChordObserver(std::function<void(ChordName)>func)
+void Button2Chord::addPressedButtonObserver(function<void(const set<VirtualChordButton>&)> func)
+{
+    m_pressed_button_observer.push_back(func);
+}
+
+void Button2Chord::addCurrentChordObserver(std::function<void(ChordName)> func)
 {
     m_current_chord_observer.push_back(func);
 }

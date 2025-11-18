@@ -2,7 +2,7 @@
 #include "cmath"
 #include <string>
 #include <algorithm>
-
+#include <SDL3/SDL_rect.h>
 
 SDLManager::SDLManager()
 {
@@ -11,6 +11,7 @@ SDLManager::SDLManager()
         exit(1);
     }
     character_manager = SDLCharacterManager(mRenderer);
+    m_circle_manager = SDLCircleManager(mRenderer, windowWidth, windowHight);
 }
 
 void SDLManager::addTextureToDraw(const SDLTextureData &input)
@@ -68,6 +69,48 @@ void SDLManager::displayCharacter(const charaData& input)
     int x = input.x*(windowWidth/2) + windowWidth/2;
     int y = input.y*(windowHight/2) + windowHight/2;
     SDLTextureData d(t, x, y, 0);
+    addTextureToDraw(d);
+}
+
+void SDLManager::displayRectangle(const Rectangle & input)
+{
+    double upper_left_x = input.x - input.horizontal_length/2;
+    double upper_left_y = input.y - input.vertical_length/2;
+    
+    int x = input.x*(windowWidth/2) + windowWidth/2;
+    int y = input.y*(windowHight/2) + windowHight/2;
+    
+    SDL_Texture* targetTexture = SDL_CreateTexture(
+        mRenderer,
+        SDL_PIXELFORMAT_RGBA8888,
+        SDL_TEXTUREACCESS_TARGET,
+        input.horizontal_length*windowWidth,
+        input.vertical_length*windowHight
+    );
+    
+    SDL_SetRenderTarget(mRenderer, targetTexture);
+    
+    SDL_SetRenderDrawColor(mRenderer, input.red, input.green, input.blue, input.alpha);
+    SDL_RenderClear(mRenderer);
+    SDL_SetRenderTarget(mRenderer, NULL);
+    SDLTextureData d(targetTexture, x, y, -1);    
+    addTextureToDraw(d);
+}
+
+void SDLManager::displayCircle(const Circle & input)
+{
+    SDL_Texture* texture = m_circle_manager.generateCircleTexture(
+        CircleInfo{
+            .r = input.r,
+            .red = input.red,
+            .green = input.green,
+            .blue = input.blue,
+            .alpha = input.alpha
+        }
+    );
+    int x = input.x*(windowWidth/2) + windowWidth/2;
+    int y = input.y*(windowHight/2) + windowHight/2;
+    SDLTextureData d(texture, x, y, -1);
     addTextureToDraw(d);
 }
 

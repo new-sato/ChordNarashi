@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL3/SDL.h>
 
 /// @brief テクスチャのデータとサイズ、描画位置をまとめたもの
