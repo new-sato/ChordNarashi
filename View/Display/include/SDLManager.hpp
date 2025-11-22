@@ -12,6 +12,9 @@ class SDLManager:public Idisplay
     SDL_Renderer* mRenderer;
     int windowWidth = 500;
     int windowHight = 500;
+    
+    /// @brief ウィンドウがアクティブかどうか
+    bool is_focused = true;
 
     SDL_Event event;
     std::vector<SDLTextureData> m_textures;
@@ -39,6 +42,8 @@ class SDLManager:public Idisplay
     void updateDisplay()override;
     
     bool is_x_button_pressed()override;
+    
+    bool get_is_focused()const override{return is_focused;};
     
 
     bool initialize();

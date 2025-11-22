@@ -45,6 +45,8 @@ public:
     UI(Idisplay& display, Model& model);
     bool get_x_button_pressed()const{return m_display.is_x_button_pressed();}
     
+    bool get_is_focused()const{return m_display.get_is_focused();}
+    
     const std::vector<std::string> get_key_str()const{return m_key_str;}
     
     std::string getChordNameStr(const ChordName&)const;
