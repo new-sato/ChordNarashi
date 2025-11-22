@@ -27,11 +27,14 @@ void Controler::mainOneLoop()
         d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start);
     }while(d_time.count() < 5);
     loop_start = std::chrono::steady_clock::now();
-    m_button_checker.checkButtons();
-    m_model.updateKey(m_button_checker.getKeyButtonState());
-    m_model.updateChord(m_button_checker.getChordRelatedButtons());
-    m_model.processRingButtonState(m_button_checker.isRingButtonPressed(), m_button_checker.isSustainButtonPressed());
-
+    
+    if(m_view.is_focused()){
+        m_button_checker.checkButtons();
+        m_model.updateKey(m_button_checker.getKeyButtonState());
+        m_model.updateChord(m_button_checker.getChordRelatedButtons());
+        m_model.processRingButtonState(m_button_checker.isRingButtonPressed(), m_button_checker.isSustainButtonPressed());
+    }
+    
     if(m_button_checker.getSignatureModeButtonState())m_view.toggleSharpFlat();
 
     m_view.updateView(d_time);

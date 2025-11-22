@@ -116,6 +116,18 @@ void SDLManager::displayCircle(const Circle & input)
 
 void SDLManager::updateDisplay()
 {
+    SDL_Event event;
+    SDL_PollEvent(&event);
+    
+    if(event.type == SDL_EVENT_WINDOW_FOCUS_GAINED)
+    {
+        is_focused = true;
+    }
+    else if(event.type == SDL_EVENT_WINDOW_FOCUS_LOST)
+    {
+        is_focused = false;
+    }
+
     SDL_SetRenderDrawColor(
         mRenderer,
         20,
