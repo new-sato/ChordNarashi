@@ -37,7 +37,7 @@ bool SDLManager::initialize()
         "TEST",
         windowWidth,
         windowHight,
-        SDL_WINDOW_RESIZABLE
+        0
     );
 
     if(!mWindow)
