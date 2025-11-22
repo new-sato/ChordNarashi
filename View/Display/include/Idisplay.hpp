@@ -24,6 +24,8 @@ public:
     /// @return 押されていたらtrue
     virtual bool is_x_button_pressed()=0;
     
+    virtual bool get_is_focused() const = 0;
+    
     virtual void displayCharacter(const charaData&) = 0;
     virtual void displayRectangle(const Rectangle&) = 0;
     virtual void displayCircle(const Circle&) = 0;
