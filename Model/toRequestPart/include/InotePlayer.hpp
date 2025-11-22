@@ -5,8 +5,13 @@
 
 struct NotePlayInformation
 {
+    /// @brief これから再生処理を行う（まだ再生していない）ノート
     const NoteSet note_to_start;
+
+    /// @brief 再生を開始する処理は終えており、継続して鳴らし続けるノート
     const NoteSet note_to_continue;
+
+    /// @brief これから停止処理を行うノート
     const NoteSet note_to_end;
 
     NotePlayInformation(NoteSet s, NoteSet c, NoteSet e)
@@ -17,7 +22,10 @@ struct NotePlayInformation
 class InotePlayer
 {
     protected:
+    /// @brief これから再生開始の処理を行うべきノート
     NoteSet m_note_to_play = {};
+    
+    /// @brief すでに再生開始処理を行ったノート
     NoteSet m_note_played = {};
 
     /// @brief ノートの再生を通知する相手

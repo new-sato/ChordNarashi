@@ -2,7 +2,9 @@
 #include "Button2Chord.hpp"
 #include <set>
 
+/// @brief MIDIのノートナンバー
 using MidiNoteNum = unsigned char;
+
 using NoteSet = std::set<MidiNoteNum>;
 
 class Ichord2Note
