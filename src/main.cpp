@@ -6,7 +6,7 @@
 #include "Chord2StandardNote.hpp"
 #include "StandardNotePlayer.hpp"
 
-#include "RtMidiNotePlayer.hpp"
+#include "MiniaudioNotePlayer.hpp"
 #include "SDLManager.hpp"
 
 #include "winButtonChecker.hpp"
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     );
     
 
-    RtMidiNotePlayer rtmnp(model);
+    MiniaudioNotePlayer rtmnp(model);
     SDLManager sdlm;
     View view(rtmnp, sdlm, model);
 
