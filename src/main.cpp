@@ -9,7 +9,7 @@
 #include "MiniaudioNotePlayer.hpp"
 #include "SDLManager.hpp"
 
-#include "winButtonChecker.hpp"
+#include "SDLButtonChecker.hpp"
 #include <memory>
 
 int main(int argc, char *argv[])
@@ -23,11 +23,14 @@ int main(int argc, char *argv[])
 
     MiniaudioNotePlayer rtmnp(model);
     SDLManager sdlm;
+    model.addKeyObserver([&sdlm](int key){ sdlm.setKey(key); });
+    
     View view(rtmnp, sdlm, model);
 
-    winButtonChecker w;
+    SDLButtonChecker w(sdlm);
     Controler c(model, view, w);
 
     c.startLoop();
     return 0;
 }
+

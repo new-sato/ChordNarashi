@@ -2,6 +2,7 @@
 
 #include <string>
 #include <chrono>
+#include <vector>
 
 #include "charaData.hpp"
 #include "shapeData.hpp"
@@ -19,10 +20,11 @@ struct Location
 class Idisplay
 {
 public:
+    virtual void pollEvents() = 0;
     virtual void updateDisplay() = 0;
     /// @brief ✕ボタンが押されているか調べる
     /// @return 押されていたらtrue
-    virtual bool is_x_button_pressed()=0;
+    virtual bool is_x_button_pressed() = 0;
     
     virtual bool get_is_focused() const = 0;
     
@@ -30,4 +32,7 @@ public:
     virtual void displayRectangle(const Rectangle&) = 0;
     virtual void displayCircle(const Circle&) = 0;
 
+    virtual bool isKeyPressed(int scancode) const = 0;
+    virtual const std::vector<std::vector<bool>>& getVirtualChordButtons() const = 0;
 };
+

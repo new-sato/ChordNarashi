@@ -15,6 +15,7 @@ class SDLManager:public Idisplay
     
     /// @brief ウィンドウがアクティブかどうか
     bool is_focused = true;
+    bool m_quit_requested = false;
 
     SDL_Event event;
     std::vector<SDLTextureData> m_textures;
@@ -22,14 +23,22 @@ class SDLManager:public Idisplay
     SDLCharacterManager character_manager = NULL;
     SDLCircleManager m_circle_manager = {NULL, 0, 0};
 
+    // バーチャルボタンの押下状態（5種類 × 12音）
+    std::vector<std::vector<bool>> m_virtual_chord_buttons = std::vector<std::vector<bool>>(5, std::vector<bool>(12, false));
+    bool m_mouse_down = false;
+    int m_key = 0; // 現在のキー
+
     /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
     /// @param input 描画したいデータ
     void addTextureToDraw(const SDLTextureData& input);
+
+    void processClickOrTouch(float x, float y, bool is_pressed);
 
     public:
     SDLManager();
     ~SDLManager();
     
+    void pollEvents()override;
     void displayCharacter(const charaData&)override;
     
     /// @brief 長方形を描画する関数。呼び出した時点で効果を効果を発揮する
@@ -45,7 +54,11 @@ class SDLManager:public Idisplay
     
     bool get_is_focused()const override{return is_focused;};
     
+    bool isKeyPressed(int scancode) const override;
+    const std::vector<std::vector<bool>>& getVirtualChordButtons() const override { return m_virtual_chord_buttons; }
+
+    void setKey(int key) { m_key = key; }
 
     bool initialize();
     
-};
+};
