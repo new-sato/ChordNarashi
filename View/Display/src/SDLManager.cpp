@@ -1,8 +1,13 @@
 #include "SDLManager.hpp"
-#include "cmath"
+#include <cmath>
 #include <string>
 #include <algorithm>
 #include <SDL3/SDL_rect.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 
 SDLManager::SDLManager()
 {

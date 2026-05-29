@@ -1,28 +1,56 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe アクティブなファイルのビルド",
-            "command": "C:\\Program Files\\mingw64\\bin\\g++.exe",
+            "label": "CMake: Configure",
+            "type": "shell",
+            "command": "cmake",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "-B",
+                "build",
+                "-S",
+                ".",
+                "-DCMAKE_TOOLCHAIN_FILE=${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "-DCMAKE_C_COMPILER=clang",
+                "-DCMAKE_CXX_COMPILER=clang++"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
+            "problemMatcher": [],
+            "group": "none",
+            "detail": "LLVM Clang と vcpkg を用いた CMake の構成設定を行います。"
+        },
+        {
+            "label": "CMake: Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "デバッガーによって生成されたタスク。"
+            "dependsOn": [
+                "CMake: Configure"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "プロジェクト全体のコンパイルおよびビルドを行います。"
+        },
+        {
+            "label": "CMake: Clean",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "clean"
+            ],
+            "problemMatcher": [],
+            "group": "none",
+            "detail": "ビルド生成物のクリーンアップを行います。"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
