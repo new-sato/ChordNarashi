@@ -6,9 +6,11 @@
 class View
 {
     IMidiNotePlayer& m_midi_note_player;
+    Idisplay& m_display;
     UI m_UI;
 public:
     View(IMidiNotePlayer& midi_note_player, Idisplay& display, Model&m);
+    void pollEvents();
     void updateView(std::chrono::milliseconds d_time);
     
     /// @brief ウィンドウの状態をといあわせ、メインループを継続すべきかどうかについて伝える
@@ -18,4 +20,4 @@ public:
     bool is_focused()const{return m_UI.get_is_focused();}
 
     void toggleSharpFlat(){m_UI.toggleSharpFlat();}
-};
+};

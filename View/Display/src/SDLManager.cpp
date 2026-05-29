@@ -1,8 +1,13 @@
 #include "SDLManager.hpp"
-#include "cmath"
+#include <cmath>
 #include <string>
 #include <algorithm>
 #include <SDL3/SDL_rect.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 
 SDLManager::SDLManager()
 {
@@ -114,20 +119,133 @@ void SDLManager::displayCircle(const Circle & input)
     addTextureToDraw(d);
 }
 
-void SDLManager::updateDisplay()
+void SDLManager::pollEvents()
 {
     SDL_Event event;
-    SDL_PollEvent(&event);
-    
-    if(event.type == SDL_EVENT_WINDOW_FOCUS_GAINED)
+    while(SDL_PollEvent(&event))
     {
-        is_focused = true;
+        if(event.type == SDL_EVENT_QUIT)
+        {
+            m_quit_requested = true;
+        }
+        else if(event.type == SDL_EVENT_WINDOW_FOCUS_GAINED)
+        {
+            is_focused = true;
+        }
+        else if(event.type == SDL_EVENT_WINDOW_FOCUS_LOST)
+        {
+            is_focused = false;
+        }
+        else if(event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+        {
+            if(event.button.button == SDL_BUTTON_LEFT)
+            {
+                m_mouse_down = true;
+                processClickOrTouch(event.button.x, event.button.y, true);
+            }
+        }
+        else if(event.type == SDL_EVENT_MOUSE_BUTTON_UP)
+        {
+            if(event.button.button == SDL_BUTTON_LEFT)
+            {
+                m_mouse_down = false;
+                processClickOrTouch(event.button.x, event.button.y, false);
+            }
+        }
+        else if(event.type == SDL_EVENT_MOUSE_MOTION)
+        {
+            if(m_mouse_down)
+            {
+                processClickOrTouch(event.motion.x, event.motion.y, true);
+            }
+        }
     }
-    else if(event.type == SDL_EVENT_WINDOW_FOCUS_LOST)
+}
+
+void SDLManager::processClickOrTouch(float x, float y, bool is_pressed)
+{
+    // 全てクリア
+    for(auto& row : m_virtual_chord_buttons)
     {
-        is_focused = false;
+        std::fill(row.begin(), row.end(), false);
     }
 
+    if(!is_pressed)
+    {
+        return;
+    }
+
+    // 画面中心基準の正規化座標 (-1.0 〜 1.0) に変換
+    double norm_x = (x - windowWidth / 2.0) / (windowWidth / 2.0);
+    double norm_y = (y - windowHight / 2.0) / (windowHight / 2.0);
+
+    // 中心からの距離
+    double r = std::sqrt(norm_x * norm_x + norm_y * norm_y);
+
+    // 半径の境界判定 (Major=0.75, minor=0.55, dim=0.35)
+    int ring = -1;
+    if(r >= 0.65 && r <= 0.95)
+    {
+        ring = 0; // Major
+    }
+    else if(r >= 0.45 && r < 0.65)
+    {
+        ring = 1; // minor
+    }
+    else if(r >= 0.25 && r < 0.45)
+    {
+        ring = 2; // dim
+    }
+
+    if(ring == -1)
+    {
+        return;
+    }
+
+    // クリックされた角度の計算 (上方向が 0, 時計回りが正)
+    double angle_clicked = std::atan2(norm_x, -norm_y);
+
+    // 現在のキーによる回転角度を補正
+    double target_angle = -m_key * 2.0 * M_PI / 12.0;
+    double relative_angle = angle_clicked - target_angle;
+
+    // 角度を [-PI, PI] の範囲に正規化
+    while(relative_angle < -M_PI) relative_angle += 2.0 * M_PI;
+    while(relative_angle > M_PI) relative_angle -= 2.0 * M_PI;
+
+    // 角度から 12 個のセクターインデックス (0〜11) を算出
+    double sector = relative_angle * 12.0 / (2.0 * M_PI);
+    if(sector < 0) sector += 12.0;
+
+    int sector_idx = static_cast<int>(std::round(sector)) % 12;
+    if(sector_idx < 0) sector_idx += 12;
+
+    // 音楽理論的なノート解決 (リングごとのオフセット適用)
+    // Major: offset = 0 => note = sector_idx
+    // minor: offset = -3 => note = (sector_idx + 3) % 12
+    // dim:   offset = -5 => note = (sector_idx + 5) % 12
+    int note = -1;
+    if(ring == 0) // Major
+    {
+        note = sector_idx;
+    }
+    else if(ring == 1) // minor
+    {
+        note = (sector_idx + 3) % 12;
+    }
+    else if(ring == 2) // dim
+    {
+        note = (sector_idx + 5) % 12;
+    }
+
+    if(note >= 0 && note < 12)
+    {
+        m_virtual_chord_buttons[ring][note] = true;
+    }
+}
+
+void SDLManager::updateDisplay()
+{
     SDL_SetRenderDrawColor(
         mRenderer,
         20,
@@ -148,13 +266,21 @@ void SDLManager::updateDisplay()
     SDL_RenderPresent(mRenderer);
     
     m_textures.clear();
-
 }
 
 bool SDLManager::is_x_button_pressed()
 {
-    SDL_PollEvent(&event);
-
-    if(event.type == SDL_EVENT_QUIT) return true;
-    else return false;
+    return m_quit_requested;
 }
+
+bool SDLManager::isKeyPressed(int scancode) const
+{
+    int numkeys;
+    const bool* state = SDL_GetKeyboardState(&numkeys);
+    if(state && scancode >= 0 && scancode < numkeys)
+    {
+        return state[scancode] != 0;
+    }
+    return false;
+}
+

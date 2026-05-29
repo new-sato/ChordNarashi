@@ -21,12 +21,15 @@ void Controler::startLoop()
 
 void Controler::mainOneLoop()
 {
+    m_view.pollEvents();
+
     std::chrono::milliseconds d_time;
     do{
         auto now_time = std::chrono::steady_clock::now();
         d_time = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - loop_start);
     }while(d_time.count() < 5);
     loop_start = std::chrono::steady_clock::now();
+
     
     if(m_view.is_focused()){
         m_button_checker.checkButtons();

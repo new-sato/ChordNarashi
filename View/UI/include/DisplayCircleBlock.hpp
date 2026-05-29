@@ -28,9 +28,9 @@ class DisplayCircle: public Block
 
     std::vector<VirtualChordButton> m_pressed_button;
 
-    double m_majior_radius =0.9;
-    double m_minor_radius = 0.7;
-    double m_dim_radius = 0.5;
+    double m_majior_radius = 0.75;
+    double m_minor_radius = 0.55;
+    double m_dim_radius = 0.35;
 public: 
     DisplayCircle(const UI&, Model&);
     void updateBlock(std::chrono::milliseconds)override;
