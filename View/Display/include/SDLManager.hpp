@@ -13,7 +13,7 @@ class SDLManager:public Idisplay
 {
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
-    int windowWidth = 500;
+    int windowWidth = 650;
     int windowHight = 500;
     
     /// @brief ウィンドウがアクティブかどうか
@@ -35,6 +35,10 @@ class SDLManager:public Idisplay
     std::map<SDL_FingerID, TouchInfo> m_touches;
     bool m_virtual_ring_pressed = false;
     bool m_virtual_sustain_pressed = false;
+    bool m_virtual_dom_pressed = false;
+    bool m_virtual_subdom_pressed = false;
+    bool m_virtual_semiup_pressed = false;
+    bool m_virtual_semidown_pressed = false;
 
     int m_key = 0; // 現在のキー
 
@@ -71,6 +75,10 @@ class SDLManager:public Idisplay
     const std::vector<std::vector<bool>>& getVirtualChordButtons() const override { return m_virtual_chord_buttons; }
     bool isVirtualRingButtonPressed() const override { return m_virtual_ring_pressed; }
     bool isVirtualSustainButtonPressed() const override { return m_virtual_sustain_pressed; }
+    bool isVirtualDomModButtonPressed() const override { return m_virtual_dom_pressed; }
+    bool isVirtualSubDomModButtonPressed() const override { return m_virtual_subdom_pressed; }
+    bool isVirtualSemiUpModButtonPressed() const override { return m_virtual_semiup_pressed; }
+    bool isVirtualSemiDownModButtonPressed() const override { return m_virtual_semidown_pressed; }
 
     void setKey(int key) { m_key = key; }
 

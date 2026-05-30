@@ -37,5 +37,9 @@ public:
 
     virtual bool isVirtualRingButtonPressed() const = 0;
     virtual bool isVirtualSustainButtonPressed() const = 0;
+    virtual bool isVirtualDomModButtonPressed() const = 0;
+    virtual bool isVirtualSubDomModButtonPressed() const = 0;
+    virtual bool isVirtualSemiUpModButtonPressed() const = 0;
+    virtual bool isVirtualSemiDownModButtonPressed() const = 0;
 };
 

@@ -64,10 +64,10 @@ void SDLButtonChecker::updateShiftButtons()
 
 void SDLButtonChecker::updateKeyButtons()
 {
-    m_keyButtons[1].setState(checkButton(SDL_SCANCODE_RIGHT) || checkButton(SDL_SCANCODE_L));
-    m_keyButtons[11].setState(checkButton(SDL_SCANCODE_LEFT) || checkButton(SDL_SCANCODE_J));
-    m_keyButtons[7].setState(checkButton(SDL_SCANCODE_UP) || checkButton(SDL_SCANCODE_O));
-    m_keyButtons[5].setState(checkButton(SDL_SCANCODE_DOWN) || checkButton(SDL_SCANCODE_M));
+    m_keyButtons[1].setState(checkButton(SDL_SCANCODE_RIGHT) || checkButton(SDL_SCANCODE_L) || m_display.isVirtualDomModButtonPressed());
+    m_keyButtons[11].setState(checkButton(SDL_SCANCODE_LEFT) || checkButton(SDL_SCANCODE_J) || m_display.isVirtualSubDomModButtonPressed());
+    m_keyButtons[7].setState(checkButton(SDL_SCANCODE_UP) || checkButton(SDL_SCANCODE_O) || m_display.isVirtualSemiUpModButtonPressed());
+    m_keyButtons[5].setState(checkButton(SDL_SCANCODE_DOWN) || checkButton(SDL_SCANCODE_M) || m_display.isVirtualSemiDownModButtonPressed());
     m_keyButtons[3].setState(checkButton(SDL_SCANCODE_SEMICOLON));
     m_keyButtons[9].setState(checkButton(SDL_SCANCODE_H));
 }
