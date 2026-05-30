@@ -25,4 +25,5 @@ public:
     SDLCircleManager(SDL_Renderer* renderer, int w, int h);
     ~SDLCircleManager();
     SDL_Texture* generateCircleTexture(CircleInfo);
+    void updateWindowSize(int w, int h);
 };

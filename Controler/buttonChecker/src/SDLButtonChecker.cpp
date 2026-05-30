@@ -16,27 +16,39 @@ void SDLButtonChecker::updateChordButtons()
 
     // Major
     auto& cb_Major = m_real_buttons.chordButtons.at(ChordButtonType::Major);
-    cb_Major[static_cast<int>(Note::C)] = checkButton(SDL_SCANCODE_E) || virtual_buttons[0][static_cast<int>(Note::C)];
-    cb_Major[static_cast<int>(Note::G)] = checkButton(SDL_SCANCODE_R) || virtual_buttons[0][static_cast<int>(Note::G)];
-    cb_Major[static_cast<int>(Note::D)] = checkButton(SDL_SCANCODE_T) || virtual_buttons[0][static_cast<int>(Note::D)];
-    cb_Major[static_cast<int>(Note::F)] = checkButton(SDL_SCANCODE_W) || virtual_buttons[0][static_cast<int>(Note::F)];
+    for (int i = 0; i < 12; i++) {
+        cb_Major[i] = virtual_buttons[0][i];
+    }
+    cb_Major[static_cast<int>(Note::C)] = cb_Major[static_cast<int>(Note::C)] || checkButton(SDL_SCANCODE_E);
+    cb_Major[static_cast<int>(Note::G)] = cb_Major[static_cast<int>(Note::G)] || checkButton(SDL_SCANCODE_R);
+    cb_Major[static_cast<int>(Note::D)] = cb_Major[static_cast<int>(Note::D)] || checkButton(SDL_SCANCODE_T);
+    cb_Major[static_cast<int>(Note::F)] = cb_Major[static_cast<int>(Note::F)] || checkButton(SDL_SCANCODE_W);
 
     // minor
     auto& cb_minor = m_real_buttons.chordButtons.at(ChordButtonType::minor);
-    cb_minor[static_cast<int>(Note::C)] = checkButton(SDL_SCANCODE_D) || virtual_buttons[1][static_cast<int>(Note::C)];
-    cb_minor[static_cast<int>(Note::G)] = checkButton(SDL_SCANCODE_F) || virtual_buttons[1][static_cast<int>(Note::G)];
-    cb_minor[static_cast<int>(Note::D)] = checkButton(SDL_SCANCODE_G) || virtual_buttons[1][static_cast<int>(Note::D)];
-    cb_minor[static_cast<int>(Note::F)] = checkButton(SDL_SCANCODE_S) || virtual_buttons[1][static_cast<int>(Note::F)];
+    for (int i = 0; i < 12; i++) {
+        cb_minor[i] = virtual_buttons[1][i];
+    }
+    cb_minor[static_cast<int>(Note::C)] = cb_minor[static_cast<int>(Note::C)] || checkButton(SDL_SCANCODE_D);
+    cb_minor[static_cast<int>(Note::G)] = cb_minor[static_cast<int>(Note::G)] || checkButton(SDL_SCANCODE_F);
+    cb_minor[static_cast<int>(Note::D)] = cb_minor[static_cast<int>(Note::D)] || checkButton(SDL_SCANCODE_G);
+    cb_minor[static_cast<int>(Note::F)] = cb_minor[static_cast<int>(Note::F)] || checkButton(SDL_SCANCODE_S);
     
     // dim
     auto& cb_dim = m_real_buttons.chordButtons.at(ChordButtonType::dim);
-    cb_dim[static_cast<int>(Note::C)] = checkButton(SDL_SCANCODE_C) || virtual_buttons[2][static_cast<int>(Note::C)];
-    cb_dim[static_cast<int>(Note::G)] = checkButton(SDL_SCANCODE_V) || virtual_buttons[2][static_cast<int>(Note::G)];
-    cb_dim[static_cast<int>(Note::D)] = checkButton(SDL_SCANCODE_B) || virtual_buttons[2][static_cast<int>(Note::D)];
-    cb_dim[static_cast<int>(Note::F)] = checkButton(SDL_SCANCODE_X) || virtual_buttons[2][static_cast<int>(Note::F)];
+    for (int i = 0; i < 12; i++) {
+        cb_dim[i] = virtual_buttons[2][i];
+    }
+    cb_dim[static_cast<int>(Note::C)] = cb_dim[static_cast<int>(Note::C)] || checkButton(SDL_SCANCODE_C);
+    cb_dim[static_cast<int>(Note::G)] = cb_dim[static_cast<int>(Note::G)] || checkButton(SDL_SCANCODE_V);
+    cb_dim[static_cast<int>(Note::D)] = cb_dim[static_cast<int>(Note::D)] || checkButton(SDL_SCANCODE_B);
+    cb_dim[static_cast<int>(Note::F)] = cb_dim[static_cast<int>(Note::F)] || checkButton(SDL_SCANCODE_X);
 
     // arg
     auto& cb_arg = m_real_buttons.chordButtons.at(ChordButtonType::arg);
+    for (int i = 0; i < 12; i++) {
+        cb_arg[i] = false;
+    }
     cb_arg[static_cast<int>(Note::C)] = checkButton(SDL_SCANCODE_3);
     cb_arg[static_cast<int>(Note::G)] = checkButton(SDL_SCANCODE_4);
     cb_arg[static_cast<int>(Note::D)] = checkButton(SDL_SCANCODE_5);
@@ -67,12 +79,12 @@ void SDLButtonChecker::updateModeButtons()
 
 bool SDLButtonChecker::isRingButtonPressed()
 {
-    return checkButton(SDL_SCANCODE_K);
+    return checkButton(SDL_SCANCODE_K) || m_display.isVirtualRingButtonPressed();
 }
 
 bool SDLButtonChecker::isSustainButtonPressed()
 {
-    return checkButton(SDL_SCANCODE_SPACE);
+    return checkButton(SDL_SCANCODE_SPACE) || m_display.isVirtualSustainButtonPressed();
 }
 
 bool SDLButtonChecker::isExitButtonPressed()

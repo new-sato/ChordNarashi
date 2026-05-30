@@ -34,5 +34,8 @@ public:
 
     virtual bool isKeyPressed(int scancode) const = 0;
     virtual const std::vector<std::vector<bool>>& getVirtualChordButtons() const = 0;
+
+    virtual bool isVirtualRingButtonPressed() const = 0;
+    virtual bool isVirtualSustainButtonPressed() const = 0;
 };
 

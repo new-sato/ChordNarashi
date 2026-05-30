@@ -2,9 +2,12 @@
 #include "Idisplay.hpp"
 #include "SDLCharacterManager.hpp"
 #include "SDLCircleManager.hpp"
-#include <memory>
-#include <vector>
+#include <map>
 
+struct TouchInfo {
+    float x;
+    float y;
+};
 
 class SDLManager:public Idisplay
 {
@@ -26,6 +29,13 @@ class SDLManager:public Idisplay
     // バーチャルボタンの押下状態（5種類 × 12音）
     std::vector<std::vector<bool>> m_virtual_chord_buttons = std::vector<std::vector<bool>>(5, std::vector<bool>(12, false));
     bool m_mouse_down = false;
+    float m_mouse_x = 0.0f;
+    float m_mouse_y = 0.0f;
+    
+    std::map<SDL_FingerID, TouchInfo> m_touches;
+    bool m_virtual_ring_pressed = false;
+    bool m_virtual_sustain_pressed = false;
+
     int m_key = 0; // 現在のキー
 
     /// @brief レンダラーで描画したいテクスチャを、描画のための配列に追加する
@@ -33,6 +43,9 @@ class SDLManager:public Idisplay
     void addTextureToDraw(const SDLTextureData& input);
 
     void processClickOrTouch(float x, float y, bool is_pressed);
+    void evaluateInputStates();
+    void drawVirtualButtons();
+    void drawFilledCircle(float cx, float cy, float r, SDL_Color color);
 
     public:
     SDLManager();
@@ -56,6 +69,8 @@ class SDLManager:public Idisplay
     
     bool isKeyPressed(int scancode) const override;
     const std::vector<std::vector<bool>>& getVirtualChordButtons() const override { return m_virtual_chord_buttons; }
+    bool isVirtualRingButtonPressed() const override { return m_virtual_ring_pressed; }
+    bool isVirtualSustainButtonPressed() const override { return m_virtual_sustain_pressed; }
 
     void setKey(int key) { m_key = key; }
 
