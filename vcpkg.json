@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "dependencies": [
     "miniaudio",
-    "rtmidi",
+    {
+      "name": "rtmidi",
+      "platform": "!android"
+    },
     "sdl3",
     "sdl3-ttf"
   ]

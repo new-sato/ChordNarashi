@@ -1,0 +1,80 @@
+plugins {
+     id 'com.android.application'
+}
+
+def buildWithCMake = true;
+
+android {
+    namespace "org.libsdl.app"
+    compileSdkVersion 35
+    ndkVersion "30.0.14904198"
+    defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 35
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            ndkBuild {
+                arguments "APP_PLATFORM=android-26"
+                abiFilters 'arm64-v8a'
+            }
+            cmake {
+                def vcpkgToolchain = "C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+                def androidToolchain = "${android.ndkDirectory.absolutePath.replace('\\', '/')}/build/cmake/android.toolchain.cmake"
+                
+                arguments "-DANDROID_PLATFORM=android-26", "-DANDROID_STL=c++_static",
+                          "-DCMAKE_TOOLCHAIN_FILE=${vcpkgToolchain}",
+                          "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${androidToolchain}",
+                          "-DVCPKG_TARGET_TRIPLET=android-triplet",
+                          "-DVCPKG_OVERLAY_TRIPLETS=${projectDir.absolutePath.replace('\\', '/')}/../..",
+                          "-DVCPKG_MANIFEST_DIR=${projectDir.absolutePath.replace('\\', '/')}/../.."
+
+                abiFilters 'arm64-v8a'
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    applicationVariants.all { variant ->
+        tasks["merge${variant.name.capitalize()}Assets"]
+            .dependsOn("externalNativeBuild${variant.name.capitalize()}")
+    }
+    if (!project.hasProperty('EXCLUDE_NATIVE_LIBS')) {
+        sourceSets.main {
+            jniLibs.srcDir 'libs'
+        }
+        externalNativeBuild {
+            if (buildWithCMake) {
+                cmake {
+                    path 'jni/CMakeLists.txt'
+                }
+            } else {
+                ndkBuild {
+                    path 'jni/Android.mk'
+                }
+            }
+        }
+
+    }
+    lint {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            // vcpkgがビルドした.soファイルが置いてある場所を直接指定して、APKに回収させます
+            jniLibs.srcDirs = [
+                    'build/vcpkg_installed/arm64-v8a/lib',
+                    '../vcpkg_installed/arm64-v8a/lib',
+                    '../../vcpkg_installed/arm64-v8a/lib'
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+}
