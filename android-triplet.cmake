@@ -1,0 +1,6 @@
+set(VCPKG_TARGET_ARCHITECTURE arm64)
+set(VCPKG_CRT_LINKAGE dynamic)
+set(VCPKG_LIBRARY_LINKAGE dynamic)
+set(VCPKG_CMAKE_SYSTEM_NAME Android)
+set(VCPKG_CHAINLOAD_TOOLCHAIN_FILE "C:/Users/satou/AppData/Local/Android/Sdk/ndk/30.0.14904198/build/cmake/android.toolchain.cmake")
+set(VCPKG_CMAKE_CONFIGURE_OPTIONS "-DANDROID_ABI=arm64-v8a" "-DANDROID_PLATFORM=android-24")

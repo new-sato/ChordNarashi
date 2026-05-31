@@ -11,15 +11,33 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-# 4. 実行ファイルを作成
-# add_executable(実行ファイル名 ソースファイル1 ソースファイル2 ...)
-add_executable(my_app
-    src/main.cpp
-    # .hファイルはここに記述する必要はありません
-)
-
-target_link_libraries(my_app PRIVATE Controler)
-
+# 4. サブディレクトリを追加
 add_subdirectory(./Model)
 add_subdirectory(./View)
 add_subdirectory(./Controler)
+
+# 5. 実行ファイルまたは共有ライブラリを作成
+if(ANDROID)
+    add_library(main SHARED
+        src/main.cpp
+    )
+    target_link_libraries(main PRIVATE Controler)
+
+    # Android needs these linked to the main library
+    find_package(SDL3 CONFIG REQUIRED)
+    find_package(SDL3_ttf CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE SDL3::SDL3 SDL3_ttf::SDL3_ttf)
+else()
+    add_executable(my_app
+        src/main.cpp
+    )
+    target_link_libraries(my_app PRIVATE Controler)
+endif()
+
+if(ANDROID)
+    # vcpkgが生成した.soファイルを、Androidのパッケージ（APK）に含めるための設定
+    # main ターゲットが依存している SDL3 などの共有ライブラリを自動追従させます
+    set_target_properties(main PROPERTIES
+            BUNDLE_EXTENSION "so"
+    )
+endif()
