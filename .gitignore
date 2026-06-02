@@ -9,5 +9,7 @@ vcpkg_installed/
 .idea/
 android-project/.idea/
 
+.vscode/
+
 # Android C++ compilation output
 android-project/app/.cxx/
